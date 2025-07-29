@@ -24,13 +24,7 @@ html {
         `}</style>
       </head>
           <body>
-            <header className="w-full flex items-center justify-between px-6 py-4 border-b border-blue-500/20 bg-black/60">
-              <div className="flex items-center space-x-3">
-                <img src="/logo_eth_global.png" alt="Logo" className="h-10 w-10 rounded-full border border-blue-400 bg-white object-contain" />
-                <span className="text-2xl font-bold text-blue-300 tracking-wide">IntelliDeFi Network</span>
-              </div>
-              {/* ...existing code... */}
-            </header>
+            {/* Header logo removed, only sidebar logo remains */}
             {children}
           </body>
     </html>
