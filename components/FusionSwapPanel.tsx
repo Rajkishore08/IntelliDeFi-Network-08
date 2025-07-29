@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useFusionSwap, FusionSwapParams, FusionSwapQuote, FusionSwapResult } from "../hooks/useFusionSwap"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -43,6 +43,16 @@ export const FusionSwapPanel: React.FC<FusionSwapPanelProps> = ({
   const [toChainId, setToChainId] = useState(defaultToChainId)
   const [fromToken, setFromToken] = useState(defaultFromToken)
   const [toToken, setToToken] = useState(defaultToToken)
+  // Dynamic tokensByChain loading (GET, not POST)
+  // If you want to fetch tokens from backend, use GET
+  // Example (uncomment and adapt as needed):
+  // useEffect(() => {
+  //   fetch(`/api/proxy/tokens?chainId=${fromChainId}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       // set tokensByChain here if you want dynamic tokens
+  //     })
+  // }, [fromChainId])
   const [amount, setAmount] = useState("")
   const [fromAddress, setFromAddress] = useState("")
   const [toAddress, setToAddress] = useState(defaultToAddress)
