@@ -26,7 +26,7 @@ interface TokenHolding {
 
 interface Transaction {
   id: string
-  type: "swap" | "bridge" | "limit"
+  type: "swap" | "bridge" | "limit" | "stake"
   fromToken: string
   toToken: string
   amount: string
@@ -91,6 +91,16 @@ export default function PortfolioDashboard({ onRefresh, className = "" }: Portfo
         },
       ]
       const mockTransactions: Transaction[] = [
+        {
+          id: "0",
+          type: "stake",
+          fromToken: "ETH",
+          toToken: "stETH",
+          amount: "0.004",
+          status: "completed",
+          timestamp: "just now",
+          txHash: "0xethstake...0004",
+        },
         {
           id: "1",
           type: "swap",
