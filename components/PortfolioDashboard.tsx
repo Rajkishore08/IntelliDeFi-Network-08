@@ -55,67 +55,87 @@ export default function PortfolioDashboard({ onRefresh, className = "" }: Portfo
   const { isConnected, address, connect } = useWallet()
   const { addNotification } = useNotification()
 
-  // Fetch real ETH and ERC-20 balances for the connected wallet
+  // Use mock data for portfolio and transactions, with all transactions < $500
   const fetchPortfolioData = useCallback(async () => {
-    if (!isConnected || !address) return
+    if (!isConnected) return
     setIsLoading(true)
     try {
-      // Use MetaMask provider injected in window
-      const provider = new ethers.BrowserProvider(window.ethereum)
-      // ETH balance
-      const ethBalance = await provider.getBalance(address)
-      const ethPrice = 2000 // TODO: fetch real price from API
-      const ethAmount = ethers.formatEther(ethBalance)
-      const ethValue = `$${(parseFloat(ethAmount) * ethPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-      // Example: ERC-20 tokens (USDC, WBTC)
-      const tokens = [
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const mockHoldings: TokenHolding[] = [
+        {
+          symbol: "ETH",
+          name: "Ethereum",
+          amount: "0.12",
+          value: "$240.00",
+          change24h: "+$12.30",
+          changePercent: 5.4,
+          price: "$2,000.00",
+        },
         {
           symbol: "USDC",
           name: "USD Coin",
-          address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-          decimals: 6,
-          price: 1,
+          amount: "150.00",
+          value: "$150.00",
+          change24h: "$0.00",
+          changePercent: 0,
+          price: "$1.00",
         },
         {
           symbol: "WBTC",
           name: "Wrapped Bitcoin",
-          address: "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
-          decimals: 8,
-          price: 45000,
+          amount: "0.003",
+          value: "$135.00",
+          change24h: "+$2.10",
+          changePercent: 1.6,
+          price: "$45,000.00",
         },
       ]
-      const erc20Abi = ["function balanceOf(address) view returns (uint256)", "function decimals() view returns (uint8)"]
-      const holdings: TokenHolding[] = [
+      const mockTransactions: Transaction[] = [
         {
-          symbol: "ETH",
-          name: "Ethereum",
-          amount: ethAmount,
-          value: ethValue,
-          change24h: "$0.00", // TODO: fetch real change
-          changePercent: 0,
-          price: `$${ethPrice}`,
+          id: "1",
+          type: "swap",
+          fromToken: "ETH",
+          toToken: "USDC",
+          amount: "0.05",
+          status: "completed",
+          timestamp: "2 hours ago",
+          txHash: "0x1234...5678",
+        },
+        {
+          id: "2",
+          type: "bridge",
+          fromToken: "USDC",
+          toToken: "USDC",
+          amount: "40",
+          status: "pending",
+          timestamp: "1 day ago",
+        },
+        {
+          id: "3",
+          type: "limit",
+          fromToken: "WBTC",
+          toToken: "ETH",
+          amount: "0.001",
+          status: "completed",
+          timestamp: "3 days ago",
+          txHash: "0x5678...abcd",
+        },
+        {
+          id: "4",
+          type: "swap",
+          fromToken: "USDC",
+          toToken: "ETH",
+          amount: "10",
+          status: "failed",
+          timestamp: "5 days ago",
         },
       ]
-      for (const token of tokens) {
-        const contract = new ethers.Contract(token.address, erc20Abi, provider)
-        const bal = await contract.balanceOf(address)
-        const amount = ethers.formatUnits(bal, token.decimals)
-        holdings.push({
-          symbol: token.symbol,
-          name: token.name,
-          amount,
-          value: `$${(parseFloat(amount) * token.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
-          change24h: "$0.00", // TODO: fetch real change
-          changePercent: 0,
-          price: `$${token.price}`,
-        })
-      }
-      setHoldings(holdings)
-      setTotalValue(`$${holdings.reduce((sum, h) => sum + parseFloat(h.value.replace(/[$,]/g, "")), 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}`)
-      setDailyChange("$0.00")
-      setDailyChangePercent(0)
-      setTransactions([])
+      setHoldings(mockHoldings)
+      setTransactions(mockTransactions)
       setRiskAlerts([])
+      setTotalValue("$525.00")
+      setDailyChange("+$14.40")
+      setDailyChangePercent(2.8)
     } catch (error) {
       addNotification({
         type: "error",
@@ -125,7 +145,7 @@ export default function PortfolioDashboard({ onRefresh, className = "" }: Portfo
     } finally {
       setIsLoading(false)
     }
-  }, [isConnected, address, addNotification])
+  }, [isConnected, addNotification])
 
   const handleRefresh = useCallback(async () => {
     if (onRefresh) {
