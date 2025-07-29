@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback, useEffect } from "react"
+import { useSwapQuote, useSwapSubmit } from "../hooks/useSwap1inch"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -112,6 +113,11 @@ export default function SwapPanel({
   const [error, setError] = useState<string | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [lastQuoteTime, setLastQuoteTime] = useState<number>(0)
+  const [fromAddress, setFromAddress] = useState<string>("")
+
+  // 1inch hooks
+  const { quote: oneInchQuote, loading: quoteLoading, error: quoteError, fetchQuote } = useSwapQuote();
+  const { txHash, loading: swapLoading, error: swapError, submitSwap } = useSwapSubmit();
 
   const { addNotification } = useNotification()
   const { isConnected, connect } = useWallet()
@@ -120,135 +126,48 @@ export default function SwapPanel({
    * Default quote fetching function
    * TODO: Replace with actual 1inch API integration
    */
-  const defaultFetchQuote = useCallback(async (params: QuoteParams): Promise<QuoteData> => {
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    // Mock quote data
-    return {
-      rate: `1 ${params.fromToken} = 2,450.32 ${params.toToken}`,
-      gasEstimate: "$12.50",
-      slippage: "0.5%",
-      route: ["1inch", "Uniswap V3", "SushiSwap"],
-      priceImpact: "0.02%",
-      estimatedOutput: (Number.parseFloat(params.amount) * 2450.32).toFixed(2),
-      validUntil: Date.now() + 30000, // 30 seconds
+  // Connect wallet and set address
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      const [address] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setFromAddress(address);
     }
-  }, [])
+  }
 
   /**
    * Fetch quote with error handling
    */
-  const fetchQuote = useCallback(
-    async (force = false) => {
-      if (!amount || !fromToken || !toToken || Number.parseFloat(amount) <= 0) return
-
-      // Prevent too frequent requests
-      const now = Date.now()
-      if (!force && now - lastQuoteTime < 2000) return
-
-      setStatus("fetching-quote")
-      setError(null)
-      setLastQuoteTime(now)
-
-      try {
-        const quoteParams: QuoteParams = {
-          fromToken,
-          toToken,
-          amount,
-          chain: "ethereum",
-        }
-
-        const fetchFunction = onFetchQuote || defaultFetchQuote
-        const quoteData = await fetchFunction(quoteParams)
-
-        setQuote(quoteData)
-        setStatus("idle")
-
-        // Auto-refresh quote before expiry
-        setTimeout(() => {
-          if (quoteData.validUntil > Date.now()) {
-            fetchQuote(true)
-          }
-        }, 25000)
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "Failed to fetch quote"
-        setError(errorMessage)
-        setStatus("error")
-
-        addNotification({
-          type: "error",
-          message: "Failed to fetch swap quote",
-          duration: 4000,
-        })
-      }
-    },
-    [amount, fromToken, toToken, onFetchQuote, defaultFetchQuote, lastQuoteTime, addNotification],
-  )
+  // Fetch quote using 1inch hook
+  const handleGetQuote = async () => {
+    if (!amount || !fromToken || !toToken) return;
+    // For demo: assume 18 decimals for ETH, 6 for USDC
+    const decimals = fromToken === "ETH" ? 18 : 6;
+    const amountWei = (BigInt(Math.floor(Number(amount) * 10 ** decimals))).toString();
+    await fetchQuote({
+      chainId: 1,
+      fromTokenAddress: fromToken,
+      toTokenAddress: toToken,
+      amount: amountWei,
+    });
+  }
 
   /**
    * Handle token swap execution
    */
-  const handleSwap = useCallback(async () => {
-    if (!isConnected) {
-      await connect()
-      return
-    }
-
-    if (!quote || !amount) return
-
-    const swapData: SwapData = {
-      fromToken,
-      toToken,
-      amount,
-      slippage: 0.5,
-      chain: "ethereum",
-    }
-
-    setStatus("swapping")
-    setError(null)
-
-    try {
-      let result: SwapResult
-
-      if (onSwap) {
-        result = await onSwap(swapData)
-      } else {
-        // Default swap simulation
-        await new Promise((resolve) => setTimeout(resolve, 3000))
-        result = {
-          txHash: "0x" + Math.random().toString(16).substr(2, 64),
-          status: "confirmed",
-          gasUsed: "21000",
-        }
-      }
-
-      setStatus("success")
-
-      addNotification({
-        type: "success",
-        message: `Successfully swapped ${amount} ${fromToken} for ${toToken}`,
-        duration: 5000,
-      })
-
-      // Reset form after success
-      setTimeout(() => {
-        setAmount("")
-        setQuote(null)
-        setStatus("idle")
-      }, 2000)
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Swap failed"
-      setError(errorMessage)
-      setStatus("error")
-
-      addNotification({
-        type: "error",
-        message: "Swap transaction failed",
-        duration: 5000,
-      })
-    }
-  }, [isConnected, connect, quote, amount, fromToken, toToken, onSwap, addNotification])
+  // Submit swap using 1inch hook
+  const handleSwap = async () => {
+    if (!fromAddress || !amount || !fromToken || !toToken) return;
+    const decimals = fromToken === "ETH" ? 18 : 6;
+    const amountWei = (BigInt(Math.floor(Number(amount) * 10 ** decimals))).toString();
+    await submitSwap({
+      chainId: 1,
+      fromTokenAddress: fromToken,
+      toTokenAddress: toToken,
+      amount: amountWei,
+      fromAddress,
+      slippage: 1,
+    });
+  }
 
   /**
    * Handle token swap (reverse order)
@@ -272,12 +191,12 @@ export default function SwapPanel({
   /**
    * Auto-fetch quote when parameters change
    */
-  useEffect(() => {
-    if (amount && fromToken && toToken) {
-      const timer = setTimeout(() => fetchQuote(), 500)
-      return () => clearTimeout(timer)
-    }
-  }, [amount, fromToken, toToken, fetchQuote])
+  // Auto-fetch quote when parameters change (optional)
+  // useEffect(() => {
+  //   if (amount && fromToken && toToken) {
+  //     handleGetQuote();
+  //   }
+  // }, [amount, fromToken, toToken]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
@@ -319,19 +238,19 @@ export default function SwapPanel({
           >
             <label className="text-sm text-gray-400">From</label>
             <div className="flex space-x-2">
-              <Input
-                placeholder="0.0"
-                value={amount}
-                onChange={(e) => {
-                  const value = e.target.value
-                  if (/^\d*\.?\d*$/.test(value)) {
-                    setAmount(value)
-                  }
-                }}
-                className="flex-1 bg-gray-800/50 border-blue-500/30 focus:border-blue-400 h-12 text-lg"
-                disabled={status === "swapping"}
-                aria-label={`Amount of ${fromToken} to swap`}
-              />
+          <Input
+            placeholder="0.0"
+            value={amount}
+            onChange={(e) => {
+              const value = e.target.value
+              if (/^\d*\.?\d*$/.test(value)) {
+                setAmount(value)
+              }
+            }}
+            className="flex-1 bg-gray-800/50 border-blue-500/30 focus:border-blue-400 h-12 text-lg"
+            disabled={swapLoading}
+            aria-label={`Amount of ${fromToken} to swap`}
+          />
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   variant="outline"
@@ -374,13 +293,13 @@ export default function SwapPanel({
           >
             <label className="text-sm text-gray-400">To</label>
             <div className="flex space-x-2">
-              <Input
-                placeholder="0.0"
-                value={quote?.estimatedOutput || ""}
-                readOnly
-                className="flex-1 bg-gray-800/30 border-blue-500/20 h-12 text-lg"
-                aria-label={`Estimated ${toToken} output`}
-              />
+          <Input
+            placeholder="0.0"
+            value={oneInchQuote?.toTokenAmount ? (Number(oneInchQuote.toTokenAmount) / 1e6).toString() : ""}
+            readOnly
+            className="flex-1 bg-gray-800/30 border-blue-500/20 h-12 text-lg"
+            aria-label={`Estimated ${toToken} output`}
+          />
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   variant="outline"
@@ -395,8 +314,9 @@ export default function SwapPanel({
           </motion.div>
 
           {/* Quote Display */}
+          {/* Show 1inch quote info */}
           <AnimatePresence>
-            {quote && (
+            {oneInchQuote && (
               <motion.div
                 variants={quoteVariants}
                 initial="hidden"
@@ -408,55 +328,20 @@ export default function SwapPanel({
                   <span className="text-sm text-gray-400">Best Route</span>
                   <div className="flex items-center space-x-2">
                     <span className="text-sm text-blue-300">1inch Aggregation</span>
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={handleRefreshQuote}
-                        disabled={status === "fetching-quote" || isRefreshing}
-                        className="w-6 h-6"
-                        aria-label="Refresh quote"
-                      >
-                        <RefreshCw className={`h-3 w-3 ${isRefreshing ? "animate-spin" : ""}`} />
-                      </Button>
-                    </motion.div>
                   </div>
                 </div>
-
                 <motion.div
                   className="text-lg font-semibold text-white"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {quote.rate}
+                  {oneInchQuote.toTokenAmount ? `${Number(oneInchQuote.toTokenAmount) / 1e6} USDC` : ''}
                 </motion.div>
-
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-400">Gas: </span>
-                    <span className="text-white">{quote.gasEstimate}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Slippage: </span>
-                    <span className="text-white">{quote.slippage}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Price Impact: </span>
-                    <span className="text-white">{quote.priceImpact}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Route: </span>
-                    <span className="text-blue-300">{quote.route.join(" → ")}</span>
-                  </div>
-                </div>
-
-                {/* Quote Expiry Timer */}
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>Quote expires in: {Math.max(0, Math.floor((quote.validUntil - Date.now()) / 1000))}s</span>
-                  <div className="flex items-center space-x-1">
-                    <TrendingUp className="h-3 w-3" />
-                    <span>Live pricing</span>
+                    <span className="text-gray-400">Estimated Gas: </span>
+                    <span className="text-white">{oneInchQuote.estimatedGas}</span>
                   </div>
                 </div>
               </motion.div>
@@ -465,7 +350,7 @@ export default function SwapPanel({
 
           {/* Error Display */}
           <AnimatePresence>
-            {error && (
+            {(error || quoteError || swapError) && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
@@ -473,11 +358,11 @@ export default function SwapPanel({
                 className="p-3 bg-red-500/10 border border-red-400/30 rounded-lg"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-red-300 text-sm">{error}</span>
+                  <span className="text-red-300 text-sm">{error || quoteError || swapError}</span>
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => setError(null)}
+                    onClick={() => { setError(null); }}
                     className="text-red-400 hover:text-red-300 h-6 px-2"
                   >
                     Dismiss
@@ -491,18 +376,14 @@ export default function SwapPanel({
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               onClick={handleSwap}
-              disabled={!amount || !quote || status === "swapping" || status === "fetching-quote"}
+              disabled={!amount || !oneInchQuote || swapLoading}
               className="w-full neon-button bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 border border-blue-400/50 shadow-lg shadow-blue-500/20 h-12"
             >
-              {status === "swapping" ? (
+              {swapLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Swapping...
                 </>
-              ) : status === "success" ? (
-                "Swap Successful!"
-              ) : !isConnected ? (
-                "Connect Wallet"
               ) : (
                 "Swap Tokens"
               )}
