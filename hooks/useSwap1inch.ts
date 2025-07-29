@@ -77,12 +77,13 @@ export function useSwapSubmit() {
       const data = await resp.json();
       if (!data.tx) throw new Error('No tx object returned');
       if (window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const txResponse = await signer.sendTransaction({
-          ...data.tx,
-          value: data.tx.value ? ethers.BigNumber.from(data.tx.value) : undefined,
-        });
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const txRequest = { ...data.tx };
+        if (data.tx.value) {
+          txRequest.value = BigInt(data.tx.value);
+        }
+        const txResponse = await signer.sendTransaction(txRequest);
         setTxHash(txResponse.hash);
         setLoading(false);
         return txResponse.hash;
