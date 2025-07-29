@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react"
 import { useSwapQuote, useSwapSubmit } from "../hooks/useSwap1inch"
+import { useTokenList } from "../hooks/useTokenList"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -107,6 +108,13 @@ export default function SwapPanel({
 }: SwapPanelProps) {
   const [fromToken, setFromToken] = useState(defaultTokens.from)
   const [toToken, setToToken] = useState(defaultTokens.to)
+
+  // Fetch token list for Ethereum mainnet (chainId 1)
+  const { tokens, loading: tokensLoading, error: tokensError, fetchTokens } = useTokenList(1);
+
+  useEffect(() => {
+    fetchTokens();
+  }, [fetchTokens]);
   const [amount, setAmount] = useState("")
   const [quote, setQuote] = useState<QuoteData | null>(null)
   const [status, setStatus] = useState<SwapStatus>("idle")
@@ -252,16 +260,33 @@ export default function SwapPanel({
             disabled={swapLoading}
             aria-label={`Amount of ${fromToken} to swap`}
           />
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  variant="outline"
-                  className="border-blue-500/30 hover:bg-blue-500/20 bg-gray-800/30 px-6 h-12"
-                  disabled={status === "swapping"}
-                >
-                  {fromToken}
-                  <ChevronDown className="h-4 w-4 ml-2" />
-                </Button>
-              </motion.div>
+          <div className="relative">
+            <select
+              value={fromToken}
+              onChange={e => setFromToken(e.target.value)}
+              className="bg-gray-800/30 border-blue-500/30 px-2 h-12 rounded text-white pr-10"
+              disabled={tokensLoading || swapLoading}
+              style={{ minWidth: 120 }}
+            >
+              {tokens.map(token => (
+                <option key={token.address} value={token.address}>
+                  {token.symbol}
+                </option>
+              ))}
+            </select>
+            {/* Token logo preview for selected token */}
+            {(() => {
+              const selected = tokens.find(t => t.address === fromToken);
+              return selected && selected.logoURI ? (
+                <img
+                  src={selected.logoURI}
+                  alt={selected.symbol}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border border-blue-400 bg-white object-contain"
+                  style={{ pointerEvents: 'none' }}
+                />
+              ) : null;
+            })()}
+          </div>
             </div>
           </motion.div>
 
@@ -301,16 +326,33 @@ export default function SwapPanel({
             className="flex-1 bg-gray-800/30 border-blue-500/20 h-12 text-lg"
             aria-label={`Estimated ${toToken} output`}
           />
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  variant="outline"
-                  className="border-blue-500/30 hover:bg-blue-500/20 bg-gray-800/30 px-6 h-12"
-                  disabled={status === "swapping"}
-                >
-                  {toToken}
-                  <ChevronDown className="h-4 w-4 ml-2" />
-                </Button>
-              </motion.div>
+          <div className="relative">
+            <select
+              value={toToken}
+              onChange={e => setToToken(e.target.value)}
+              className="bg-gray-800/30 border-blue-500/30 px-2 h-12 rounded text-white pr-10"
+              disabled={tokensLoading || swapLoading}
+              style={{ minWidth: 120 }}
+            >
+              {tokens.map(token => (
+                <option key={token.address} value={token.address}>
+                  {token.symbol}
+                </option>
+              ))}
+            </select>
+            {/* Token logo preview for selected token */}
+            {(() => {
+              const selected = tokens.find(t => t.address === toToken);
+              return selected && selected.logoURI ? (
+                <img
+                  src={selected.logoURI}
+                  alt={selected.symbol}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border border-blue-400 bg-white object-contain"
+                  style={{ pointerEvents: 'none' }}
+                />
+              ) : null;
+            })()}
+          </div>
             </div>
           </motion.div>
 
