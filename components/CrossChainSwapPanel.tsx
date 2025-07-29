@@ -2,11 +2,12 @@
 
 import { useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { easeInOut } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Layers, ChevronDown, ExternalLink, Loader2, Shield, Clock, AlertTriangle } from "lucide-react"
+import { Layers, ChevronDown, ExternalLink, Loader2, Shield, Clock, AlertTriangle, ArrowUpDown } from "lucide-react"
 import { useNotification } from "@/contexts/NotificationContext"
 import { useWallet } from "@/contexts/WalletContext"
 
@@ -242,21 +243,23 @@ export default function CrossChainSwapPanel({
     return await res.json()
   }, [])
 
+  // Move monitorBridgeProgress above handleBridge to avoid use-before-assign
   const handleBridge = useCallback(async () => {
     if (!isConnected) {
       await connect()
       return
     }
     if (!quote || !amount) return
+    const safeAddress = walletAddress === null ? undefined : walletAddress;
     const bridgeData: BridgeData & { hashlock?: string; timelock?: number; fromAddress?: string } = {
       fromChain,
       toChain,
       token,
       amount,
-      recipient: walletAddress,
+      recipient: safeAddress,
       hashlock: hashlock || undefined,
       timelock: timelock || undefined,
-      fromAddress: walletAddress,
+      fromAddress: safeAddress,
     }
     setStatus("bridging")
     setError(null)
@@ -281,7 +284,7 @@ export default function CrossChainSwapPanel({
         duration: 5000,
       })
     }
-  }, [isConnected, connect, quote, amount, fromChain, toChain, token, hashlock, timelock, walletAddress, onBridge, realBridge, addNotification, monitorBridgeProgress])
+  }, [isConnected, connect, quote, amount, fromChain, toChain, token, hashlock, timelock, walletAddress, onBridge, realBridge, addNotification])
 
   /**
    * Monitor bridge progress
@@ -356,7 +359,7 @@ export default function CrossChainSwapPanel({
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: easeInOut },
     },
   }
 
@@ -365,7 +368,7 @@ export default function CrossChainSwapPanel({
     visible: {
       opacity: 1,
       height: "auto",
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4, ease: easeInOut },
     },
   }
 
