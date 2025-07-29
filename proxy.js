@@ -1,3 +1,21 @@
+// Proxy endpoint for 1inch Tokens API
+app.post('/api/proxy/tokens', async (req, res) => {
+  const { chainId } = req.body;
+  const apiUrl = `https://api.1inch.dev/swap/v5.2/${chainId}/tokens`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.VITE_1INCH_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
