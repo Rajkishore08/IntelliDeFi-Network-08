@@ -160,8 +160,50 @@ export default function PortfolioDashboard({ onRefresh, className = "" }: Portfo
     )
   }
 
+  // --- AI Insights logic ---
+  const aiInsights = [] as string[];
+  if (holdings.length > 0) {
+    const eth = holdings.find(h => h.symbol === "ETH")
+    const usdc = holdings.find(h => h.symbol === "USDC")
+    const wbtc = holdings.find(h => h.symbol === "WBTC")
+    if (eth && parseFloat(eth.amount) > 1) {
+      aiInsights.push("You have a strong ETH position. Consider staking for yield.")
+    }
+    if (usdc && parseFloat(usdc.amount) > 1000) {
+      aiInsights.push("Large USDC balance detected. Consider deploying stablecoins to earn yield.")
+    }
+    if (wbtc && parseFloat(wbtc.amount) > 0.1) {
+      aiInsights.push("WBTC holding detected. Explore BTC-ETH arbitrage or lending opportunities.")
+    }
+    if (holdings.length > 2) {
+      aiInsights.push("Good diversification across assets. Keep monitoring market trends.")
+    }
+    if (holdings.every(h => parseFloat(h.amount) < 0.01)) {
+      aiInsights.push("Portfolio is very small. Consider increasing your DeFi exposure for higher returns.")
+    }
+    if (aiInsights.length === 0) {
+      aiInsights.push("No major risks or opportunities detected. Portfolio is balanced.")
+    }
+  }
+
   return (
     <div className={`space-y-6 animate-slide-up ${className}`}>
+      {/* AI Insights Panel */}
+      <Card className="glass-panel border-cyan-500/30 shadow-xl shadow-cyan-500/10">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <span role="img" aria-label="AI">🤖</span>
+            <span>AI Insights</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="list-disc pl-5 space-y-1 text-cyan-200">
+            {aiInsights.map((tip, i) => (
+              <li key={i}>{tip}</li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
       {/* Portfolio Overview */}
       <Card className="glass-panel border-blue-500/30 shadow-xl shadow-blue-500/10">
         <CardHeader>
