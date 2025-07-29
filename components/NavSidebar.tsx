@@ -51,11 +51,9 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="p-6 border-b border-blue-500/30">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-                <Bot className="h-6 w-6 text-white" />
-              </div>
-              <div>
+            <div className="flex flex-col items-center justify-center space-y-2">
+              <img src="/logo_eth_global.png" alt="Logo" className="h-12 w-12 rounded-full border border-blue-400 bg-white object-contain shadow-md" />
+              <div className="flex flex-col items-center">
                 <h1 className="text-xl font-bold neon-text bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
                   IntelliDeFi
                 </h1>
