@@ -22,6 +22,8 @@ html {
   --font-mono: ${GeistMono.variable};
 }
         `}</style>
+        {/* Favicon for browser tab */}
+        <link rel="icon" type="image/png" href="/logo_eth_global.png" />
       </head>
           <body>
             {/* Header logo removed, only sidebar logo remains */}
