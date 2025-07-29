@@ -15,13 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
+        {/* Font CSS moved to globals.css to avoid hydration mismatch */}
         {/* Favicon for browser tab */}
         <link rel="icon" type="image/png" href="/logo_eth_global.png" />
       </head>
