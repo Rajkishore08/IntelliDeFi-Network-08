@@ -45,6 +45,7 @@
     "date-fns": "4.1.0",
     "dotenv": "^17.2.1",
     "embla-carousel-react": "latest",
+    "ethers": "^6.15.0",
     "express": "^5.1.0",
     "framer-motion": "latest",
     "geist": "latest",
