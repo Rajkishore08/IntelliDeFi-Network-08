@@ -1,6 +1,8 @@
 "use client"
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import detectEthereumProvider from "@metamask/detect-provider"
+import { ethers } from "ethers"
 
 interface WalletContextType {
   isConnected: boolean
@@ -19,15 +21,27 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const connect = useCallback(async () => {
     try {
-      // TODO: Implement actual wallet connection logic
-      // This would typically use MetaMask, WalletConnect, etc.
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      setIsConnected(true)
-      setAddress("0x1234567890123456789012345678901234567890")
-      setBalance("2.45")
+      const provider: any = await detectEthereumProvider()
+      if (provider) {
+        // Request account access if needed
+        await provider.request({ method: 'eth_requestAccounts' })
+        const ethersProvider = new ethers.BrowserProvider(provider)
+        const signer = await ethersProvider.getSigner()
+        const userAddress = await signer.getAddress()
+        setIsConnected(true)
+        setAddress(userAddress)
+        // Get ETH balance
+        const balanceBig = await ethersProvider.getBalance(userAddress)
+        setBalance(ethers.formatEther(balanceBig))
+      } else {
+        throw new Error("MetaMask not detected. Please install MetaMask.")
+      }
     } catch (error) {
+      setIsConnected(false)
+      setAddress(null)
+      setBalance("0.00")
       console.error("Failed to connect wallet:", error)
+      alert("Failed to connect wallet: " + (error instanceof Error ? error.message : error))
     }
   }, [])
 
@@ -35,6 +49,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setIsConnected(false)
     setAddress(null)
     setBalance("0.00")
+    // Optionally, you can clear provider state or reload the page
   }, [])
 
   return (
