@@ -1,5 +1,13 @@
+
 import { useState, useCallback } from 'react';
 import { ethers } from 'ethers';
+
+// TypeScript declaration for window.ethereum (MetaMask/ethers.js)
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
 
 export interface SwapQuoteParams {
   chainId: number;
