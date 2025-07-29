@@ -205,7 +205,7 @@ export default function SwapPanel({
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] },
+      transition: { duration: 0.5, ease: "easeInOut" },
     },
   }
 
@@ -215,7 +215,7 @@ export default function SwapPanel({
       opacity: 1,
       height: "auto",
       y: 0,
-      transition: { duration: 0.4, ease: [0.42, 0, 0.58, 1] },
+      transition: { duration: 0.4, ease: "easeInOut" },
     },
   }
 
