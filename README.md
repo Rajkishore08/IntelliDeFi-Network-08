@@ -1,30 +1,49 @@
 # IntelliDeFi Dashboard
 
-// ...existing code...
+IntelliDeFi is a next-generation DeFi dashboard for cross-chain swaps, portfolio management, and AI-powered trading strategies. Built with Next.js, TypeScript, Tailwind CSS, and ethers.js, it provides:
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/raj-kishores-projects-ac3e4837/v0-intelli-de-fi-dashboard)
-// ...existing code...
+- Secure, proxy-based 1inch API integration (no API key leaks)
+- Dynamic token lists and real-time swap quotes
+- Fusion+ cross-chain swaps and bridging
+- Portfolio dashboard with risk alerts and transaction history
+- NFT gallery and achievement badges
+- Modern, responsive UI with custom branding
 
-## Overview
+## Getting Started
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+1. **Install dependencies:**
+   ```sh
+   pnpm install
+   # or
+   npm install
+   ```
+2. **Set up environment:**
+   - Copy `.env.example` to `.env` and add your 1inch API key as `1INCH_API_KEY=...`
+3. **Run the app locally:**
+   ```sh
+   pnpm dev
+   # or
+   npm run dev
+   ```
 
-## Deployment
+## Features
 
-Your project is live at:
+- Cross-chain swaps (Fusion+)
+- Portfolio and transaction history
+- Risk alerts and AI agent
+- NFT gallery
+- Customizable UI (logo, theme)
 
-**[https://vercel.com/raj-kishores-projects-ac3e4837/v0-intelli-de-fi-dashboard](https://vercel.com/raj-kishores-projects-ac3e4837/v0-intelli-de-fi-dashboard)**
+## Project Structure
 
-## Build your app
+- `app/` — Next.js app directory
+- `components/` — UI and feature components
+- `contexts/` — React context providers
+- `hooks/` — Custom React hooks
+- `lib/` — Utility functions
+- `public/` — Static assets (logo, images)
+- `styles/` — Global styles
 
-Continue building your app on:
+## License
 
-**[https://v0.dev/chat/projects/K298fCrW5Ue](https://v0.dev/chat/projects/K298fCrW5Ue)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+MIT
