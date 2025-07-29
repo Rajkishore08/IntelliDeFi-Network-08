@@ -184,9 +184,10 @@ export default function SwapPanel({
    */
   const handleRefreshQuote = useCallback(async () => {
     setIsRefreshing(true)
-    await fetchQuote(true)
+    // To refresh, just call handleGetQuote again
+    await handleGetQuote();
     setIsRefreshing(false)
-  }, [fetchQuote])
+  }, [handleGetQuote])
 
   /**
    * Auto-fetch quote when parameters change
@@ -204,7 +205,7 @@ export default function SwapPanel({
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] },
     },
   }
 
@@ -214,7 +215,7 @@ export default function SwapPanel({
       opacity: 1,
       height: "auto",
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4, ease: [0.42, 0, 0.58, 1] },
     },
   }
 
