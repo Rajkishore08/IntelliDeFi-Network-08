@@ -5,10 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Toaster } from "react-hot-toast"
 import NavSidebar from "@/components/NavSidebar"
 import NaturalLanguageAgent from "@/components/NaturalLanguageAgent"
-import SwapPanel from "@/components/SwapPanel"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
 import StrategyBuilder from "@/components/StrategyBuilder"
-import PortfolioDashboard from "@/components/PortfolioDashboard"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
 import NFTGallery from "@/components/NFTGallery"
 import NotificationsBar from "@/components/NotificationsBar"
@@ -43,25 +41,19 @@ export default function IntelliDeFiApp() {
       dashboard: (
         <div className="space-y-8">
           <NaturalLanguageAgent />
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-            <SwapPanel />
-            <PortfolioDashboard />
-          </div>
         </div>
       ),
-      swap: (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <SwapPanel />
-          <CrossChainSwapPanel />
-        </div>
-      ),
+      swap: <CrossChainSwapPanel />,
       strategies: (
         <div className="space-y-8">
           <StrategyBuilder />
           <CopyTradeGallery />
         </div>
       ),
-      portfolio: <PortfolioDashboard />,
+      portfolio: <div className="text-center py-12">
+        <h2 className="text-2xl font-bold text-gray-300 mb-4">Portfolio Dashboard</h2>
+        <p className="text-gray-400">Connect your wallet to view your portfolio and trading history</p>
+      </div>,
       analysis: <TradeAnalysisPanel />,
       nft: <NFTGallery />,
     }
