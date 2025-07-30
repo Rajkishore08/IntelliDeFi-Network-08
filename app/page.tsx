@@ -9,6 +9,7 @@ import { ProcessFlowDashboard } from "@/components/ai-process-flow/ProcessFlowDa
 import { WalletCheckProcess } from "@/components/ai-process-flow/WalletCheckProcess"
 import { BalanceReductionProcess } from "@/components/ai-process-flow/BalanceReductionProcess"
 import { AssetManagementProcess } from "@/components/ai-process-flow/AssetManagementProcess"
+import ConnectWallet from "@/components/ConnectWallet"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
 import StrategyBuilder from "@/components/StrategyBuilder"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
@@ -120,6 +121,11 @@ export default function IntelliDeFiApp() {
 
           <div className="lg:ml-64 min-h-screen">
             <NotificationsBar />
+
+            {/* Top Right Connect Wallet Button */}
+            <div className="fixed top-4 right-4 z-40">
+              <ConnectWallet />
+            </div>
 
             <main className="p-4 md:p-6 lg:p-8">
               <AnimatePresence mode="wait">
