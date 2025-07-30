@@ -68,55 +68,22 @@ export default function NaturalLanguageAgent({
 
   /**
    * Default natural language processing function
-   * TODO: Replace with actual AI agent API integration
+   * Uses AI Command Processor for advanced parsing
    */
   const defaultParseQuery = useCallback(async (input: string): Promise<AgentResponse> => {
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    // Mock response based on input patterns
-    if (input.toLowerCase().includes("swap")) {
+    try {
+      const commandIntent = await AICommandProcessor.parseCommand(input)
+      
       return {
-        intent: "Token Swap",
-        action: `Execute swap: ${input}`,
-        parameters: {
-          fromToken: "USDC",
-          toToken: "ETH",
-          amount: "100",
-          chain: "Ethereum",
-          slippage: "0.5%",
-        },
-        confidence: 0.95,
-        executionPlan: ["Analyze swap parameters", "Find best route via 1inch", "Execute swap transaction"],
+        intent: commandIntent.action,
+        action: commandIntent.action,
+        parameters: commandIntent.parameters,
+        confidence: commandIntent.confidence,
+        executionPlan: commandIntent.executionPlan,
+        type: commandIntent.type
       }
-    } else if (input.toLowerCase().includes("bridge")) {
-      return {
-        intent: "Cross-Chain Bridge",
-        action: `Bridge assets: ${input}`,
-        parameters: {
-          fromChain: "Ethereum",
-          toChain: "Aptos",
-          token: "USDC",
-          amount: "500",
-        },
-        confidence: 0.88,
-        executionPlan: ["Validate cross-chain parameters", "Initiate bridge transaction", "Monitor bridge completion"],
-      }
-    } else if (input.toLowerCase().includes("limit")) {
-      return {
-        intent: "Limit Order",
-        action: `Create limit order: ${input}`,
-        parameters: {
-          type: "limit",
-          fromToken: "ETH",
-          toToken: "USDC",
-          amount: "1",
-          targetPrice: "2500",
-        },
-        confidence: 0.92,
-        executionPlan: ["Parse order parameters", "Validate price targets", "Submit limit order"],
-      }
-    } else {
+    } catch (error) {
+      console.error('Error parsing command:', error)
       return {
         intent: "General Query",
         action: `Process request: ${input}`,
