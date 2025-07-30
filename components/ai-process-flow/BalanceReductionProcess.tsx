@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -118,7 +118,7 @@ export function BalanceReductionProcess() {
     setTransactionSteps(initialSteps)
   }, [])
 
-  const startTransaction = async () => {
+  const startTransaction = useCallback(async () => {
     setIsProcessing(true)
     setCurrentStep(0)
     setTotalFees(0)
@@ -173,7 +173,7 @@ export function BalanceReductionProcess() {
     }
 
     setIsProcessing(false)
-  }
+  }, [])
 
   const getStepIcon = (step: TransactionStep) => {
     const iconProps = { className: "h-5 w-5" }
