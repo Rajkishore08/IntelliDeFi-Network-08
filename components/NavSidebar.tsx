@@ -21,7 +21,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3, description: "Overview & AI Agent" },
-  { id: "swap", label: "Swap", icon: ArrowUpDown, description: "Token Exchange" },
+      { id: "swap", label: "Swap", icon: ArrowUpDown, description: "Token Exchange & Fusion+" },
   { id: "strategies", label: "Strategies", icon: Settings, description: "Advanced Orders & Copy Trading" },
   { id: "portfolio", label: "Portfolio", icon: Wallet, description: "Holdings & History" },
   { id: "analysis", label: "Trade Analysis", icon: Brain, description: "AI-Powered Performance Analysis" },

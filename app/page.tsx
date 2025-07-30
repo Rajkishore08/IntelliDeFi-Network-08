@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Toaster } from "react-hot-toast"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import NavSidebar from "@/components/NavSidebar"
 import NaturalLanguageAgent from "@/components/NaturalLanguageAgent"
 import { ProcessFlowDashboard } from "@/components/ai-process-flow/ProcessFlowDashboard"
@@ -12,6 +13,7 @@ import { AssetManagementProcess } from "@/components/ai-process-flow/AssetManage
 import ConnectWallet from "@/components/ConnectWallet"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
 import EnhancedSwapPanel from "@/components/EnhancedSwapPanel"
+import FusionPlusPanel from "@/components/FusionPlusPanel"
 import StrategyBuilder from "@/components/StrategyBuilder"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
 import NFTGallery from "@/components/NFTGallery"
@@ -78,13 +80,30 @@ export default function IntelliDeFiApp() {
       ),
       swap: (
         <div className="space-y-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">Enhanced Swap</h1>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Complete cross-chain swapping with real-time quotes, MetaMask integration, and advanced features
-            </p>
-          </div>
-          <EnhancedSwapPanel />
+          <Tabs defaultValue="enhanced" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-gray-800/50 border border-blue-500/30">
+              <TabsTrigger value="enhanced" className="data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-300">
+                Enhanced Swap
+              </TabsTrigger>
+              <TabsTrigger value="fusion" className="data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-300">
+                Fusion+ Cross-Chain
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="enhanced" className="space-y-8">
+              <div className="text-center">
+                <h1 className="text-4xl font-bold text-white mb-4">Enhanced Swap</h1>
+                <p className="text-gray-400 max-w-2xl mx-auto">
+                  Complete cross-chain swapping with real-time quotes, MetaMask integration, and advanced features
+                </p>
+              </div>
+              <EnhancedSwapPanel />
+            </TabsContent>
+            
+            <TabsContent value="fusion" className="space-y-8">
+              <FusionPlusPanel />
+            </TabsContent>
+          </Tabs>
         </div>
       ),
       strategies: (
