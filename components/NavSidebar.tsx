@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
   { id: "strategies", label: "Strategies", icon: Settings, description: "Advanced Orders & Copy Trading" },
   { id: "portfolio", label: "Portfolio", icon: Wallet, description: "Holdings & History" },
   { id: "nft", label: "NFT Gallery", icon: Trophy, description: "Achievement Badges" },
-]
+]gcjuytfrl tucflk687y0 l.vop
 
 export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen, setSidebarOpen }: NavSidebarProps) {
   return (
