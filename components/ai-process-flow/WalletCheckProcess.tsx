@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -49,7 +49,7 @@ export function WalletCheckProcess() {
     lastActivity: "2 hours ago"
   }
 
-  const initialSteps: ProcessStep[] = [
+  const initialSteps = useMemo<ProcessStep[]>(() => [
     {
       id: "connect",
       title: "Wallet Connection",
@@ -86,11 +86,11 @@ export function WalletCheckProcess() {
       description: "Validating wallet security and integrity",
       status: "pending"
     }
-  ]
+  ], [])
 
   useEffect(() => {
     setProcessSteps(initialSteps)
-  }, [])
+  }, [initialSteps])
 
   const startWalletCheck = async () => {
     setIsChecking(true)
