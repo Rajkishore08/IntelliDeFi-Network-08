@@ -11,6 +11,7 @@ import { BalanceReductionProcess } from "@/components/ai-process-flow/BalanceRed
 import { AssetManagementProcess } from "@/components/ai-process-flow/AssetManagementProcess"
 import ConnectWallet from "@/components/ConnectWallet"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
+import EnhancedSwapPanel from "@/components/EnhancedSwapPanel"
 import StrategyBuilder from "@/components/StrategyBuilder"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
 import NFTGallery from "@/components/NFTGallery"
@@ -74,7 +75,17 @@ export default function IntelliDeFiApp() {
           </div>
         </div>
       ),
-      swap: <CrossChainSwapPanel />,
+      swap: (
+        <div className="space-y-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-white mb-4">Enhanced Swap</h1>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Complete cross-chain swapping with real-time quotes, MetaMask integration, and advanced features
+            </p>
+          </div>
+          <EnhancedSwapPanel />
+        </div>
+      ),
       strategies: (
         <div className="space-y-8">
           <StrategyBuilder />
