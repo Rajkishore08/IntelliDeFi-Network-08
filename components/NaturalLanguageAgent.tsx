@@ -141,8 +141,9 @@ export default function NaturalLanguageAgent({
       if (onExecute) {
         await onExecute(query)
       } else {
-        // Default execution simulation
-        await new Promise((resolve) => setTimeout(resolve, 3000))
+        // Use AI Command Processor for execution
+        const commandIntent = await AICommandProcessor.parseCommand(query)
+        await AICommandProcessor.executeCommand(commandIntent)
       }
 
       setStatus("success")
