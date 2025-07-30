@@ -111,7 +111,7 @@ export const AssetManagementProcess = React.memo(function AssetManagementProcess
 
     setPortfolio(mockPortfolio)
     setIsUpdating(false)
-  }
+  }, [])
 
   const getAssetColor = (symbol: string) => {
     const colors = {
