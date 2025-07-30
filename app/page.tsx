@@ -18,6 +18,7 @@ import NFTGallery from "@/components/NFTGallery"
 import NotificationsBar from "@/components/NotificationsBar"
 import Footer from "@/components/Footer"
 import TradeAnalysisPanel from "@/components/TradeAnalysisPanel"
+import PortfolioDashboard from "@/components/PortfolioDashboard"
 import { WalletProvider } from "@/contexts/WalletContext"
 import { NotificationProvider } from "@/contexts/NotificationContext"
 
@@ -92,10 +93,7 @@ export default function IntelliDeFiApp() {
           <CopyTradeGallery />
         </div>
       ),
-      portfolio: <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-300 mb-4">Portfolio Dashboard</h2>
-        <p className="text-gray-400">Connect your wallet to view your portfolio and trading history</p>
-      </div>,
+      portfolio: <PortfolioDashboard />,
       analysis: <TradeAnalysisPanel />,
       "process-flow": (
         <div className="space-y-8">
