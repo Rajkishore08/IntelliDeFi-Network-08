@@ -13,6 +13,7 @@ import ConnectWallet from "@/components/ConnectWallet"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
 import EnhancedSwapPanel from "@/components/EnhancedSwapPanel"
 import FusionPlusPanel from "@/components/FusionPlusPanel"
+import AdvancedLimitOrderProtocol from "@/components/AdvancedLimitOrderProtocol"
 import StrategyBuilder from "@/components/StrategyBuilder"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
 import NFTGallery from "@/components/NFTGallery"
@@ -103,7 +104,27 @@ export default function IntelliDeFiApp() {
       ),
       strategies: (
         <div className="space-y-8">
-          <StrategyBuilder />
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-white mb-4">Advanced Trading Strategies</h1>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Extend 1inch Limit Order Protocol with AI-powered strategies, TWAP, options, and composable orders
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-white">Advanced Limit Order Protocol</h2>
+              <p className="text-gray-400">Extend 1inch Limit Order Protocol with TWAP, options, concentrated liquidity, and AI strategies</p>
+              <AdvancedLimitOrderProtocol />
+            </div>
+            
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-white">Strategy Builder</h2>
+              <p className="text-gray-400">Create advanced trading strategies with limit orders, TWAP, stop-loss, and options</p>
+              <StrategyBuilder />
+            </div>
+          </div>
+          
           <CopyTradeGallery />
         </div>
       ),
