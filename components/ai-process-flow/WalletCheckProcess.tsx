@@ -92,7 +92,7 @@ export const WalletCheckProcess = React.memo(function WalletCheckProcess() {
     setProcessSteps(initialSteps)
   }, [])
 
-  const startWalletCheck = async () => {
+  const startWalletCheck = useCallback(async () => {
     setIsChecking(true)
     setCurrentStep(0)
 
@@ -293,4 +293,4 @@ export const WalletCheckProcess = React.memo(function WalletCheckProcess() {
       </Card>
     </div>
   )
-} 
+}) 
