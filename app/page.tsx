@@ -86,6 +86,22 @@ export default function IntelliDeFiApp() {
         <p className="text-gray-400">Connect your wallet to view your portfolio and trading history</p>
       </div>,
       analysis: <TradeAnalysisPanel />,
+      "process-flow": (
+        <div className="space-y-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-white mb-4">AI Process Flow</h1>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Real-time visualization of AI-powered transaction processes with detailed step-by-step analysis
+            </p>
+          </div>
+          <ProcessFlowDashboard />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <WalletCheckProcess />
+            <BalanceReductionProcess />
+            <AssetManagementProcess />
+          </div>
+        </div>
+      ),
       nft: <NFTGallery />,
     }
 
