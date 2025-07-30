@@ -145,11 +145,11 @@ export function BalanceReductionProcess() {
         balanceUpdates = [mockBalanceUpdates[0]]
         fees = 0.001
       } else if (i === 3) { // Execute step
-        balanceUpdates = mockBalanceUpdates
+        balanceUpdates = [...mockBalanceUpdates]
         gasUsed = 0.002
         fees = 0.005
       } else if (i === 5) { // Update step
-        balanceUpdates = mockBalanceUpdates
+        balanceUpdates = [...mockBalanceUpdates]
       }
 
       setTransactionSteps(prev => prev.map((step, index) => {
