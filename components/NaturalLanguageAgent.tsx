@@ -34,6 +34,7 @@ interface AgentResponse {
   parameters: Record<string, any>
   confidence: number
   executionPlan?: string[]
+  type?: string
 }
 
 /**
