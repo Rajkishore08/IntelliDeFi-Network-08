@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -73,7 +73,7 @@ const initialSteps: ProcessStep[] = [
   }
 ]
 
-export function WalletCheckProcess() {
+export const WalletCheckProcess = React.memo(function WalletCheckProcess() {
   const [walletStatus, setWalletStatus] = useState<WalletStatus | null>(null)
   const [processSteps, setProcessSteps] = useState<ProcessStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
