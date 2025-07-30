@@ -75,44 +75,44 @@ const initialSteps: TransactionStep[] = [
   }
 ]
 
+const mockBalanceUpdates: BalanceUpdate[] = [
+  {
+    token: "USDC",
+    symbol: "USDC",
+    beforeAmount: 1000,
+    afterAmount: 900,
+    change: -100,
+    changePercent: -10,
+    price: 1.00,
+    value: 100
+  },
+  {
+    token: "ETH",
+    symbol: "ETH",
+    beforeAmount: 2.5,
+    afterAmount: 2.5,
+    change: 0,
+    changePercent: 0,
+    price: 2500,
+    value: 0
+  },
+  {
+    token: "ETH",
+    symbol: "ETH",
+    beforeAmount: 2.5,
+    afterAmount: 2.54,
+    change: 0.04,
+    changePercent: 1.6,
+    price: 2500,
+    value: 100
+  }
+]
+
 export function BalanceReductionProcess() {
   const [transactionSteps, setTransactionSteps] = useState<TransactionStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
   const [isProcessing, setIsProcessing] = useState(false)
   const [totalFees, setTotalFees] = useState(0)
-
-  const mockBalanceUpdates: BalanceUpdate[] = [
-    {
-      token: "USDC",
-      symbol: "USDC",
-      beforeAmount: 1000,
-      afterAmount: 900,
-      change: -100,
-      changePercent: -10,
-      price: 1.00,
-      value: 100
-    },
-    {
-      token: "ETH",
-      symbol: "ETH",
-      beforeAmount: 2.5,
-      afterAmount: 2.5,
-      change: 0,
-      changePercent: 0,
-      price: 2500,
-      value: 0
-    },
-    {
-      token: "ETH",
-      symbol: "ETH",
-      beforeAmount: 2.5,
-      afterAmount: 2.54,
-      change: 0.04,
-      changePercent: 1.6,
-      price: 2500,
-      value: 100
-    }
-  ]
 
   useEffect(() => {
     setTransactionSteps(initialSteps)
