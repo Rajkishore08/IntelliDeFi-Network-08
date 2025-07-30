@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -34,6 +34,45 @@ interface ProcessStep {
   duration?: number
 }
 
+const initialSteps: ProcessStep[] = [
+  {
+    id: "connect",
+    title: "Wallet Connection",
+    description: "Establishing secure connection to wallet",
+    status: "pending"
+  },
+  {
+    id: "network",
+    title: "Network Detection",
+    description: "Detecting active blockchain network",
+    status: "pending"
+  },
+  {
+    id: "balance",
+    title: "Balance Check",
+    description: "Fetching token balances and assets",
+    status: "pending"
+  },
+  {
+    id: "gas",
+    title: "Gas Estimation",
+    description: "Calculating transaction gas requirements",
+    status: "pending"
+  },
+  {
+    id: "permissions",
+    title: "Permission Verification",
+    description: "Checking wallet permissions and allowances",
+    status: "pending"
+  },
+  {
+    id: "security",
+    title: "Security Validation",
+    description: "Validating wallet security and integrity",
+    status: "pending"
+  }
+]
+
 export function WalletCheckProcess() {
   const [walletStatus, setWalletStatus] = useState<WalletStatus | null>(null)
   const [processSteps, setProcessSteps] = useState<ProcessStep[]>([])
@@ -49,48 +88,9 @@ export function WalletCheckProcess() {
     lastActivity: "2 hours ago"
   }
 
-  const initialSteps = useMemo<ProcessStep[]>(() => [
-    {
-      id: "connect",
-      title: "Wallet Connection",
-      description: "Establishing secure connection to wallet",
-      status: "pending"
-    },
-    {
-      id: "network",
-      title: "Network Detection",
-      description: "Detecting active blockchain network",
-      status: "pending"
-    },
-    {
-      id: "balance",
-      title: "Balance Check",
-      description: "Fetching token balances and assets",
-      status: "pending"
-    },
-    {
-      id: "gas",
-      title: "Gas Estimation",
-      description: "Calculating transaction gas requirements",
-      status: "pending"
-    },
-    {
-      id: "permissions",
-      title: "Permission Verification",
-      description: "Checking wallet permissions and allowances",
-      status: "pending"
-    },
-    {
-      id: "security",
-      title: "Security Validation",
-      description: "Validating wallet security and integrity",
-      status: "pending"
-    }
-  ], [])
-
   useEffect(() => {
     setProcessSteps(initialSteps)
-  }, [initialSteps])
+  }, [])
 
   const startWalletCheck = async () => {
     setIsChecking(true)
