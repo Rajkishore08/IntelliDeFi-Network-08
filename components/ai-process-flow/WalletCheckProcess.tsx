@@ -125,7 +125,7 @@ export const WalletCheckProcess = React.memo(function WalletCheckProcess() {
 
     setWalletStatus(mockWalletStatus)
     setIsChecking(false)
-  }
+  }, [])
 
   const getStepDetails = (stepId: string): string => {
     const details = {
