@@ -14,6 +14,7 @@ import NFTGallery from "@/components/NFTGallery"
 import NotificationsBar from "@/components/NotificationsBar"
 import Footer from "@/components/Footer"
 import TradeAnalysisPanel from "@/components/TradeAnalysisPanel"
+import { ProcessFlowDashboard } from "@/components/ai-process-flow/ProcessFlowDashboard"
 import { WalletProvider } from "@/contexts/WalletContext"
 import { NotificationProvider } from "@/contexts/NotificationContext"
 
@@ -110,7 +111,12 @@ export default function IntelliDeFiApp() {
         </div>
       ),
       portfolio: <PortfolioDashboard />,
-      analysis: <TradeAnalysisPanel />,
+      analysis: (
+        <div className="space-y-8">
+          <TradeAnalysisPanel />
+          <ProcessFlowDashboard />
+        </div>
+      ),
       nft: <NFTGallery />,
     }
 
