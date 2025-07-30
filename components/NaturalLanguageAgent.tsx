@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Bot, Zap, AlertCircle, CheckCircle, Loader2, Sparkles } from "lucide-react"
+import { Bot, Zap, AlertCircle, CheckCircle, Loader2, Sparkles, HelpCircle } from "lucide-react"
 import { useNotification } from "@/contexts/NotificationContext"
+import { AICommandProcessor, CommandIntent } from "@/lib/ai-command-processor"
 
 /**
  * Props interface for NaturalLanguageAgent component
@@ -260,7 +261,7 @@ export default function NaturalLanguageAgent({
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" as const },
     },
   }
 
@@ -269,7 +270,7 @@ export default function NaturalLanguageAgent({
     visible: {
       opacity: 1,
       height: "auto",
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4, ease: "easeOut" as const },
     },
   }
 
