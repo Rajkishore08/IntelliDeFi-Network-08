@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Toaster } from "react-hot-toast"
 import NavSidebar from "@/components/NavSidebar"
 import NaturalLanguageAgent from "@/components/NaturalLanguageAgent"
+import AdvancedAIDashboard from "@/components/AdvancedAIDashboard"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
 import StrategyBuilder from "@/components/StrategyBuilder"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
@@ -40,7 +41,7 @@ export default function IntelliDeFiApp() {
     const sectionComponents = {
       dashboard: (
         <div className="space-y-8">
-          <NaturalLanguageAgent />
+          <AdvancedAIDashboard />
         </div>
       ),
       swap: <CrossChainSwapPanel />,
