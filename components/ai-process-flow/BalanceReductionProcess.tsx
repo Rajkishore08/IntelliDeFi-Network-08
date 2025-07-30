@@ -36,6 +36,45 @@ interface TransactionStep {
   fees?: number
 }
 
+const initialSteps: TransactionStep[] = [
+  {
+    id: "validate",
+    title: "Transaction Validation",
+    description: "Validating transaction parameters and balances",
+    status: "pending"
+  },
+  {
+    id: "calculate",
+    title: "Fee Calculation",
+    description: "Calculating gas fees and slippage",
+    status: "pending"
+  },
+  {
+    id: "approve",
+    title: "Token Approval",
+    description: "Approving token spending allowance",
+    status: "pending"
+  },
+  {
+    id: "execute",
+    title: "Transaction Execution",
+    description: "Executing swap transaction on blockchain",
+    status: "pending"
+  },
+  {
+    id: "confirm",
+    title: "Transaction Confirmation",
+    description: "Waiting for blockchain confirmation",
+    status: "pending"
+  },
+  {
+    id: "update",
+    title: "Balance Update",
+    description: "Updating wallet balances and portfolio",
+    status: "pending"
+  }
+]
+
 export function BalanceReductionProcess() {
   const [transactionSteps, setTransactionSteps] = useState<TransactionStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
@@ -72,45 +111,6 @@ export function BalanceReductionProcess() {
       changePercent: 1.6,
       price: 2500,
       value: 100
-    }
-  ]
-
-  const initialSteps: TransactionStep[] = [
-    {
-      id: "validate",
-      title: "Transaction Validation",
-      description: "Validating transaction parameters and balances",
-      status: "pending"
-    },
-    {
-      id: "calculate",
-      title: "Fee Calculation",
-      description: "Calculating gas fees and slippage",
-      status: "pending"
-    },
-    {
-      id: "approve",
-      title: "Token Approval",
-      description: "Approving token spending allowance",
-      status: "pending"
-    },
-    {
-      id: "execute",
-      title: "Transaction Execution",
-      description: "Executing swap transaction on blockchain",
-      status: "pending"
-    },
-    {
-      id: "confirm",
-      title: "Transaction Confirmation",
-      description: "Waiting for blockchain confirmation",
-      status: "pending"
-    },
-    {
-      id: "update",
-      title: "Balance Update",
-      description: "Updating wallet balances and portfolio",
-      status: "pending"
     }
   ]
 
