@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Toaster } from "react-hot-toast"
 import NavSidebar from "@/components/NavSidebar"
 import NaturalLanguageAgent from "@/components/NaturalLanguageAgent"
-import AdvancedAIDashboard from "@/components/AdvancedAIDashboard"
 import { ProcessFlowDashboard } from "@/components/ai-process-flow/ProcessFlowDashboard"
 import { WalletCheckProcess } from "@/components/ai-process-flow/WalletCheckProcess"
 import { BalanceReductionProcess } from "@/components/ai-process-flow/BalanceReductionProcess"
@@ -46,7 +45,7 @@ export default function IntelliDeFiApp() {
       dashboard: (
         <div className="space-y-8">
           {/* Main AI Command Interface */}
-          <AdvancedAIDashboard />
+          <NaturalLanguageAgent />
           
           {/* AI Process Flow Dashboard */}
           <div className="space-y-6">
