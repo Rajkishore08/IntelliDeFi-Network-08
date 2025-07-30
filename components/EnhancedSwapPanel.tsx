@@ -158,42 +158,88 @@ export default function EnhancedSwapPanel() {
   }, [])
 
   const connectWallet = useCallback(async () => {
-    if (typeof window !== "undefined" && window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ 
-          method: 'eth_requestAccounts' 
-        })
-        if (accounts.length > 0) {
-          setIsWalletConnected(true)
-          setWalletAddress(accounts[0])
-          await updateWalletBalance(accounts[0])
-          addNotification({
-            type: "success",
-            message: "Wallet connected successfully",
-            duration: 3000,
-          })
-        }
-      } catch (error: any) {
-        if (error.code === 4001) {
-          addNotification({
-            type: "error",
-            message: "Connection rejected by user",
-            duration: 3000,
-          })
-        } else {
-          addNotification({
-            type: "error",
-            message: "Failed to connect wallet",
-            duration: 5000,
-          })
-        }
-      }
-    } else {
+    if (typeof window === "undefined") {
       addNotification({
         type: "error",
-        message: "MetaMask is not installed",
+        message: "Please use a web browser to connect wallet",
         duration: 5000,
       })
+      return
+    }
+
+    if (!window.ethereum) {
+      addNotification({
+        type: "error",
+        message: "MetaMask is not installed. Please install MetaMask to continue.",
+        duration: 5000,
+      })
+      return
+    }
+
+    try {
+      // First check if MetaMask is unlocked
+      const accounts = await window.ethereum.request({ 
+        method: 'eth_accounts' 
+      })
+      
+      if (accounts.length === 0) {
+        addNotification({
+          type: "error",
+          message: "Please unlock MetaMask and try again",
+          duration: 5000,
+        })
+        return
+      }
+
+      // Request account access
+      const requestedAccounts = await window.ethereum.request({ 
+        method: 'eth_requestAccounts' 
+      })
+      
+      if (requestedAccounts && requestedAccounts.length > 0) {
+        setIsWalletConnected(true)
+        setWalletAddress(requestedAccounts[0])
+        await updateWalletBalance(requestedAccounts[0])
+        addNotification({
+          type: "success",
+          message: "Wallet connected successfully",
+          duration: 3000,
+        })
+      } else {
+        addNotification({
+          type: "error",
+          message: "No accounts found. Please create an account in MetaMask.",
+          duration: 5000,
+        })
+      }
+    } catch (error: any) {
+      console.error('MetaMask connection error:', error)
+      
+      if (error.code === 4001) {
+        addNotification({
+          type: "error",
+          message: "Connection rejected by user",
+          duration: 3000,
+        })
+      } else if (error.code === -32002) {
+        addNotification({
+          type: "error",
+          message: "MetaMask request already pending. Please check MetaMask.",
+          duration: 5000,
+        })
+      } else if (error.message?.includes('User rejected')) {
+        addNotification({
+          type: "error",
+          message: "Connection rejected by user",
+          duration: 3000,
+        })
+      } else {
+        addNotification({
+          type: "error",
+          message: `Failed to connect wallet: ${error.message || 'Unknown error'}`,
+          duration: 5000,
+        })
+      }
     }
   }, [addNotification, updateWalletBalance])
 

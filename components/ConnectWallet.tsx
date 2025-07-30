@@ -48,7 +48,7 @@ export default function ConnectWallet() {
     checkMetaMask()
   }, [])
 
-  // Check connection status on mount
+  // Check connection status on mount and set up event listeners
   useEffect(() => {
     const checkConnection = async () => {
       if (typeof window !== "undefined" && window.ethereum) {
@@ -63,9 +63,50 @@ export default function ConnectWallet() {
       }
     }
     checkConnection()
+
+    // Set up MetaMask event listeners
+    if (typeof window !== "undefined" && window.ethereum) {
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts.length === 0) {
+          // User disconnected their wallet
+          setIsConnected(false)
+          setWalletInfo(null)
+          addNotification({
+            type: "info",
+            message: "Wallet disconnected",
+            duration: 3000,
+          })
+        } else {
+          // User switched accounts
+          handleWalletConnection()
+        }
+      }
+
+      const handleChainChanged = () => {
+        // Reload the page when chain changes
+        window.location.reload()
+      }
+
+      window.ethereum.on('accountsChanged', handleAccountsChanged)
+      window.ethereum.on('chainChanged', handleChainChanged)
+
+      return () => {
+        window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
+        window.ethereum.removeListener('chainChanged', handleChainChanged)
+      }
+    }
   }, [])
 
   const handleWalletConnection = useCallback(async () => {
+    if (typeof window === "undefined") {
+      addNotification({
+        type: "error",
+        message: "Please use a web browser to connect wallet",
+        duration: 5000,
+      })
+      return
+    }
+
     if (!window.ethereum) {
       addNotification({
         type: "error",
@@ -78,13 +119,27 @@ export default function ConnectWallet() {
     setIsConnecting(true)
 
     try {
-      // Request account access
+      // First check if MetaMask is unlocked
       const accounts = await window.ethereum.request({ 
+        method: 'eth_accounts' 
+      })
+      
+      if (accounts.length === 0) {
+        addNotification({
+          type: "error",
+          message: "Please unlock MetaMask and try again",
+          duration: 5000,
+        })
+        return
+      }
+
+      // Request account access with better error handling
+      const requestedAccounts = await window.ethereum.request({ 
         method: 'eth_requestAccounts' 
       })
 
-      if (accounts.length > 0) {
-        const account = accounts[0]
+      if (requestedAccounts && requestedAccounts.length > 0) {
+        const account = requestedAccounts[0]
         
         // Get network info
         const chainId = await window.ethereum.request({ method: 'eth_chainId' })
@@ -113,6 +168,12 @@ export default function ConnectWallet() {
           message: `Connected to ${network}`,
           duration: 3000,
         })
+      } else {
+        addNotification({
+          type: "error",
+          message: "No accounts found. Please create an account in MetaMask.",
+          duration: 5000,
+        })
       }
     } catch (error: any) {
       console.error('Error connecting wallet:', error)
@@ -123,10 +184,22 @@ export default function ConnectWallet() {
           message: "Connection rejected by user",
           duration: 3000,
         })
+      } else if (error.code === -32002) {
+        addNotification({
+          type: "error",
+          message: "MetaMask request already pending. Please check MetaMask.",
+          duration: 5000,
+        })
+      } else if (error.message?.includes('User rejected')) {
+        addNotification({
+          type: "error",
+          message: "Connection rejected by user",
+          duration: 3000,
+        })
       } else {
         addNotification({
           type: "error",
-          message: "Failed to connect wallet. Please try again.",
+          message: `Failed to connect wallet: ${error.message || 'Unknown error'}`,
           duration: 5000,
         })
       }
