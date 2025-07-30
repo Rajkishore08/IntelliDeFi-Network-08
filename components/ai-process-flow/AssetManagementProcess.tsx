@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -35,7 +35,7 @@ interface PortfolioUpdate {
   assets: Asset[]
 }
 
-export function AssetManagementProcess() {
+export const AssetManagementProcess = React.memo(function AssetManagementProcess() {
   const [portfolio, setPortfolio] = useState<PortfolioUpdate | null>(null)
   const [isUpdating, setIsUpdating] = useState(false)
   const [updateProgress, setUpdateProgress] = useState(0)
@@ -91,7 +91,7 @@ export function AssetManagementProcess() {
     assets: mockAssets
   }
 
-  const startPortfolioUpdate = async () => {
+  const startPortfolioUpdate = useCallback(async () => {
     setIsUpdating(true)
     setUpdateProgress(0)
 
@@ -328,4 +328,4 @@ export function AssetManagementProcess() {
       </Card>
     </div>
   )
-} 
+}) 

@@ -260,7 +260,12 @@ export function ProcessFlowDashboard() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                {processSteps.find(step => step.id === currentProcess)?.component()}
+                {(() => {
+                  const step = processSteps.find(step => step.id === currentProcess);
+                  if (!step) return null;
+                  const Component = step.component;
+                  return <Component />;
+                })()}
               </motion.div>
             )}
           </AnimatePresence>
