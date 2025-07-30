@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo, useCallback } from "react"
+import React, { useState, useEffect, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -108,7 +108,7 @@ const mockBalanceUpdates: BalanceUpdate[] = [
   }
 ]
 
-export function BalanceReductionProcess() {
+export const BalanceReductionProcess = React.memo(function BalanceReductionProcess() {
   const [transactionSteps, setTransactionSteps] = useState<TransactionStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
   const [isProcessing, setIsProcessing] = useState(false)
@@ -373,4 +373,4 @@ export function BalanceReductionProcess() {
       </Card>
     </div>
   )
-} 
+}) 
