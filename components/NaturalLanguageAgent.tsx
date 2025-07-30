@@ -339,6 +339,50 @@ export default function NaturalLanguageAgent({
             )}
           </motion.div>
 
+          {/* Help Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg"
+          >
+            <div className="flex items-center space-x-2 mb-3">
+              <HelpCircle className="h-5 w-5 text-blue-400" />
+              <h3 className="font-semibold text-blue-300">Available Commands</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="space-y-2">
+                <div className="font-medium text-gray-300">Swap Operations:</div>
+                <div className="text-gray-400 space-y-1">
+                  <div>• "Swap 100 USDC for ETH on Ethereum"</div>
+                  <div>• "Exchange 50 USDT to WBTC"</div>
+                  <div>• "Convert 200 DAI to MATIC on Polygon"</div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="font-medium text-gray-300">Bridge Operations:</div>
+                <div className="text-gray-400 space-y-1">
+                  <div>• "Bridge 500 USDC from Ethereum to Polygon"</div>
+                  <div>• "Transfer 1 ETH to Arbitrum"</div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="font-medium text-gray-300">Limit Orders:</div>
+                <div className="text-gray-400 space-y-1">
+                  <div>• "Buy ETH at $2500 limit order"</div>
+                  <div>• "Sell 1 ETH at $3000"</div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="font-medium text-gray-300">Analysis:</div>
+                <div className="text-gray-400 space-y-1">
+                  <div>• "Show my portfolio"</div>
+                  <div>• "Analyze my trading performance"</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Response Display */}
           <AnimatePresence>
             {response && (
