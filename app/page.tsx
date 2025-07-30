@@ -6,6 +6,10 @@ import { Toaster } from "react-hot-toast"
 import NavSidebar from "@/components/NavSidebar"
 import NaturalLanguageAgent from "@/components/NaturalLanguageAgent"
 import AdvancedAIDashboard from "@/components/AdvancedAIDashboard"
+import { ProcessFlowDashboard } from "@/components/ai-process-flow/ProcessFlowDashboard"
+import { WalletCheckProcess } from "@/components/ai-process-flow/WalletCheckProcess"
+import { BalanceReductionProcess } from "@/components/ai-process-flow/BalanceReductionProcess"
+import { AssetManagementProcess } from "@/components/ai-process-flow/AssetManagementProcess"
 import CrossChainSwapPanel from "@/components/CrossChainSwapPanel"
 import StrategyBuilder from "@/components/StrategyBuilder"
 import CopyTradeGallery from "@/components/CopyTradeGallery"
@@ -41,7 +45,33 @@ export default function IntelliDeFiApp() {
     const sectionComponents = {
       dashboard: (
         <div className="space-y-8">
+          {/* Main AI Command Interface */}
           <AdvancedAIDashboard />
+          
+          {/* AI Process Flow Dashboard */}
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-white mb-2">AI Process Flow</h2>
+              <p className="text-gray-400">Real-time visualization of AI-powered transaction processes</p>
+            </div>
+            <ProcessFlowDashboard />
+          </div>
+          
+          {/* Individual Process Components */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-white">Wallet Check Process</h3>
+              <WalletCheckProcess />
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-white">Balance Reduction Process</h3>
+              <BalanceReductionProcess />
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-white">Asset Management Process</h3>
+              <AssetManagementProcess />
+            </div>
+          </div>
         </div>
       ),
       swap: <CrossChainSwapPanel />,
