@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { Button } from "@/components/ui/button"
-import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Menu, X, ExternalLink, Brain } from "lucide-react"
+import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Menu, X, ExternalLink, Brain, Cpu } from "lucide-react"
 
 interface NavSidebarProps {
   activeSection: string
@@ -25,6 +25,7 @@ const navItems: NavItem[] = [
   { id: "strategies", label: "Strategies", icon: Settings, description: "Advanced Orders & Copy Trading" },
   { id: "portfolio", label: "Portfolio", icon: Wallet, description: "Holdings & History" },
   { id: "analysis", label: "Trade Analysis", icon: Brain, description: "AI-Powered Performance Analysis" },
+  { id: "process-flow", label: "AI Process Flow", icon: Cpu, description: "Real-time AI Process Visualization" },
   { id: "nft", label: "NFT Gallery", icon: Trophy, description: "Achievement Badges" },
 ]
 export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen, setSidebarOpen }: NavSidebarProps) {
