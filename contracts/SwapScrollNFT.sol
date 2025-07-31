@@ -321,11 +321,6 @@ contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, Reentranc
         payable(owner()).transfer(address(this).balance);
     }
     
-    // Override required functions
-    function _burn(uint256 tokenId) internal {
-        super._burn(tokenId);
-    }
-    
     function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
     }
