@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Contract, ContractFactory, Signer } from "ethers";
+import { ContractFactory, Signer } from "ethers";
+import { SwapScrollNFT } from "../typechain-types";
 
 declare global {
   var describe: any;
