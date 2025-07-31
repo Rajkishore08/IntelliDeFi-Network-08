@@ -1,8 +1,7 @@
 import { ethers } from "hardhat";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 declare global {
-  var hre: HardhatRuntimeEnvironment;
+  var hre: any;
 }
 
 async function main() {
@@ -11,14 +10,14 @@ async function main() {
   // Get the deployer account
   const [deployer] = await ethers.getSigners();
   console.log("Deploying contracts with account:", deployer.address);
-  console.log("Account balance:", (await deployer.getBalance()).toString());
+  console.log("Account balance:", (await deployer.provider.getBalance(deployer.address)).toString());
 
   // Deploy SwapScrollNFT
   console.log("\n📜 Deploying SwapScrollNFT...");
   const SwapScrollNFT = await ethers.getContractFactory("SwapScrollNFT");
   const swapScrollNFT = await SwapScrollNFT.deploy();
-  await swapScrollNFT.deployed();
-  console.log("SwapScrollNFT deployed to:", swapScrollNFT.address);
+  await swapScrollNFT.waitForDeployment();
+  console.log("SwapScrollNFT deployed to:", await swapScrollNFT.getAddress());
 
   // Deploy LayerZeroBridge (using mock endpoint for demo)
   console.log("\n🌉 Deploying LayerZeroBridge...");
