@@ -21,7 +21,7 @@ describe("SwapScrollNFT", function () {
 
     SwapScrollNFT = await ethers.getContractFactory("SwapScrollNFT");
     swapScrollNFT = await SwapScrollNFT.deploy();
-    await swapScrollNFT.deployed();
+    await swapScrollNFT.waitForDeployment();
   });
 
   describe("Deployment", function () {
@@ -54,7 +54,7 @@ describe("SwapScrollNFT", function () {
     });
 
     it("Should fail to mint with insufficient payment", async function () {
-      const insufficientPrice = ethers.utils.parseEther("0.005"); // Less than required
+      const insufficientPrice = ethers.parseEther("0.005"); // Less than required
       const scrollType = "basic";
       const tokenURI = "ipfs://QmTest";
 
