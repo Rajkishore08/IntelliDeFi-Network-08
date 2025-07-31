@@ -5,7 +5,7 @@ import { SwapScrollNFT } from "../typechain-types";
 
 describe("SwapScrollNFT", function () {
   let SwapScrollNFT: ContractFactory;
-  let swapScrollNFT: SwapScrollNFT;
+  let swapScrollNFT: any;
   let owner: Signer;
   let user1: Signer;
   let user2: Signer;
@@ -91,8 +91,8 @@ describe("SwapScrollNFT", function () {
       const tokenId = 1;
       const fromToken = "ETH";
       const toToken = "USDC";
-      const amount = ethers.utils.parseEther("1");
-      const price = ethers.utils.parseEther("1800");
+      const amount = ethers.parseEther("1");
+      const price = ethers.parseEther("1800");
       const chainId = "1";
 
       await expect(
@@ -117,8 +117,8 @@ describe("SwapScrollNFT", function () {
       const tokenId = 1;
       const fromToken = "ETH";
       const toToken = "USDC";
-      const amount = ethers.utils.parseEther("1");
-      const price = ethers.utils.parseEther("1800");
+      const amount = ethers.parseEther("1");
+      const price = ethers.parseEther("1800");
       const chainId = "1";
 
       await expect(
@@ -261,7 +261,7 @@ describe("SwapScrollNFT", function () {
 
   describe("Reward Calculation", function () {
     it("Should calculate correct rewards for basic scroll", async function () {
-      const amount = ethers.utils.parseEther("1000");
+      const amount = ethers.parseEther("1000");
       const scrollType = "basic";
       
       // This would test the internal calculateRewards function
@@ -276,7 +276,7 @@ describe("SwapScrollNFT", function () {
         "ETH",
         "USDC",
         amount,
-        ethers.utils.parseEther("1800"),
+        ethers.parseEther("1800"),
         "1"
       );
 
