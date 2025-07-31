@@ -97,7 +97,7 @@ contract LayerZeroBridge is Ownable, Pausable, ReentrancyGuard {
         _;
     }
     
-    constructor(address _lzEndpoint) {
+    constructor(address _lzEndpoint) Ownable(msg.sender) {
         lzEndpoint = ILayerZeroEndpoint(_lzEndpoint);
         _swapIdCounter = 1;
         _messageIdCounter = 1;

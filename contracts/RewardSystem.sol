@@ -80,7 +80,7 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
         _;
     }
     
-    constructor(address _rewardToken) {
+    constructor(address _rewardToken) Ownable(msg.sender) {
         rewardToken = IERC20(_rewardToken);
         _achievementIdCounter = 1;
         _tierIdCounter = 1;

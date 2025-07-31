@@ -92,7 +92,7 @@ contract SuiBridge is Ownable, Pausable, ReentrancyGuard {
         _;
     }
     
-    constructor() {
+    constructor() Ownable(msg.sender) {
         _requestIdCounter = 1;
     }
     
