@@ -325,7 +325,7 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
     function _getUserTier(address user) internal view returns (uint256) {
         UserRewards storage rewards = userRewards[user];
         
-        for (uint256 i = 1; i <= _tierIdCounter.current(); i++) {
+        for (uint256 i = 1; i <= _tierIdCounter; i++) {
             RewardTier storage tier = rewardTiers[i];
             if (tier.isActive && 
                 rewards.totalPoints >= tier.minPoints && 
@@ -358,7 +358,7 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
     function _checkAchievements(address user) internal {
         UserRewards storage rewards = userRewards[user];
         
-        for (uint256 i = 1; i <= _achievementIdCounter.current(); i++) {
+        for (uint256 i = 1; i <= _achievementIdCounter; i++) {
             Achievement storage achievement = achievements[i];
             
             if (achievement.isActive && 
@@ -440,8 +440,8 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
         uint256 bonusMultiplier,
         bool isActive
     ) internal {
-        uint256 tierId = _tierIdCounter.current() + 1;
-        _tierIdCounter.increment();
+        uint256 tierId = _tierIdCounter;
+        _tierIdCounter++;
         
         rewardTiers[tierId] = RewardTier({
             tierId: tierId,
