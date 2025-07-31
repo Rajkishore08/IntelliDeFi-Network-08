@@ -171,6 +171,26 @@ contract LayerZeroBridge is Ownable, Pausable, ReentrancyGuard {
     }
     
     /**
+     * @dev Process message payload and extract swap data
+     * @param messageId Message ID
+     * @param payload Message payload
+     */
+    function _processMessagePayload(uint256 messageId, bytes memory payload) internal {
+        // Decode payload to extract swap information
+        // This is a simplified version - in production you'd use proper encoding
+        
+        BridgeMessage storage message = bridgeMessages[messageId];
+        message.processed = true;
+        
+        // Extract swap ID from payload and confirm the swap
+        // For demo purposes, we'll assume the payload contains the swap ID
+        uint256 swapId = _extractSwapIdFromPayload(payload);
+        if (swapId > 0) {
+            confirmCrossChainSwap(swapId);
+        }
+    }
+    
+    /**
      * @dev Execute a cross-chain swap on destination chain
      * @param swapId The swap ID to execute
      */
@@ -189,26 +209,6 @@ contract LayerZeroBridge is Ownable, Pausable, ReentrancyGuard {
         // to execute the actual swap on the destination chain
         
         emit CrossChainSwapExecuted(swapId, swap.fromChain, swap.toChain, swap.amount);
-    }
-    
-    /**
-     * @dev Process message payload and extract swap data
-     * @param messageId Message ID
-     * @param payload Message payload
-     */
-    function _processMessagePayload(uint256 messageId, bytes memory payload) internal {
-        // Decode payload to extract swap information
-        // This is a simplified version - in production you'd use proper encoding
-        
-        BridgeMessage storage message = bridgeMessages[messageId];
-        message.processed = true;
-        
-        // Extract swap ID from payload and confirm the swap
-        // For demo purposes, we'll assume the payload contains the swap ID
-        uint256 swapId = _extractSwapIdFromPayload(payload);
-        if (swapId > 0) {
-            confirmCrossChainSwap(swapId);
-        }
     }
     
     /**
