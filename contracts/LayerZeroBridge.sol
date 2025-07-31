@@ -11,20 +11,20 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  * @dev Cross-chain bridge contract using LayerZero for SwapScrolls
  * Enables seamless cross-chain swap execution and NFT transfers
  */
+// LayerZero interfaces (simplified for demo)
+interface ILayerZeroEndpoint {
+    function send(
+        uint16 _dstChainId,
+        bytes calldata _destination,
+        bytes calldata _payload,
+        address payable _refundAddress,
+        address _zroPaymentAddress,
+        bytes calldata _adapterParams
+    ) external payable;
+}
+
 contract LayerZeroBridge is Ownable, Pausable, ReentrancyGuard {
     using Strings for uint256;
-    
-    // LayerZero interfaces (simplified for demo)
-    interface ILayerZeroEndpoint {
-        function send(
-            uint16 _dstChainId,
-            bytes calldata _destination,
-            bytes calldata _payload,
-            address payable _refundAddress,
-            address _zroPaymentAddress,
-            bytes calldata _adapterParams
-        ) external payable;
-    }
     
     // Structs
     struct CrossChainSwap {
