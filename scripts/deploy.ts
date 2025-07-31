@@ -79,11 +79,11 @@ async function main() {
 
   // Verify contracts on Etherscan (if not on local network)
   const network = await ethers.provider.getNetwork();
-  if (network.chainId !== 31337n) {
+  if (network.chainId !== BigInt(31337)) {
     console.log("\n🔍 Verifying contracts on Etherscan...");
     try {
       await hre.run("verify:verify", {
-        address: swapScrollNFT.address,
+        address: await swapScrollNFT.getAddress(),
         constructorArguments: [],
       });
       console.log("✅ SwapScrollNFT verified");
@@ -93,7 +93,7 @@ async function main() {
 
     try {
       await hre.run("verify:verify", {
-        address: layerZeroBridge.address,
+        address: await layerZeroBridge.getAddress(),
         constructorArguments: [mockEndpoint],
       });
       console.log("✅ LayerZeroBridge verified");
@@ -103,7 +103,7 @@ async function main() {
 
     try {
       await hre.run("verify:verify", {
-        address: suiBridge.address,
+        address: await suiBridge.getAddress(),
         constructorArguments: [],
       });
       console.log("✅ SuiBridge verified");
@@ -113,7 +113,7 @@ async function main() {
 
     try {
       await hre.run("verify:verify", {
-        address: rewardSystem.address,
+        address: await rewardSystem.getAddress(),
         constructorArguments: [mockRewardToken],
       });
       console.log("✅ RewardSystem verified");
@@ -123,7 +123,7 @@ async function main() {
 
     try {
       await hre.run("verify:verify", {
-        address: mockToken.address,
+        address: await mockToken.getAddress(),
         constructorArguments: ["SwapScrolls Reward", "SSR"],
       });
       console.log("✅ MockRewardToken verified");
