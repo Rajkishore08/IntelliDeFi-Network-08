@@ -3,6 +3,10 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-verify";
 import "dotenv/config";
 
+declare global {
+  var hre: any;
+}
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.19",

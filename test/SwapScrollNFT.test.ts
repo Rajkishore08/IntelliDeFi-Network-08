@@ -2,6 +2,12 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { Contract, ContractFactory, Signer } from "ethers";
 
+declare global {
+  var describe: any;
+  var it: any;
+  var beforeEach: any;
+}
+
 describe("SwapScrollNFT", function () {
   let SwapScrollNFT: ContractFactory;
   let swapScrollNFT: Contract;

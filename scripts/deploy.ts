@@ -1,4 +1,9 @@
 import { ethers } from "hardhat";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+
+declare global {
+  var hre: HardhatRuntimeEnvironment;
+}
 
 async function main() {
   console.log("🚀 Deploying SwapScrolls contracts...");
