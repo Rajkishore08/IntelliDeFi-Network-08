@@ -548,7 +548,7 @@ export default function SwapScrollsPanel() {
           <Card className="glass-panel border-green-500/30 shadow-xl shadow-green-500/10">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Bridge className="h-5 w-5 text-green-400" />
+                <ArrowUpDown className="h-5 w-5 text-green-400" />
                 Bridge to Sui
               </CardTitle>
             </CardHeader>
@@ -574,7 +574,7 @@ export default function SwapScrollsPanel() {
                           {isBridging ? (
                             <RefreshCw className="h-3 w-3 animate-spin" />
                           ) : (
-                            <Bridge className="h-3 w-3" />
+                            <ArrowUpDown className="h-3 w-3" />
                           )}
                           Bridge
                         </Button>
