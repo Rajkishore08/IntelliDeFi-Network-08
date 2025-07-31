@@ -161,7 +161,7 @@ contract LayerZeroBridge is Ownable, Pausable, ReentrancyGuard {
      * @param swapId The swap ID to confirm
      */
     function confirmCrossChainSwap(uint256 swapId) 
-        external 
+        internal 
         onlyValidSwap(swapId) 
     {
         CrossChainSwap storage swap = crossChainSwaps[swapId];
