@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { Button } from "@/components/ui/button"
-import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Menu, X, ExternalLink, Brain, Cpu } from "lucide-react"
+import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Menu, X, ExternalLink, Brain, Cpu, Shield, Zap, TrendingUp, Image } from "lucide-react"
 
 interface NavSidebarProps {
   activeSection: string
@@ -25,8 +25,12 @@ const navItems: NavItem[] = [
   { id: "strategies", label: "Strategies", icon: Settings, description: "Advanced Orders & Copy Trading" },
   { id: "portfolio", label: "Portfolio", icon: Wallet, description: "Holdings & History" },
   { id: "analysis", label: "Trade Analysis", icon: Brain, description: "AI-Powered Performance Analysis" },
+  { id: "security", label: "Security", icon: Shield, description: "Risk Management & Security" },
+  { id: "gamification", label: "Gamification", icon: Trophy, description: "Achievements & Rewards" },
+  { id: "ai-assistant", label: "AI Assistant", icon: Zap, description: "Advanced AI Trading" },
+  { id: "analytics", label: "Analytics", icon: TrendingUp, description: "Advanced Analytics" },
   { id: "process-flow", label: "AI Process Flow", icon: Cpu, description: "Real-time AI Process Visualization" },
-  { id: "nft", label: "NFT Gallery", icon: Trophy, description: "Achievement Badges" },
+  { id: "nft", label: "NFT Gallery", icon: Image, description: "SwapScrolls NFT Collection" },
 ]
 export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen, setSidebarOpen }: NavSidebarProps) {
   return (
