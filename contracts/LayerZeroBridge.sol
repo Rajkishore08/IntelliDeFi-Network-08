@@ -220,6 +220,34 @@ contract LayerZeroBridge is Ownable, Pausable, ReentrancyGuard {
     }
     
     /**
+     * @dev Process incoming bridge message from LayerZero
+     * @param sourceChainId Source chain ID
+     * @param payload Message payload
+     */
+    function _processIncomingMessage(uint16 sourceChainId, bytes memory payload) 
+        internal 
+        onlySupportedChain(sourceChainId) 
+    {
+        uint256 messageId = _messageIdCounter++;
+        
+        BridgeMessage memory message = BridgeMessage({
+            messageId: messageId,
+            payload: payload,
+            sourceChainId: sourceChainId,
+            destinationChainId: 0, // Will be set based on payload
+            timestamp: block.timestamp,
+            processed: false
+        });
+        
+        bridgeMessages[messageId] = message;
+        
+        // Process the message payload
+        _processMessagePayload(messageId, payload);
+        
+        emit BridgeMessageReceived(messageId, sourceChainId, 0);
+    }
+    
+    /**
      * @dev Process message payload and extract swap data
      * @param messageId Message ID
      * @param payload Message payload

@@ -77,9 +77,9 @@ contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, Reentranc
     /**
      * @dev Mint a new SwapScroll NFT
      * @param scrollType Type of scroll to mint
-     * @param tokenURI Metadata URI for the NFT
+     * @param metadataURI Metadata URI for the NFT
      */
-    function mintSwapScroll(string memory scrollType, string memory tokenURI) 
+    function mintSwapScroll(string memory scrollType, string memory metadataURI) 
         external 
         payable 
         nonReentrant 
@@ -112,7 +112,7 @@ contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, Reentranc
         scrollTypeCount[scrollType]++;
         
         _safeMint(msg.sender, newTokenId);
-        _setTokenURI(newTokenId, tokenURI);
+        _setTokenURI(newTokenId, metadataURI);
         
         emit SwapScrollMinted(newTokenId, msg.sender, scrollType);
     }
