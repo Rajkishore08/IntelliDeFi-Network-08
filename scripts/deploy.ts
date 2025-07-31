@@ -66,20 +66,20 @@ async function main() {
   console.log("✅ Supported chains added to LayerZeroBridge");
 
   // Mint some initial reward tokens
-  await mockToken.mint(rewardSystem.address, ethers.utils.parseEther("1000000"));
+  await mockToken.mint(await rewardSystem.getAddress(), ethers.parseEther("1000000"));
   console.log("✅ Initial reward tokens minted");
 
   console.log("\n🎉 Deployment completed successfully!");
   console.log("\n📋 Contract Addresses:");
-  console.log("SwapScrollNFT:", swapScrollNFT.address);
-  console.log("LayerZeroBridge:", layerZeroBridge.address);
-  console.log("SuiBridge:", suiBridge.address);
-  console.log("RewardSystem:", rewardSystem.address);
-  console.log("MockRewardToken:", mockToken.address);
+  console.log("SwapScrollNFT:", await swapScrollNFT.getAddress());
+  console.log("LayerZeroBridge:", await layerZeroBridge.getAddress());
+  console.log("SuiBridge:", await suiBridge.getAddress());
+  console.log("RewardSystem:", await rewardSystem.getAddress());
+  console.log("MockRewardToken:", await mockToken.getAddress());
 
   // Verify contracts on Etherscan (if not on local network)
   const network = await ethers.provider.getNetwork();
-  if (network.chainId !== 31337) {
+  if (network.chainId !== 31337n) {
     console.log("\n🔍 Verifying contracts on Etherscan...");
     try {
       await hre.run("verify:verify", {
