@@ -478,7 +478,7 @@ export default function SwapScrollsPanel() {
                           {isBridging ? (
                             <RefreshCw className="h-3 w-3 animate-spin" />
                           ) : (
-                            <Bridge className="h-3 w-3" />
+                            <ArrowUpDown className="h-3 w-3" />
                           )}
                         </Button>
                       )}
