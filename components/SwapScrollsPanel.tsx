@@ -37,7 +37,6 @@ import {
   Gift,
   Award,
   Medal,
-  Zap,
   Diamond,
   Crown as CrownIcon
 } from "lucide-react"
@@ -359,7 +358,7 @@ export default function SwapScrollsPanel() {
             Mint Scroll
           </TabsTrigger>
           <TabsTrigger value="bridge" className="flex items-center gap-2">
-            <Bridge className="h-4 w-4" />
+            <Globe className="h-4 w-4" />
             Bridge to Sui
           </TabsTrigger>
           <TabsTrigger value="rewards" className="flex items-center gap-2">
