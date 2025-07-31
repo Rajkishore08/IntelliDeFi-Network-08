@@ -34,12 +34,10 @@ import {
   Gem,
   Sparkles,
   Globe,
-  Bridge,
   Gift,
   Award,
   Medal,
-  Fire,
-  Lightning,
+  Zap,
   Diamond,
   Crown as CrownIcon
 } from "lucide-react"
