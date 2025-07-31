@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @dev Mock ERC20 token for SwapScrolls reward system testing
  */
 contract MockRewardToken is ERC20, Ownable {
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) {}
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) Ownable(msg.sender) {}
     
     /**
      * @dev Mint tokens (for testing purposes)
