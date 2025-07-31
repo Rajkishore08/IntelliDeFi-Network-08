@@ -24,34 +24,34 @@ async function main() {
   const LayerZeroBridge = await ethers.getContractFactory("LayerZeroBridge");
   const mockEndpoint = "0x66A71Dcef29A0fFBDBE3c6a460a3B5BC225Cd675"; // Mock endpoint
   const layerZeroBridge = await LayerZeroBridge.deploy(mockEndpoint);
-  await layerZeroBridge.deployed();
-  console.log("LayerZeroBridge deployed to:", layerZeroBridge.address);
+  await layerZeroBridge.waitForDeployment();
+  console.log("LayerZeroBridge deployed to:", await layerZeroBridge.getAddress());
 
   // Deploy SuiBridge
   console.log("\n🔗 Deploying SuiBridge...");
   const SuiBridge = await ethers.getContractFactory("SuiBridge");
   const suiBridge = await SuiBridge.deploy();
-  await suiBridge.deployed();
-  console.log("SuiBridge deployed to:", suiBridge.address);
+  await suiBridge.waitForDeployment();
+  console.log("SuiBridge deployed to:", await suiBridge.getAddress());
 
   // Deploy RewardSystem (using mock reward token for demo)
   console.log("\n🎁 Deploying RewardSystem...");
   const RewardSystem = await ethers.getContractFactory("RewardSystem");
   const mockRewardToken = "0x6B175474E89094C44Da98b954EedeAC495271d0F"; // DAI as mock
   const rewardSystem = await RewardSystem.deploy(mockRewardToken);
-  await rewardSystem.deployed();
-  console.log("RewardSystem deployed to:", rewardSystem.address);
+  await rewardSystem.waitForDeployment();
+  console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
 
   // Deploy mock reward token for testing
   console.log("\n🪙 Deploying MockRewardToken...");
   const MockRewardToken = await ethers.getContractFactory("MockRewardToken");
   const mockToken = await MockRewardToken.deploy("SwapScrolls Reward", "SSR");
-  await mockToken.deployed();
-  console.log("MockRewardToken deployed to:", mockToken.address);
+  await mockToken.waitForDeployment();
+  console.log("MockRewardToken deployed to:", await mockToken.getAddress());
 
   // Update RewardSystem with real token address
   console.log("\n🔄 Updating RewardSystem with real token...");
-  await rewardSystem.updateRewardToken(mockToken.address);
+  await rewardSystem.updateRewardToken(await mockToken.getAddress());
   console.log("RewardSystem updated with real token");
 
   // Set up initial configuration
