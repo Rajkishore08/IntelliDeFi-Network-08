@@ -26,7 +26,6 @@ import {
   RefreshCw,
   Play,
   Pause,
-  Stop,
   Settings,
   Eye,
   EyeOff,

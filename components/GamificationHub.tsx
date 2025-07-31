@@ -20,7 +20,6 @@ import {
   Users,
   Calendar,
   Clock,
-  Fire,
   Sparkles,
   Gem,
   Diamond,
