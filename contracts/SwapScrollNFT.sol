@@ -4,7 +4,6 @@ pragma solidity ^0.8.19;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
@@ -14,9 +13,7 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  * Built on top of 1inch Fusion+ with LayerZero and Sui integration
  */
 contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, ReentrancyGuard {
-    using Counters for Counters.Counter;
-    
-    Counters.Counter private _tokenIds;
+    uint256 private _tokenIds;
     
     // Structs
     struct SwapScroll {
@@ -74,7 +71,7 @@ contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, Reentranc
     }
     
     constructor() ERC721("SwapScrolls", "SWAPSCROLL") {
-        _tokenIds.increment(); // Start from 1
+        _tokenIds = 1; // Start from 1
     }
     
     /**
@@ -89,11 +86,11 @@ contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, Reentranc
         whenNotPaused 
     {
         require(msg.value >= MINT_PRICE, "Insufficient mint price");
-        require(_tokenIds.current() <= MAX_SUPPLY, "Max supply reached");
+        require(_tokenIds <= MAX_SUPPLY, "Max supply reached");
         require(bytes(scrollType).length > 0, "Invalid scroll type");
         
-        uint256 newTokenId = _tokenIds.current();
-        _tokenIds.increment();
+        uint256 newTokenId = _tokenIds;
+        _tokenIds++;
         
         // Create new SwapScroll
         SwapScroll memory newScroll = SwapScroll({

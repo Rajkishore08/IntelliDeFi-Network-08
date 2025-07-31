@@ -5,16 +5,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-
 /**
  * @title RewardSystem
  * @dev Gamified reward system for SwapScrolls
  * Handles points, achievements, and reputation tracking
  */
 contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
-    using Counters for Counters.Counter;
-    
     // Structs
     struct Achievement {
         uint256 id;
@@ -52,8 +48,8 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
     mapping(uint256 => Achievement) public achievements;
     mapping(uint256 => RewardTier) public rewardTiers;
     
-    Counters.Counter private _achievementIdCounter;
-    Counters.Counter private _tierIdCounter;
+    uint256 private _achievementIdCounter;
+    uint256 private _tierIdCounter;
     
     // Reward tokens
     IERC20 public rewardToken;
@@ -86,6 +82,8 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
     
     constructor(address _rewardToken) {
         rewardToken = IERC20(_rewardToken);
+        _achievementIdCounter = 1;
+        _tierIdCounter = 1;
         _initializeAchievements();
         _initializeRewardTiers();
     }
@@ -416,8 +414,8 @@ contract RewardSystem is Ownable, Pausable, ReentrancyGuard {
         uint256 requiredVolume,
         uint256 requiredChains
     ) internal {
-        uint256 achievementId = _achievementIdCounter.current() + 1;
-        _achievementIdCounter.increment();
+        uint256 achievementId = _achievementIdCounter;
+        _achievementIdCounter++;
         
         achievements[achievementId] = Achievement({
             id: achievementId,
