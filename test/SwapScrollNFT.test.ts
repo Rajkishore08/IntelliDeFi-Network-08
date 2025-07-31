@@ -3,15 +3,9 @@ import { ethers } from "hardhat";
 import { ContractFactory, Signer } from "ethers";
 import { SwapScrollNFT } from "../typechain-types";
 
-declare global {
-  var describe: any;
-  var it: any;
-  var beforeEach: any;
-}
-
 describe("SwapScrollNFT", function () {
   let SwapScrollNFT: ContractFactory;
-  let swapScrollNFT: Contract;
+  let swapScrollNFT: SwapScrollNFT;
   let owner: Signer;
   let user1: Signer;
   let user2: Signer;
