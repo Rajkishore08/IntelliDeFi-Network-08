@@ -66,11 +66,11 @@ contract SwapScrollNFT is ERC721, ERC721URIStorage, Ownable, Pausable, Reentranc
     }
     
     modifier scrollExists(uint256 tokenId) {
-        require(_exists(tokenId), "Scroll does not exist");
+        require(ownerOf(tokenId) != address(0), "Scroll does not exist");
         _;
     }
     
-    constructor() ERC721("SwapScrolls", "SWAPSCROLL") {
+    constructor() ERC721("SwapScrolls", "SWAPSCROLL") Ownable(msg.sender) {
         _tokenIds = 1; // Start from 1
     }
     
