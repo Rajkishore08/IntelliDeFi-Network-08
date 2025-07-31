@@ -21,6 +21,10 @@ import NotificationsBar from "@/components/NotificationsBar"
 import Footer from "@/components/Footer"
 import TradeAnalysisPanel from "@/components/TradeAnalysisPanel"
 import PortfolioDashboard from "@/components/PortfolioDashboard"
+import SecurityDashboard from "@/components/SecurityDashboard"
+import GamificationHub from "@/components/GamificationHub"
+import AITradingAssistant from "@/components/AITradingAssistant"
+import AnalyticsDashboard from "@/components/AnalyticsDashboard"
 import { WalletProvider } from "@/contexts/WalletContext"
 import { NotificationProvider } from "@/contexts/NotificationContext"
 
@@ -130,6 +134,10 @@ export default function IntelliDeFiApp() {
       ),
       portfolio: <PortfolioDashboard />,
       analysis: <TradeAnalysisPanel />,
+      security: <SecurityDashboard />,
+      gamification: <GamificationHub />,
+      "ai-assistant": <AITradingAssistant />,
+      analytics: <AnalyticsDashboard />,
       "process-flow": (
         <div className="space-y-8">
           <div className="text-center">
