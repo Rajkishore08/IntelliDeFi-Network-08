@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 declare global {
   var hre: any;
