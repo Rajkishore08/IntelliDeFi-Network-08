@@ -15,6 +15,7 @@ import {
   ChevronUp
 } from "lucide-react"
 import { useNotification } from "@/contexts/NotificationContext"
+import { useWallet } from "@/contexts/WalletContext"
 
 interface WalletInfo {
   address: string
@@ -30,13 +31,13 @@ declare global {
 }
 
 export default function ConnectWallet() {
-  const [isConnected, setIsConnected] = useState(false)
-  const [isConnecting, setIsConnecting] = useState(false)
-  const [walletInfo, setWalletInfo] = useState<WalletInfo | null>(null)
   const [showDropdown, setShowDropdown] = useState(false)
   const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(false)
+  const [isConnecting, setIsConnecting] = useState(false)
+  const [walletInfo, setWalletInfo] = useState<WalletInfo | null>(null)
 
   const { addNotification } = useNotification()
+  const { isConnected, address, balance, connect, disconnect } = useWallet()
 
   // Check if MetaMask is installed
   useEffect(() => {
@@ -48,36 +49,54 @@ export default function ConnectWallet() {
     checkMetaMask()
   }, [])
 
-  // Check connection status on mount and set up event listeners
+  // Update wallet info when context changes
   useEffect(() => {
-    const checkConnection = async () => {
-      if (typeof window !== "undefined" && window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({ method: 'eth_accounts' })
-          if (accounts.length > 0) {
-            await handleWalletConnection()
+    if (isConnected && address) {
+      // Get network info
+      const getNetworkInfo = async () => {
+        if (typeof window !== "undefined" && window.ethereum) {
+          try {
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+            const network = getNetworkName(parseInt(chainId, 16))
+            
+            setWalletInfo({
+              address,
+              balance,
+              network,
+              chainId: parseInt(chainId, 16)
+            })
+          } catch (error) {
+            console.error('Error getting network info:', error)
+            // Fallback network info
+            setWalletInfo({
+              address,
+              balance,
+              network: "Ethereum Mainnet",
+              chainId: 1
+            })
           }
-        } catch (error) {
-          console.error('Error checking wallet connection:', error)
         }
       }
+      getNetworkInfo()
+    } else {
+      setWalletInfo(null)
     }
-    checkConnection()
+  }, [isConnected, address, balance])
 
-    // Set up MetaMask event listeners
+  // Set up MetaMask event listeners
+  useEffect(() => {
     if (typeof window !== "undefined" && window.ethereum) {
       const handleAccountsChanged = (accounts: string[]) => {
         if (accounts.length === 0) {
           // User disconnected their wallet
-          setIsConnected(false)
-          setWalletInfo(null)
+          disconnect()
           addNotification({
             type: "info",
             message: "Wallet disconnected",
             duration: 3000,
           })
         } else {
-          // User switched accounts
+          // User switched accounts - reconnect
           handleWalletConnection()
         }
       }
@@ -95,7 +114,7 @@ export default function ConnectWallet() {
         window.ethereum.removeListener('chainChanged', handleChainChanged)
       }
     }
-  }, [])
+  }, [disconnect, addNotification])
 
   const handleWalletConnection = useCallback(async () => {
     if (typeof window === "undefined") {
@@ -119,61 +138,27 @@ export default function ConnectWallet() {
     setIsConnecting(true)
 
     try {
-      // First check if MetaMask is unlocked
-      const accounts = await window.ethereum.request({ 
-        method: 'eth_accounts' 
-      })
+      await connect()
+      setShowDropdown(false)
       
-      if (accounts.length === 0) {
-        addNotification({
-          type: "error",
-          message: "Please unlock MetaMask and try again",
-          duration: 5000,
-        })
-        return
-      }
-
-      // Request account access with better error handling
-      const requestedAccounts = await window.ethereum.request({ 
-        method: 'eth_requestAccounts' 
-      })
-
-      if (requestedAccounts && requestedAccounts.length > 0) {
-        const account = requestedAccounts[0]
-        
-        // Get network info
-        const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-        const network = getNetworkName(parseInt(chainId, 16))
-        
-        // Get balance
-        const balance = await window.ethereum.request({
-          method: 'eth_getBalance',
-          params: [account, 'latest']
-        })
-        
-        const balanceInEth = (parseInt(balance, 16) / 1e18).toFixed(4)
-
-        setWalletInfo({
-          address: account,
-          balance: balanceInEth,
-          network,
-          chainId: parseInt(chainId, 16)
-        })
-        
-        setIsConnected(true)
-        setShowDropdown(false)
-
-        addNotification({
-          type: "success",
-          message: `Connected to ${network}`,
-          duration: 3000,
-        })
-      } else {
-        addNotification({
-          type: "error",
-          message: "No accounts found. Please create an account in MetaMask.",
-          duration: 5000,
-        })
+      // Get network info for notification
+      if (typeof window !== "undefined" && window.ethereum) {
+        try {
+          const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+          const network = getNetworkName(parseInt(chainId, 16))
+          
+          addNotification({
+            type: "success",
+            message: `Connected to ${network}`,
+            duration: 3000,
+          })
+        } catch (error) {
+          addNotification({
+            type: "success",
+            message: "Wallet connected successfully",
+            duration: 3000,
+          })
+        }
       }
     } catch (error: any) {
       console.error('Error connecting wallet:', error)
@@ -206,11 +191,10 @@ export default function ConnectWallet() {
     } finally {
       setIsConnecting(false)
     }
-  }, [addNotification])
+  }, [connect, addNotification])
 
   const disconnectWallet = useCallback(() => {
-    setIsConnected(false)
-    setWalletInfo(null)
+    disconnect()
     setShowDropdown(false)
     
     addNotification({
@@ -218,7 +202,7 @@ export default function ConnectWallet() {
       message: "Wallet disconnected",
       duration: 3000,
     })
-  }, [addNotification])
+  }, [disconnect, addNotification])
 
   const copyAddress = useCallback(async () => {
     if (walletInfo?.address) {
@@ -296,7 +280,7 @@ export default function ConnectWallet() {
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-4 w-4" />
                 <span className="hidden md:inline">
-                  {walletInfo?.address.slice(0, 6)}...{walletInfo?.address.slice(-4)}
+                  {walletInfo?.address?.slice(0, 6)}...{walletInfo?.address?.slice(-4)}
                 </span>
                 {showDropdown ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
               </div>

@@ -21,27 +21,56 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const connect = useCallback(async () => {
     try {
-      const provider: any = await detectEthereumProvider()
-      if (provider) {
-        // Request account access if needed
-        await provider.request({ method: 'eth_requestAccounts' })
-        const ethersProvider = new ethers.BrowserProvider(provider)
-        const signer = await ethersProvider.getSigner()
-        const userAddress = await signer.getAddress()
-        setIsConnected(true)
-        setAddress(userAddress)
-        // Get ETH balance
-        const balanceBig = await ethersProvider.getBalance(userAddress)
-        setBalance(ethers.formatEther(balanceBig))
-      } else {
+      // Check if we're in a browser environment
+      if (typeof window === "undefined") {
+        throw new Error("Please use a web browser to connect wallet")
+      }
+
+      // Detect MetaMask provider
+      const provider: any = await detectEthereumProvider({ mustBeMetaMask: true })
+      
+      if (!provider) {
         throw new Error("MetaMask not detected. Please install MetaMask.")
       }
-    } catch (error) {
+
+      // Check if MetaMask is unlocked
+      const accounts = await provider.request({ method: 'eth_accounts' })
+      
+      if (accounts.length === 0) {
+        // Request account access
+        const requestedAccounts = await provider.request({ 
+          method: 'eth_requestAccounts' 
+        })
+        
+        if (!requestedAccounts || requestedAccounts.length === 0) {
+          throw new Error("No accounts found. Please create an account in MetaMask.")
+        }
+      }
+
+      // Create ethers provider and get signer
+      const ethersProvider = new ethers.BrowserProvider(provider)
+      const signer = await ethersProvider.getSigner()
+      const userAddress = await signer.getAddress()
+      
+      // Get ETH balance
+      const balanceBig = await ethersProvider.getBalance(userAddress)
+      const balanceFormatted = ethers.formatEther(balanceBig)
+      
+      // Update state
+      setIsConnected(true)
+      setAddress(userAddress)
+      setBalance(balanceFormatted)
+      
+    } catch (error: any) {
+      console.error("Failed to connect wallet:", error)
+      
+      // Reset state on error
       setIsConnected(false)
       setAddress(null)
       setBalance("0.00")
-      console.error("Failed to connect wallet:", error)
-      alert("Failed to connect wallet: " + (error instanceof Error ? error.message : error))
+      
+      // Re-throw the error for the component to handle
+      throw error
     }
   }, [])
 
@@ -49,7 +78,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setIsConnected(false)
     setAddress(null)
     setBalance("0.00")
-    // Optionally, you can clear provider state or reload the page
   }, [])
 
   return (
