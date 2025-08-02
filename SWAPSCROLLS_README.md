@@ -37,7 +37,7 @@ contracts/
 ├── LayerZeroBridge.sol        # Cross-chain bridge using LayerZero
 ├── SuiBridge.sol             # Sui blockchain integration
 ├── RewardSystem.sol          # Gamified reward system
-└── MockRewardToken.sol       # Mock token for testing
+└── SwapScrollsToken.sol      # Native token for rewards and governance
 ```
 
 ### Frontend Components

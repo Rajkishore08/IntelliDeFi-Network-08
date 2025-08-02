@@ -878,45 +878,6 @@
         "RewardSystem"
       ]
     },
-    "D:\\Projects- own during intern\\eth hack\\contracts\\SwapScrollsToken.sol": {
-      "lastModificationDate": 1754136756614,
-      "contentHash": "5d4d1c4f0b378d99746dcae6b230f47b",
-      "sourceName": "contracts/SwapScrollsToken.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.19"
-      ],
-      "artifacts": [
-        "SwapScrollsToken"
-      ]
-    },
     "D:\\Projects- own during intern\\eth hack\\contracts\\SwapScrollNFT.sol": {
       "lastModificationDate": 1753977514997,
       "contentHash": "23afc65fd916e551a88d226993f99898",
@@ -998,6 +959,45 @@
       ],
       "artifacts": [
         "SuiBridge"
+      ]
+    },
+    "D:\\Projects- own during intern\\eth hack\\contracts\\MockRewardToken.sol": {
+      "lastModificationDate": 1754137272051,
+      "contentHash": "7476b09c99cc15aea4e984c3e04abda3",
+      "sourceName": "contracts/MockRewardToken.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "MockRewardToken"
       ]
     }
   }

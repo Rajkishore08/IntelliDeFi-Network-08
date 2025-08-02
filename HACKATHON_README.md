@@ -1,379 +1,188 @@
-# 🚀 IntelliDeFi Network - 1inch Fusion+ Integration
+# SwapScrolls 🎯 - ETHGlobal Hackathon Submission
 
-## 🏆 ETHGlobal Unite Hackathon Submission
+> **The Next Generation Cross-Chain DeFi Platform**
 
-**Project:** IntelliDeFi Network - AI-Powered Cross-Chain DeFi Platform  
-**Track:** Fusion+ Cross-Chain Integration  
-**Team:** Raj Kishore S @ Unite DeFi  
-**Hackathon:** ETHGlobal Unite 2024  
+## 🏆 Project Overview
 
----
+SwapScrolls is a revolutionary DeFi application that combines cross-chain swapping, AI-powered trading, and gamified rewards. Built for the ETHGlobal Hackathon Cross-Chain DeFi Challenge, it demonstrates advanced cross-chain functionality with seamless integration of multiple blockchain networks.
 
-## 🎯 Project Overview
+## ✨ Key Features
 
-IntelliDeFi Network is a comprehensive AI-powered DeFi platform that integrates **1inch Fusion+ protocol** for seamless cross-chain token swaps. Our platform demonstrates advanced cross-chain functionality with enhanced security, user experience, and AI-driven insights.
+### 🌉 Cross-Chain Functionality
+- **LayerZero Integration**: Seamless cross-chain messaging and swap execution
+- **Sui Bridge**: Transfer NFTs between Ethereum and Sui blockchain
+- **Multi-Chain Support**: Ethereum, Polygon, Arbitrum, Optimism, Base, and Sui
+- **Gasless Swaps**: Leverage 1inch Fusion+ for gasless cross-chain swaps
 
-### 🌟 Key Features
+### 🤖 AI-Powered Trading
+- **Intelligent Route Optimization**: AI-powered swap route selection
+- **Real-time Market Analysis**: Advanced analytics and performance tracking
+- **Automated Trading Strategies**: TWAP, options, and concentrated liquidity
+- **Risk Management**: Advanced security features and risk alerts
 
-#### **1. Fusion+ Cross-Chain Integration**
-- **Bidirectional Cross-Chain Swaps**: Ethereum ↔ Polygon, BSC, Arbitrum, Optimism, Avalanche
-- **Hashlock & Timelock Security**: Preserves Fusion+ security mechanisms
-- **Partial Fill Support**: Enables partial order execution
-- **MEV Protection**: Advanced protection against MEV attacks
-- **Real-time Quote System**: Live pricing and execution estimates
+### 🎮 Gamified Experience
+- **Dynamic NFT Scrolls**: Mint unique SwapScroll NFTs with different tiers
+- **Achievement System**: Unlock achievements for trading milestones
+- **Reputation Tracking**: Build on-chain reputation through successful swaps
+- **Reward Points**: Earn points for every swap and redeem them for rewards
 
-#### **2. AI-Powered Command Interface**
-- **Natural Language Trading**: "Swap 100 USDC for ETH on Ethereum at best rate"
-- **Intelligent Process Flow**: Real-time visualization of cross-chain operations
-- **Smart Route Optimization**: AI-driven path finding for optimal swaps
+### 🔒 Advanced Security
+- **Proxy-based API Integration**: Secure 1inch API integration (no API key leaks)
+- **Multi-layer Security**: Advanced risk management and security features
+- **Real-time Monitoring**: Continuous transaction monitoring and alerts
 
-#### **3. Advanced Trading Features**
-- **Enhanced Swap Panel**: Complete 1inch aggregation integration
-- **Strategy Builder**: Limit orders, TWAP, stop-loss, options strategies
-- **Portfolio Management**: Cross-chain portfolio tracking
-- **Trade Analysis**: AI-powered performance insights
+## 🏗️ Technical Architecture
 
----
-
-## 🛠️ Technical Implementation
-
-### **Fusion+ Integration Architecture**
-
-```typescript
-// Core Fusion+ API Integration
-interface FusionQuoteRequest {
-  fromTokenAddress: string
-  toTokenAddress: string
-  amount: string
-  fromAddress: string
-  chainId: number
-  allowPartialFill?: boolean
-  enableEstimate?: boolean
-}
-
-// Cross-Chain Execution Flow
-const executionSteps = [
-  "Initializing Fusion+ quote",
-  "Validating cross-chain parameters", 
-  "Creating hashlock commitment",
-  "Setting up timelock contracts",
-  "Executing source chain transaction",
-  "Waiting for cross-chain confirmation",
-  "Executing destination chain transaction",
-  "Completing swap and releasing funds"
-]
+### Smart Contracts
+```
+contracts/
+├── SwapScrollNFT.sol          # Main NFT contract for SwapScrolls
+├── LayerZeroBridge.sol        # Cross-chain bridge using LayerZero
+├── SuiBridge.sol             # Sui blockchain integration
+├── RewardSystem.sol          # Gamified reward system
+└── SwapScrollsToken.sol      # Native token for rewards and governance
 ```
 
-### **Supported Chains & Networks**
+### Frontend Architecture
+- **Next.js 14**: Modern React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **Framer Motion**: Smooth animations and transitions
+- **Ethers.js**: Web3 integration
 
-| Chain | Network | Symbol | Status |
-|-------|---------|--------|--------|
-| 1 | Ethereum | ETH | ✅ Active |
-| 137 | Polygon | MATIC | ✅ Active |
-| 56 | BSC | BNB | ✅ Active |
-| 42161 | Arbitrum | ARB | ✅ Active |
-| 10 | Optimism | OP | ✅ Active |
-| 43114 | Avalanche | AVAX | ✅ Active |
+### Cross-Chain Technologies
+- **LayerZero**: Cross-chain messaging protocol
+- **1inch Fusion+**: Advanced swap aggregation
+- **Sui Move**: Sui blockchain integration
+- **OpenZeppelin**: Secure smart contract libraries
 
-### **Security Features**
+## 🚀 Demo Features
 
-- **Hashlock Implementation**: Cryptographic commitment for cross-chain swaps
-- **Timelock Contracts**: Time-based security mechanisms
-- **Bidirectional Validation**: Both source and destination chain verification
-- **Partial Fill Protection**: Safe partial execution handling
+### 1. Cross-Chain Swapping
+- Seamless token swaps across multiple chains
+- Real-time price quotes and route optimization
+- Gasless transactions using 1inch Fusion+
 
----
+### 2. AI Trading Assistant
+- Natural language interface for trading commands
+- Intelligent route selection and optimization
+- Real-time market analysis and recommendations
+
+### 3. Gamified Rewards
+- Dynamic NFT minting based on trading activity
+- Achievement system with on-chain reputation
+- Reward points and tier-based benefits
+
+### 4. Advanced Analytics
+- Real-time portfolio tracking
+- Performance analytics and risk assessment
+- Cross-chain transaction history
+
+## 🎯 Hackathon Achievements
+
+### Technical Innovation
+- ✅ **Cross-Chain Integration**: Successfully integrated LayerZero and Sui
+- ✅ **AI-Powered Trading**: Implemented intelligent route optimization
+- ✅ **Gamified DeFi**: Created engaging reward and achievement system
+- ✅ **Advanced Security**: Multi-layer security with proxy-based API
+
+### User Experience
+- ✅ **Modern UI/UX**: Professional, responsive design
+- ✅ **Real-time Updates**: Live transaction monitoring
+- ✅ **Mobile Responsive**: Optimized for all devices
+- ✅ **Accessibility**: WCAG compliant design
+
+### DeFi Features
+- ✅ **1inch Integration**: Full Fusion+ and Limit Order Protocol support
+- ✅ **Multi-Chain Support**: 6+ blockchain networks
+- ✅ **NFT Integration**: Dynamic NFT minting and trading
+- ✅ **Advanced Trading**: TWAP, options, and concentrated liquidity
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **Next.js 14**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **Framer Motion**: Animations and transitions
+- **Radix UI**: Accessible component library
+
+### Backend & Smart Contracts
+- **Solidity**: Smart contract development
+- **Hardhat**: Development and testing framework
+- **OpenZeppelin**: Secure contract libraries
+- **Ethers.js**: Web3 integration
+
+### Cross-Chain
+- **LayerZero**: Cross-chain messaging
+- **1inch Fusion+**: Advanced swap aggregation
+- **Sui Move**: Sui blockchain integration
+
+### AI & Analytics
+- **Custom AI Algorithms**: Route optimization
+- **Real-time Analytics**: Performance tracking
+- **Risk Management**: Advanced security features
 
 ## 🚀 Getting Started
 
-### **Prerequisites**
-```bash
-Node.js 18+
-npm or yarn
-MetaMask wallet
-1inch API key
-```
+### Prerequisites
+- Node.js 18+
+- MetaMask or other Web3 wallet
+- Hardhat for smart contract development
 
-### **Installation**
+### Installation
 ```bash
-# Clone the repository
+# Clone repository
 git clone <repository-url>
-cd intellidefi-network
+cd swapscrolls
 
 # Install dependencies
 npm install
 
-# Set up environment variables
+# Set up environment
 cp .env.example .env
-# Add your 1inch API key to .env
 
-# Start development server
+# Run development server
 npm run dev
+
+# Deploy contracts
+npx hardhat compile
+npx hardhat run scripts/deploy.ts --network <network>
 ```
 
-### **Environment Configuration**
-```env
-# 1inch API Configuration
-NEXT_PUBLIC_1INCH_API_KEY=your_1inch_api_key_here
-NEXT_PUBLIC_1INCH_API_URL=https://api.1inch.dev
+## 📊 Demo Links
 
-# Fusion+ Configuration
-NEXT_PUBLIC_FUSION_API_URL=https://fusion.1inch.io
-NEXT_PUBLIC_LIMIT_ORDER_API_URL=https://limit-order.1inch.io
+- **Live Demo**: [SwapScrolls App](https://swapscrolls.vercel.app)
+- **GitHub Repository**: [Source Code](https://github.com/your-repo/swapscrolls)
+- **Documentation**: [Technical Docs](https://docs.swapscrolls.com)
 
-# Cross-chain Configuration
-NEXT_PUBLIC_SUPPORTED_CHAINS=ethereum,polygon,bsc,arbitrum,optimism,avalanche
-NEXT_PUBLIC_FUSION_CHAINS=ethereum,polygon,bsc,arbitrum
-```
+## 🏆 Hackathon Impact
 
----
+### Innovation
+- First cross-chain DeFi platform with AI-powered trading
+- Seamless integration of LayerZero and Sui
+- Advanced gamification system for DeFi
 
-## 🎮 Usage Guide
+### User Experience
+- Intuitive interface for complex DeFi operations
+- Real-time feedback and transaction monitoring
+- Mobile-first responsive design
 
-### **1. Connect Wallet**
-- Click "Connect Wallet" in the top-right corner
-- Approve MetaMask connection
-- View wallet balance and network
+### Technical Excellence
+- Production-ready smart contracts
+- Comprehensive testing and security audits
+- Scalable architecture for future growth
 
-### **2. Fusion+ Cross-Chain Swap**
-- Navigate to "Swap" section
-- Select "Fusion+ Cross-Chain" tab
-- Choose source and destination chains
-- Enter token addresses or select popular tokens
-- Specify amount
-- Get Fusion+ quote
-- Execute cross-chain swap
+## 🤝 Team
 
-### **3. AI Command Interface**
-- Use natural language commands:
-  - "Swap 100 USDC for ETH on Ethereum"
-  - "Get quote for 50 MATIC to USDC on Polygon"
-  - "Show my cross-chain portfolio"
+Built with ❤️ for the ETHGlobal Hackathon Cross-Chain DeFi Challenge.
 
-### **4. Advanced Features**
-- **Strategy Builder**: Create limit orders and advanced strategies
-- **Portfolio Dashboard**: Track cross-chain holdings
-- **Trade Analysis**: AI-powered performance insights
+## 📄 License
+
+MIT License - see LICENSE file for details.
 
 ---
 
-## 🔧 Technical Deep Dive
+**SwapScrolls** - The Next Generation Cross-Chain DeFi Platform 🚀
 
-### **Fusion+ API Integration**
-
-```typescript
-// 1inch API Service
-class OneInchAPI {
-  async getFusionQuote(params: FusionQuoteRequest): Promise<FusionQuoteResponse> {
-    const queryParams = new URLSearchParams({
-      fromTokenAddress: params.fromTokenAddress,
-      toTokenAddress: params.toTokenAddress,
-      amount: params.amount,
-      fromAddress: params.fromAddress,
-      chainId: params.chainId.toString(),
-      allowPartialFill: params.allowPartialFill?.toString(),
-      enableEstimate: params.enableEstimate?.toString(),
-    })
-
-    return this.request<FusionQuoteResponse>(
-      `/fusion/quote?${queryParams}`
-    )
-  }
-}
-```
-
-### **Cross-Chain Execution Flow**
-
-1. **Quote Generation**: Get Fusion+ quote with cross-chain parameters
-2. **Hashlock Creation**: Generate cryptographic commitment
-3. **Timelock Setup**: Configure time-based security
-4. **Source Execution**: Execute transaction on source chain
-5. **Cross-Chain Wait**: Wait for cross-chain confirmation
-6. **Destination Execution**: Execute on destination chain
-7. **Fund Release**: Complete swap and release funds
-
-### **Security Implementation**
-
-```typescript
-// Hashlock Implementation
-const createHashlock = (secret: string, timeout: number) => {
-  const hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(secret))
-  const timelock = Math.floor(Date.now() / 1000) + timeout
-  
-  return {
-    hash,
-    timelock,
-    secret
-  }
-}
-```
-
----
-
-## 🏆 Hackathon Requirements Compliance
-
-### ✅ **Core Requirements Met**
-
-1. **✅ Preserve Hashlock & Timelock Functionality**
-   - Implemented cryptographic hashlock commitments
-   - Time-based security mechanisms
-   - Cross-chain validation
-
-2. **✅ Bidirectional Cross-Chain Swaps**
-   - Ethereum ↔ Polygon, BSC, Arbitrum, Optimism, Avalanche
-   - Full bidirectional support
-   - Real-time quote system
-
-3. **✅ Onchain Execution**
-   - Mainnet/testnet deployment ready
-   - Live transaction execution
-   - Cross-chain confirmation tracking
-
-### ✅ **Stretch Goals Achieved**
-
-1. **✅ Comprehensive UI**
-   - Modern, responsive interface
-   - Real-time progress tracking
-   - Cross-chain portfolio view
-
-2. **✅ Partial Fill Support**
-   - Partial order execution
-   - Safe partial fill handling
-   - User-friendly partial fill UI
-
----
-
-## 🎨 UI/UX Features
-
-### **Modern Design**
-- **Glass Morphism**: Translucent panels with blur effects
-- **Gradient Animations**: Smooth color transitions
-- **Real-time Updates**: Live data and progress indicators
-- **Responsive Layout**: Mobile and desktop optimized
-
-### **User Experience**
-- **Intuitive Navigation**: Clear section organization
-- **Real-time Feedback**: Instant notifications and status updates
-- **Error Handling**: Comprehensive error messages and recovery
-- **Loading States**: Smooth loading animations
-
----
-
-## 🔮 Future Enhancements
-
-### **Planned Features**
-- **Additional Chains**: Support for more Fusion+ chains
-- **Advanced Strategies**: Options, concentrated liquidity
-- **Mobile App**: Native mobile application
-- **DeFi Integration**: Yield farming, lending protocols
-
-### **Technical Roadmap**
-- **Layer 2 Integration**: Optimistic rollups support
-- **MEV Protection**: Advanced MEV mitigation
-- **Cross-Chain NFTs**: NFT bridging capabilities
-- **DAO Governance**: Community governance features
-
----
-
-## 🛡️ Security & Testing
-
-### **Security Measures**
-- **Code Audits**: Comprehensive security reviews
-- **Test Coverage**: Extensive unit and integration tests
-- **Error Handling**: Robust error management
-- **Input Validation**: Strict input sanitization
-
-### **Testing Strategy**
-```bash
-# Run tests
-npm test
-
-# Run security audit
-npm audit
-
-# Run type checking
-npm run type-check
-```
-
----
-
-## 📊 Performance Metrics
-
-### **Technical Performance**
-- **Build Size**: 340 kB (optimized)
-- **Load Time**: < 3 seconds
-- **API Response**: < 500ms average
-- **Cross-Chain Speed**: < 30 seconds
-
-### **User Metrics**
-- **Supported Chains**: 6 major networks
-- **Token Support**: 1000+ tokens
-- **Security Features**: 8-layer protection
-- **UI Components**: 50+ reusable components
-
----
-
-## 🤝 Contributing
-
-### **Development Setup**
-```bash
-# Fork the repository
-# Create feature branch
-git checkout -b feature/fusion-plus-enhancement
-
-# Make changes and test
-npm run test
-npm run build
-
-# Submit pull request
-```
-
-### **Code Standards**
-- **TypeScript**: Strict type checking
-- **ESLint**: Code quality enforcement
-- **Prettier**: Code formatting
-- **Conventional Commits**: Standard commit messages
-
----
-
-## 📞 Support & Contact
-
-### **Team Information**
-- **Lead Developer**: Raj Kishore S
-- **Project**: IntelliDeFi Network
-- **Hackathon**: ETHGlobal Unite 2024
-- **Track**: Fusion+ Cross-Chain Integration
-
-### **Resources**
-- **Documentation**: [Project Wiki]
-- **API Docs**: [1inch Fusion+ Documentation]
-- **Community**: [Discord Server]
-- **GitHub**: [Repository Link]
-
----
-
-## 🏅 Hackathon Impact
-
-### **Innovation Highlights**
-- **First AI-Powered Fusion+ Integration**: Natural language trading commands
-- **Advanced Cross-Chain UX**: Seamless multi-chain experience
-- **Real-time Process Visualization**: Live cross-chain operation tracking
-- **Comprehensive Security**: Multi-layer protection mechanisms
-
-### **Technical Achievements**
-- **6 Chain Support**: Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche
-- **1000+ Tokens**: Extensive token support across chains
-- **< 30s Execution**: Fast cross-chain swap completion
-- **Zero Security Incidents**: Robust security implementation
-
----
-
-## 🎉 Conclusion
-
-IntelliDeFi Network represents a significant advancement in cross-chain DeFi technology, successfully integrating 1inch Fusion+ protocol with AI-powered features and comprehensive security measures. Our platform demonstrates the future of decentralized finance with seamless cross-chain interoperability, enhanced user experience, and robust security architecture.
-
-**Ready for production deployment and real-world usage!** 🚀
-
----
-
-*Built with ❤️ for the 1inch ETHGlobal Unite Hackathon* 
+*Built for ETHGlobal Hackathon 2024* 

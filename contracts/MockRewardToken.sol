@@ -5,14 +5,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title SwapScrollsToken
- * @dev ERC20 token for SwapScrolls reward system and governance
+ * @title MockRewardToken
+ * @dev Mock ERC20 token for IntelliDeFi reward system testing
  */
-contract SwapScrollsToken is ERC20, Ownable {
+contract MockRewardToken is ERC20, Ownable {
     constructor(string memory name, string memory symbol) ERC20(name, symbol) Ownable(msg.sender) {}
     
     /**
-     * @dev Mint tokens (owner only)
+     * @dev Mint tokens (for testing purposes)
      * @param to Recipient address
      * @param amount Amount to mint
      */

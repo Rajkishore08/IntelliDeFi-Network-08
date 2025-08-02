@@ -48,6 +48,8 @@ export type { ILayerZeroEndpoint } from "./contracts/LayerZeroBridge.sol/ILayerZ
 export { ILayerZeroEndpoint__factory } from "./factories/contracts/LayerZeroBridge.sol/ILayerZeroEndpoint__factory";
 export type { LayerZeroBridge } from "./contracts/LayerZeroBridge.sol/LayerZeroBridge";
 export { LayerZeroBridge__factory } from "./factories/contracts/LayerZeroBridge.sol/LayerZeroBridge__factory";
+export type { MockRewardToken } from "./contracts/MockRewardToken";
+export { MockRewardToken__factory } from "./factories/contracts/MockRewardToken__factory";
 export type { RewardSystem } from "./contracts/RewardSystem";
 export { RewardSystem__factory } from "./factories/contracts/RewardSystem__factory";
 export type { SuiBridge } from "./contracts/SuiBridge";
