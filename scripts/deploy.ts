@@ -43,16 +43,16 @@ async function main() {
   await rewardSystem.waitForDeployment();
   console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
 
-  // Deploy mock reward token for testing
-  console.log("\n🪙 Deploying MockRewardToken...");
-  const MockRewardToken = await ethers.getContractFactory("MockRewardToken");
-  const mockToken = await MockRewardToken.deploy("SwapScrolls Reward", "SSR");
-  await mockToken.waitForDeployment();
-  console.log("MockRewardToken deployed to:", await mockToken.getAddress());
+  // Deploy SwapScrolls Token
+  console.log("\n🪙 Deploying SwapScrollsToken...");
+  const SwapScrollsToken = await ethers.getContractFactory("SwapScrollsToken");
+  const swapScrollsToken = await SwapScrollsToken.deploy("SwapScrolls Token", "SST");
+  await swapScrollsToken.waitForDeployment();
+  console.log("SwapScrollsToken deployed to:", await swapScrollsToken.getAddress());
 
   // Update RewardSystem with real token address
   console.log("\n🔄 Updating RewardSystem with real token...");
-  await rewardSystem.updateRewardToken(await mockToken.getAddress());
+  await rewardSystem.updateRewardToken(await swapScrollsToken.getAddress());
   console.log("RewardSystem updated with real token");
 
   // Set up initial configuration
@@ -67,7 +67,7 @@ async function main() {
   console.log("✅ Supported chains added to LayerZeroBridge");
 
   // Mint some initial reward tokens
-  await mockToken.mint(await rewardSystem.getAddress(), ethers.parseEther("1000000"));
+  await swapScrollsToken.mint(await rewardSystem.getAddress(), ethers.parseEther("1000000"));
   console.log("✅ Initial reward tokens minted");
 
   console.log("\n🎉 Deployment completed successfully!");
@@ -76,7 +76,7 @@ async function main() {
   console.log("LayerZeroBridge:", await layerZeroBridge.getAddress());
   console.log("SuiBridge:", await suiBridge.getAddress());
   console.log("RewardSystem:", await rewardSystem.getAddress());
-  console.log("MockRewardToken:", await mockToken.getAddress());
+  console.log("SwapScrollsToken:", await swapScrollsToken.getAddress());
 
   // Verify contracts on Etherscan (if not on local network)
   const network = await ethers.provider.getNetwork();
@@ -124,12 +124,12 @@ async function main() {
 
     try {
       await hre.run("verify:verify", {
-        address: await mockToken.getAddress(),
-        constructorArguments: ["SwapScrolls Reward", "SSR"],
+        address: await swapScrollsToken.getAddress(),
+        constructorArguments: ["SwapScrolls Token", "SST"],
       });
-      console.log("✅ MockRewardToken verified");
+      console.log("✅ SwapScrollsToken verified");
     } catch (error) {
-      console.log("⚠️ MockRewardToken verification failed:", error);
+      console.log("⚠️ SwapScrollsToken verification failed:", error);
     }
   }
 

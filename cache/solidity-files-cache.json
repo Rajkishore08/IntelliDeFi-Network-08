@@ -961,10 +961,10 @@
         "SuiBridge"
       ]
     },
-    "D:\\Projects- own during intern\\eth hack\\contracts\\MockRewardToken.sol": {
-      "lastModificationDate": 1753977481555,
-      "contentHash": "d2d2ccdbcb407f65a10681ee0d5df273",
-      "sourceName": "contracts/MockRewardToken.sol",
+    "D:\\Projects- own during intern\\eth hack\\contracts\\SwapScrollsToken.sol": {
+      "lastModificationDate": 1754136756614,
+      "contentHash": "5d4d1c4f0b378d99746dcae6b230f47b",
+      "sourceName": "contracts/SwapScrollsToken.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -997,7 +997,7 @@
         "^0.8.19"
       ],
       "artifacts": [
-        "MockRewardToken"
+        "SwapScrollsToken"
       ]
     }
   }

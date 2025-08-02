@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../common";
 
-export interface MockRewardTokenInterface extends Interface {
+export interface SwapScrollsTokenInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "allowance"
@@ -165,11 +165,11 @@ export namespace TransferEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface MockRewardToken extends BaseContract {
-  connect(runner?: ContractRunner | null): MockRewardToken;
+export interface SwapScrollsToken extends BaseContract {
+  connect(runner?: ContractRunner | null): SwapScrollsToken;
   waitForDeployment(): Promise<this>;
 
-  interface: MockRewardTokenInterface;
+  interface: SwapScrollsTokenInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,

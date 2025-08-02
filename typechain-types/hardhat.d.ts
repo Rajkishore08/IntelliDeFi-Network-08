@@ -113,6 +113,10 @@ declare module "hardhat/types/runtime" {
       name: "SwapScrollNFT",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.SwapScrollNFT__factory>;
+    getContractFactory(
+      name: "SwapScrollsToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SwapScrollsToken__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -239,6 +243,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.SwapScrollNFT>;
+    getContractAt(
+      name: "SwapScrollsToken",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SwapScrollsToken>;
 
     deployContract(
       name: "Ownable",
@@ -340,6 +349,10 @@ declare module "hardhat/types/runtime" {
       name: "SwapScrollNFT",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.SwapScrollNFT>;
+    deployContract(
+      name: "SwapScrollsToken",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SwapScrollsToken>;
 
     deployContract(
       name: "Ownable",
@@ -466,6 +479,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.SwapScrollNFT>;
+    deployContract(
+      name: "SwapScrollsToken",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SwapScrollsToken>;
 
     // default types
     getContractFactory(

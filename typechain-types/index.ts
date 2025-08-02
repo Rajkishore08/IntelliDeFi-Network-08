@@ -56,3 +56,5 @@ export type { SuiBridge } from "./contracts/SuiBridge";
 export { SuiBridge__factory } from "./factories/contracts/SuiBridge__factory";
 export type { SwapScrollNFT } from "./contracts/SwapScrollNFT";
 export { SwapScrollNFT__factory } from "./factories/contracts/SwapScrollNFT__factory";
+export type { SwapScrollsToken } from "./contracts/SwapScrollsToken";
+export { SwapScrollsToken__factory } from "./factories/contracts/SwapScrollsToken__factory";
