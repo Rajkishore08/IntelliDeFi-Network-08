@@ -42,10 +42,15 @@ export default function Footer({ className = "" }: FooterProps) {
                 <strong className="text-white">Raj Kishore S</strong> @ Unite DeFi
               </p>
               <p className="text-xs text-gray-500">ETHGlobal Hackathon 2024</p>
-              <div className="flex items-center space-x-2 text-xs text-blue-400 hover:text-blue-300 transition-colors cursor-pointer">
+              <a 
+                href="https://github.com/Rajkishore08/IntelliDeFi-Network-08" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-xs text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
+              >
                 <span>View on GitHub</span>
                 <ExternalLink className="h-3 w-3" />
-              </div>
+              </a>
             </div>
           </div>
         </div>
