@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as layerZeroBridgeSol from "./LayerZeroBridge.sol";
+export * as mockRewardTokenSol from "./MockRewardToken.sol";
 export { IntelliDeFiToken__factory } from "./IntelliDeFiToken__factory";
-export { MockRewardToken__factory } from "./MockRewardToken__factory";
 export { RewardSystem__factory } from "./RewardSystem__factory";
 export { SuiBridge__factory } from "./SuiBridge__factory";
 export { SwapScrollNFT__factory } from "./SwapScrollNFT__factory";

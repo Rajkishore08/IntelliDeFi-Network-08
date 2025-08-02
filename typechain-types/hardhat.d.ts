@@ -102,9 +102,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LayerZeroBridge__factory>;
     getContractFactory(
-      name: "MockRewardToken",
+      name: "IntelliDeFiToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MockRewardToken__factory>;
+    ): Promise<Contracts.IntelliDeFiToken__factory>;
     getContractFactory(
       name: "RewardSystem",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -229,10 +229,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.LayerZeroBridge>;
     getContractAt(
-      name: "MockRewardToken",
+      name: "IntelliDeFiToken",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.MockRewardToken>;
+    ): Promise<Contracts.IntelliDeFiToken>;
     getContractAt(
       name: "RewardSystem",
       address: string | ethers.Addressable,
@@ -338,9 +338,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LayerZeroBridge>;
     deployContract(
-      name: "MockRewardToken",
+      name: "IntelliDeFiToken",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MockRewardToken>;
+    ): Promise<Contracts.IntelliDeFiToken>;
     deployContract(
       name: "RewardSystem",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -465,10 +465,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LayerZeroBridge>;
     deployContract(
-      name: "MockRewardToken",
+      name: "IntelliDeFiToken",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MockRewardToken>;
+    ): Promise<Contracts.IntelliDeFiToken>;
     deployContract(
       name: "RewardSystem",
       args: any[],

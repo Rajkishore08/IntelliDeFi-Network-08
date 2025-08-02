@@ -3,8 +3,9 @@
 /* eslint-disable */
 import type * as layerZeroBridgeSol from "./LayerZeroBridge.sol";
 export type { layerZeroBridgeSol };
+import type * as mockRewardTokenSol from "./MockRewardToken.sol";
+export type { mockRewardTokenSol };
 export type { IntelliDeFiToken } from "./IntelliDeFiToken";
-export type { MockRewardToken } from "./MockRewardToken";
 export type { RewardSystem } from "./RewardSystem";
 export type { SuiBridge } from "./SuiBridge";
 export type { SwapScrollNFT } from "./SwapScrollNFT";

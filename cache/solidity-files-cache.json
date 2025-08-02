@@ -999,6 +999,45 @@
       "artifacts": [
         "IntelliDeFiToken"
       ]
+    },
+    "D:\\Projects- own during intern\\eth hack\\contracts\\MockRewardToken.sol": {
+      "lastModificationDate": 1754137794142,
+      "contentHash": "9073d5d3252cb8b5fffbf0ee0610a97c",
+      "sourceName": "contracts/MockRewardToken.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "IntelliDeFiToken"
+      ]
     }
   }
 }
