@@ -7,6 +7,7 @@ import { useNotification } from "@/contexts/NotificationContext"
 import { Wallet, CheckCircle, AlertCircle, Info } from "lucide-react"
 import SimpleMetaMaskTest from "@/components/SimpleMetaMaskTest"
 import IsolatedMetaMaskTest from "@/components/IsolatedMetaMaskTest"
+import Web3MetaMaskTest from "@/components/Web3MetaMaskTest"
 
 export default function DebugPage() {
   const [debugInfo, setDebugInfo] = useState<any>({})
@@ -77,6 +78,25 @@ export default function DebugPage() {
           <p className="text-gray-400">Debug information for MetaMask connection issues</p>
         </div>
 
+        {/* Simple HTML Test */}
+        <div className="space-y-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-white mb-4">Simple HTML Test</h2>
+            <p className="text-gray-400">Test MetaMask connection with pure HTML/JavaScript (no React/Next.js)</p>
+          </div>
+          <div className="glass-panel border border-gray-700/50 rounded-xl p-6">
+            <p className="text-gray-300 mb-4">
+              Visit <a href="/metamask-test.html" target="_blank" className="text-blue-400 hover:text-blue-300 underline">/metamask-test.html</a> to test MetaMask connection with pure HTML/JavaScript.
+            </p>
+            <Button
+              onClick={() => window.open('/metamask-test.html', '_blank')}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Open HTML Test Page
+            </Button>
+          </div>
+        </div>
+
         {/* Isolated MetaMask Test */}
         <div className="space-y-6">
           <div className="text-center">
@@ -84,6 +104,15 @@ export default function DebugPage() {
             <p className="text-gray-400">Test MetaMask connection with no context or complex state management</p>
           </div>
           <IsolatedMetaMaskTest />
+        </div>
+
+        {/* Web3 MetaMask Test */}
+        <div className="space-y-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-white mb-4">Web3 MetaMask Test</h2>
+            <p className="text-gray-400">Test MetaMask connection using Web3 library instead of direct calls</p>
+          </div>
+          <Web3MetaMaskTest />
         </div>
 
         {/* Simple MetaMask Test */}
@@ -144,15 +173,31 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">1. Try Isolated Test First</h3>
-                <p className="text-sm text-gray-400">Use the isolated test above to check if MetaMask works without any context</p>
+                <h3 className="font-semibold">1. Try HTML Test First</h3>
+                <p className="text-sm text-gray-400">Use the HTML test page to check if MetaMask works without any React/Next.js complexity</p>
               </div>
             </div>
             
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">2. Check MetaMask Installation</h3>
+                <h3 className="font-semibold">2. Try Isolated Test</h3>
+                <p className="text-sm text-gray-400">Use the isolated test to check if MetaMask works without context or complex state</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-3">
+              <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold">3. Try Web3 Test</h3>
+                <p className="text-sm text-gray-400">Use the Web3 test to check if MetaMask works with Web3 library instead of direct calls</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-3">
+              <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold">4. Check MetaMask Installation</h3>
                 <p className="text-sm text-gray-400">Ensure MetaMask is installed and unlocked</p>
               </div>
             </div>
@@ -160,7 +205,7 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">3. Check Network</h3>
+                <h3 className="font-semibold">5. Check Network</h3>
                 <p className="text-sm text-gray-400">Make sure you're connected to a supported network (Ethereum, Polygon, etc.)</p>
               </div>
             </div>
@@ -168,7 +213,7 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">4. Clear Browser Cache</h3>
+                <h3 className="font-semibold">6. Clear Browser Cache</h3>
                 <p className="text-sm text-gray-400">Try clearing your browser cache and reloading the page</p>
               </div>
             </div>
@@ -176,16 +221,8 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">5. Check Console Errors</h3>
+                <h3 className="font-semibold">7. Check Console Errors</h3>
                 <p className="text-sm text-gray-400">Open browser developer tools and check for any JavaScript errors</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-semibold">6. Test Simple Connection</h3>
-                <p className="text-sm text-gray-400">Use the simple connection test to isolate ethers.js issues</p>
               </div>
             </div>
           </div>
