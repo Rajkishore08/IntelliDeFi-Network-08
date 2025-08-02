@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
-import { ethers } from "ethers"
 
 interface WalletContextType {
   isConnected: boolean
@@ -25,32 +24,23 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         throw new Error("Please use a web browser to connect wallet")
       }
 
-      // Wait for MetaMask to be available with timeout
-      let attempts = 0
-      const maxAttempts = 20
-      
-      while (!window.ethereum && attempts < maxAttempts) {
-        await new Promise(resolve => setTimeout(resolve, 100))
-        attempts++
-      }
-
+      // Check if MetaMask is available
       if (!window.ethereum) {
         throw new Error("MetaMask not detected. Please install MetaMask.")
       }
 
-      // Use a more conservative approach - check accounts first
+      // Use a more direct approach without ethers.js initially
       let accounts: string[] = []
       
       try {
-        // First try to get existing accounts without requesting
+        // First check if we already have accounts
         accounts = await window.ethereum.request({ method: 'eth_accounts' })
       } catch (error) {
         console.error('Error checking existing accounts:', error)
-        // If this fails, we'll try requesting accounts below
       }
       
       if (accounts.length === 0) {
-        // Only request accounts if none are available
+        // Request accounts if none are available
         try {
           accounts = await window.ethereum.request({ 
             method: 'eth_requestAccounts' 
@@ -70,47 +60,20 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // Use a try-catch wrapper for ethers.js operations
-      let userAddress: string
-      let balanceFormatted: string = "0.00"
+      const userAddress = accounts[0]
       
+      // Get balance directly from MetaMask
+      let balanceFormatted = "0.00"
       try {
-        // Create ethers provider with error handling
-        const ethersProvider = new ethers.BrowserProvider(window.ethereum)
-        const signer = await ethersProvider.getSigner()
-        userAddress = await signer.getAddress()
-        
-        // Get balance with fallback
-        try {
-          const balanceBig = await ethersProvider.getBalance(userAddress)
-          balanceFormatted = ethers.formatEther(balanceBig)
-        } catch (balanceError) {
-          console.error('Error getting balance:', balanceError)
-          // Use fallback balance
-          balanceFormatted = "0.00"
-        }
-      } catch (ethersError) {
-        console.error('Ethers.js error:', ethersError)
-        
-        // Fallback to direct MetaMask calls if ethers.js fails
-        try {
-          userAddress = accounts[0]
-          
-          // Get balance directly from MetaMask
-          try {
-            const balanceHex = await window.ethereum.request({
-              method: 'eth_getBalance',
-              params: [userAddress, 'latest']
-            })
-            const balanceWei = parseInt(balanceHex, 16)
-            balanceFormatted = (balanceWei / 1e18).toFixed(4)
-          } catch (balanceError) {
-            console.error('Error getting balance from MetaMask:', balanceError)
-            balanceFormatted = "0.00"
-          }
-        } catch (fallbackError) {
-          throw new Error("Failed to connect wallet: " + (fallbackError instanceof Error ? fallbackError.message : 'Unknown error'))
-        }
+        const balanceHex = await window.ethereum.request({
+          method: 'eth_getBalance',
+          params: [userAddress, 'latest']
+        })
+        const balanceWei = parseInt(balanceHex, 16)
+        balanceFormatted = (balanceWei / 1e18).toFixed(4)
+      } catch (error) {
+        console.error('Error getting balance:', error)
+        balanceFormatted = "0.00"
       }
       
       // Update state
