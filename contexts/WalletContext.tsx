@@ -25,9 +25,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         throw new Error("Please use a web browser to connect wallet")
       }
 
-      // Wait for MetaMask to be available
+      // Wait for MetaMask to be available with timeout
       let attempts = 0
-      const maxAttempts = 10
+      const maxAttempts = 20
       
       while (!window.ethereum && attempts < maxAttempts) {
         await new Promise(resolve => setTimeout(resolve, 100))
@@ -38,49 +38,30 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         throw new Error("MetaMask not detected. Please install MetaMask.")
       }
 
-      // Check if MetaMask is unlocked with retry logic
+      // Use a more conservative approach - check accounts first
       let accounts: string[] = []
-      let accountAttempts = 0
-      const maxAccountAttempts = 5
       
-      while (accountAttempts < maxAccountAttempts) {
-        try {
-          accounts = await window.ethereum.request({ method: 'eth_accounts' })
-          break
-        } catch (error) {
-          console.error(`Account check attempt ${accountAttempts + 1} failed:`, error)
-          accountAttempts++
-          if (accountAttempts >= maxAccountAttempts) {
-            throw new Error("Failed to check MetaMask accounts after multiple attempts")
-          }
-          await new Promise(resolve => setTimeout(resolve, 200))
-        }
+      try {
+        // First try to get existing accounts without requesting
+        accounts = await window.ethereum.request({ method: 'eth_accounts' })
+      } catch (error) {
+        console.error('Error checking existing accounts:', error)
+        // If this fails, we'll try requesting accounts below
       }
       
       if (accounts.length === 0) {
-        // Request account access with retry logic
-        let requestAttempts = 0
-        const maxRequestAttempts = 3
-        
-        while (requestAttempts < maxRequestAttempts) {
-          try {
-            accounts = await window.ethereum.request({ 
-              method: 'eth_requestAccounts' 
-            })
-            break
-          } catch (error: any) {
-            console.error(`Request accounts attempt ${requestAttempts + 1} failed:`, error)
-            requestAttempts++
-            
-            if (error.code === 4001) {
-              throw new Error("Connection rejected by user")
-            } else if (error.code === -32002) {
-              throw new Error("MetaMask request already pending. Please check MetaMask.")
-            } else if (requestAttempts >= maxRequestAttempts) {
-              throw new Error("Failed to request accounts after multiple attempts: " + (error.message || 'Unknown error'))
-            }
-            
-            await new Promise(resolve => setTimeout(resolve, 500))
+        // Only request accounts if none are available
+        try {
+          accounts = await window.ethereum.request({ 
+            method: 'eth_requestAccounts' 
+          })
+        } catch (error: any) {
+          if (error.code === 4001) {
+            throw new Error("Connection rejected by user")
+          } else if (error.code === -32002) {
+            throw new Error("MetaMask request already pending. Please check MetaMask.")
+          } else {
+            throw new Error("Failed to request accounts: " + (error.message || 'Unknown error'))
           }
         }
         
@@ -89,56 +70,52 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // Create ethers provider with retry logic
-      let ethersProvider: ethers.BrowserProvider
-      let signer: ethers.JsonRpcSigner
+      // Use a try-catch wrapper for ethers.js operations
       let userAddress: string
+      let balanceFormatted: string = "0.00"
       
-      let providerAttempts = 0
-      const maxProviderAttempts = 3
-      
-      while (providerAttempts < maxProviderAttempts) {
+      try {
+        // Create ethers provider with error handling
+        const ethersProvider = new ethers.BrowserProvider(window.ethereum)
+        const signer = await ethersProvider.getSigner()
+        userAddress = await signer.getAddress()
+        
+        // Get balance with fallback
         try {
-          ethersProvider = new ethers.BrowserProvider(window.ethereum)
-          signer = await ethersProvider.getSigner()
-          userAddress = await signer.getAddress()
-          break
-        } catch (error) {
-          console.error(`Provider creation attempt ${providerAttempts + 1} failed:`, error)
-          providerAttempts++
-          if (providerAttempts >= maxProviderAttempts) {
-            throw new Error("Failed to create ethers provider after multiple attempts")
+          const balanceBig = await ethersProvider.getBalance(userAddress)
+          balanceFormatted = ethers.formatEther(balanceBig)
+        } catch (balanceError) {
+          console.error('Error getting balance:', balanceError)
+          // Use fallback balance
+          balanceFormatted = "0.00"
+        }
+      } catch (ethersError) {
+        console.error('Ethers.js error:', ethersError)
+        
+        // Fallback to direct MetaMask calls if ethers.js fails
+        try {
+          userAddress = accounts[0]
+          
+          // Get balance directly from MetaMask
+          try {
+            const balanceHex = await window.ethereum.request({
+              method: 'eth_getBalance',
+              params: [userAddress, 'latest']
+            })
+            const balanceWei = parseInt(balanceHex, 16)
+            balanceFormatted = (balanceWei / 1e18).toFixed(4)
+          } catch (balanceError) {
+            console.error('Error getting balance from MetaMask:', balanceError)
+            balanceFormatted = "0.00"
           }
-          await new Promise(resolve => setTimeout(resolve, 300))
+        } catch (fallbackError) {
+          throw new Error("Failed to connect wallet: " + (fallbackError instanceof Error ? fallbackError.message : 'Unknown error'))
         }
       }
-      
-      // Get ETH balance with retry logic
-      let balanceBig: bigint
-      let balanceAttempts = 0
-      const maxBalanceAttempts = 3
-      
-      while (balanceAttempts < maxBalanceAttempts) {
-        try {
-          balanceBig = await ethersProvider!.getBalance(userAddress!)
-          break
-        } catch (error) {
-          console.error(`Balance fetch attempt ${balanceAttempts + 1} failed:`, error)
-          balanceAttempts++
-          if (balanceAttempts >= maxBalanceAttempts) {
-            // Use fallback balance if we can't fetch it
-            balanceBig = BigInt(0)
-            break
-          }
-          await new Promise(resolve => setTimeout(resolve, 200))
-        }
-      }
-      
-      const balanceFormatted = ethers.formatEther(balanceBig || BigInt(0))
       
       // Update state
       setIsConnected(true)
-      setAddress(userAddress!)
+      setAddress(userAddress)
       setBalance(balanceFormatted)
       
     } catch (error: any) {
