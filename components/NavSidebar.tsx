@@ -21,7 +21,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3, description: "Overview & AI Agent" },
-      { id: "swap", label: "Swap", icon: ArrowUpDown, description: "Token Exchange & Fusion+" },
+  { id: "swap", label: "Swap", icon: ArrowUpDown, description: "Token Exchange & Fusion+" },
   { id: "strategies", label: "Strategies", icon: Settings, description: "Advanced Orders & Copy Trading" },
   { id: "portfolio", label: "Portfolio", icon: Wallet, description: "Holdings & History" },
   { id: "analysis", label: "Trade Analysis", icon: Brain, description: "AI-Powered Performance Analysis" },
@@ -32,6 +32,7 @@ const navItems: NavItem[] = [
   { id: "process-flow", label: "AI Process Flow", icon: Cpu, description: "Real-time AI Process Visualization" },
   { id: "nft", label: "NFT Gallery", icon: Image, description: "SwapScrolls NFT Collection" },
 ]
+
 export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen, setSidebarOpen }: NavSidebarProps) {
   return (
     <>
@@ -57,14 +58,16 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
           {/* Logo */}
           <div className="p-6 border-b border-blue-500/30">
             <div className="flex flex-col items-center justify-center space-y-2">
-              <div className="flex items-center justify-center h-20 w-20 rounded-full border-2 border-blue-400 bg-gray-900 shadow-lg mb-1">
-                <img src="/logo_eth_global.png" alt="Logo" className="h-16 w-16 object-contain" />
+              <div className="flex items-center justify-center h-20 w-20 rounded-full border-2 border-gradient-to-r from-blue-400 to-purple-500 bg-gradient-to-br from-gray-900 to-gray-800 shadow-lg mb-1">
+                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                  SS
+                </div>
               </div>
               <div className="flex flex-col items-center">
-                <h1 className="text-xl font-bold neon-text bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                  IntelliDeFi
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  SwapScrolls
                 </h1>
-                <p className="text-xs text-gray-400">Network</p>
+                <p className="text-xs text-gray-400">Cross-Chain DeFi</p>
               </div>
             </div>
           </div>
@@ -77,7 +80,7 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
                 onClick={() => onSectionChange(item.id)}
                 className={`w-full group flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   activeSection === item.id
-                    ? "neon-border bg-blue-500/20 text-blue-300 shadow-lg shadow-blue-500/20"
+                    ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/50 text-blue-300 shadow-lg shadow-blue-500/20"
                     : "hover:bg-gray-800/50 hover:border-blue-500/30 border border-transparent text-gray-300 hover:text-white"
                 }`}
               >
@@ -96,12 +99,12 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
           <div className="p-4 border-t border-blue-500/30">
             <div className="flex items-center justify-between text-sm text-gray-400 hover:text-blue-300 transition-colors cursor-pointer">
               <div className="flex items-center space-x-2">
-                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold text-white">1</span>
                 </div>
                 <span>Powered by 1inch</span>
               </div>
-              <ExternalLink className="h-3 w-3" />
+              <ExternalLink className="h-4 w-4" />
             </div>
           </div>
         </div>
