@@ -53,14 +53,75 @@ export default function IntelliDeFiApp() {
     const sectionComponents = {
       dashboard: (
         <div className="space-y-8">
+          {/* Hero Section */}
+          <div className="text-center space-y-6 py-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
+                SwapScrolls
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                The Next Generation Cross-Chain DeFi Platform
+              </p>
+              <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-4">
+                Seamlessly swap, bridge, and trade across multiple blockchains with AI-powered optimization and advanced security features.
+              </p>
+            </motion.div>
+            
+            {/* Feature Highlights */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-6 border border-blue-500/20"
+              >
+                <div className="text-3xl mb-3">🌉</div>
+                <h3 className="text-xl font-semibold text-white mb-2">Cross-Chain Bridge</h3>
+                <p className="text-gray-400">Secure bridging between Ethereum, Polygon, Arbitrum, and more</p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-xl p-6 border border-green-500/20"
+              >
+                <div className="text-3xl mb-3">🤖</div>
+                <h3 className="text-xl font-semibold text-white mb-2">AI-Powered Trading</h3>
+                <p className="text-gray-400">Intelligent route optimization and real-time market analysis</p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20"
+              >
+                <div className="text-3xl mb-3">🎮</div>
+                <h3 className="text-xl font-semibold text-white mb-2">Gamified Rewards</h3>
+                <p className="text-gray-400">Earn points, unlock achievements, and climb leaderboards</p>
+              </motion.div>
+            </div>
+          </div>
+
           {/* Main AI Command Interface */}
-          <NaturalLanguageAgent />
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-white mb-2">AI Trading Assistant</h2>
+              <p className="text-gray-400">Interact with our advanced AI to execute trades and manage your portfolio</p>
+            </div>
+            <NaturalLanguageAgent />
+          </div>
           
           {/* AI Process Flow Dashboard */}
           <div className="space-y-6">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-white mb-2">AI Process Flow</h2>
-              <p className="text-gray-400">Real-time visualization of AI-powered transaction processes</p>
+              <h2 className="text-3xl font-bold text-white mb-2">Real-Time Process Flow</h2>
+              <p className="text-gray-400">Live visualization of AI-powered transaction processes and security checks</p>
             </div>
             <ProcessFlowDashboard />
           </div>
@@ -68,15 +129,15 @@ export default function IntelliDeFiApp() {
           {/* Individual Process Components */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white">Wallet Check Process</h3>
+              <h3 className="text-xl font-semibold text-white">Wallet Security Check</h3>
               <WalletCheckProcess />
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white">Balance Reduction Process</h3>
+              <h3 className="text-xl font-semibold text-white">Balance Management</h3>
               <BalanceReductionProcess />
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white">Asset Management Process</h3>
+              <h3 className="text-xl font-semibold text-white">Asset Optimization</h3>
               <AssetManagementProcess />
             </div>
           </div>
