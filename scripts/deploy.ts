@@ -6,7 +6,7 @@ declare global {
 }
 
 async function main() {
-  console.log("🚀 Deploying IntelliDeFi contracts...");
+  console.log("🚀 Deploying IntelliDeFi Network contracts...");
 
   // Get the deployer account
   const [deployer] = await ethers.getSigners();
@@ -35,17 +35,17 @@ async function main() {
   await suiBridge.waitForDeployment();
   console.log("SuiBridge deployed to:", await suiBridge.getAddress());
 
-  // Deploy MockRewardToken for testing
-  console.log("\n🪙 Deploying MockRewardToken...");
-  const MockRewardToken = await ethers.getContractFactory("MockRewardToken");
-  const mockToken = await MockRewardToken.deploy("IntelliDeFi Reward", "IDR");
-  await mockToken.waitForDeployment();
-  console.log("MockRewardToken deployed to:", await mockToken.getAddress());
+  // Deploy IntelliDeFi Token
+  console.log("\n🪙 Deploying IntelliDeFiToken...");
+  const IntelliDeFiToken = await ethers.getContractFactory("IntelliDeFiToken");
+  const intelliDeFiToken = await IntelliDeFiToken.deploy("IntelliDeFi Network Token", "IDNT");
+  await intelliDeFiToken.waitForDeployment();
+  console.log("IntelliDeFiToken deployed to:", await intelliDeFiToken.getAddress());
 
-  // Deploy RewardSystem (using mock reward token for demo)
+  // Deploy RewardSystem (using IntelliDeFi token)
   console.log("\n🎁 Deploying RewardSystem...");
   const RewardSystem = await ethers.getContractFactory("RewardSystem");
-  const rewardSystem = await RewardSystem.deploy(await mockToken.getAddress());
+  const rewardSystem = await RewardSystem.deploy(await intelliDeFiToken.getAddress());
   await rewardSystem.waitForDeployment();
   console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
 
@@ -61,7 +61,7 @@ async function main() {
   console.log("✅ Supported chains added to LayerZeroBridge");
 
   // Mint some initial reward tokens
-  await mockToken.mint(await rewardSystem.getAddress(), ethers.parseEther("1000000"));
+  await intelliDeFiToken.mint(await rewardSystem.getAddress(), ethers.parseEther("1000000"));
   console.log("✅ Initial reward tokens minted");
 
   console.log("\n🎉 Deployment completed successfully!");
@@ -70,7 +70,7 @@ async function main() {
   console.log("LayerZeroBridge:", await layerZeroBridge.getAddress());
   console.log("SuiBridge:", await suiBridge.getAddress());
   console.log("RewardSystem:", await rewardSystem.getAddress());
-  console.log("MockRewardToken:", await mockToken.getAddress());
+  console.log("IntelliDeFiToken:", await intelliDeFiToken.getAddress());
 
   // Verify contracts on Etherscan (if not on local network)
   const network = await ethers.provider.getNetwork();
@@ -109,7 +109,7 @@ async function main() {
     try {
       await hre.run("verify:verify", {
         address: await rewardSystem.getAddress(),
-        constructorArguments: [await mockToken.getAddress()],
+        constructorArguments: [await intelliDeFiToken.getAddress()],
       });
       console.log("✅ RewardSystem verified");
     } catch (error) {
@@ -118,12 +118,12 @@ async function main() {
 
     try {
       await hre.run("verify:verify", {
-        address: await mockToken.getAddress(),
-        constructorArguments: ["IntelliDeFi Reward", "IDR"],
+        address: await intelliDeFiToken.getAddress(),
+        constructorArguments: ["IntelliDeFi Network Token", "IDNT"],
       });
-      console.log("✅ MockRewardToken verified");
+      console.log("✅ IntelliDeFiToken verified");
     } catch (error) {
-      console.log("⚠️ MockRewardToken verification failed:", error);
+      console.log("⚠️ IntelliDeFiToken verification failed:", error);
     }
   }
 

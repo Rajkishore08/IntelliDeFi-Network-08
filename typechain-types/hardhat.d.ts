@@ -90,6 +90,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Strings__factory>;
     getContractFactory(
+      name: "IntelliDeFiToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IntelliDeFiToken__factory>;
+    getContractFactory(
       name: "ILayerZeroEndpoint",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ILayerZeroEndpoint__factory>;
@@ -113,10 +117,6 @@ declare module "hardhat/types/runtime" {
       name: "SwapScrollNFT",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.SwapScrollNFT__factory>;
-    getContractFactory(
-      name: "SwapScrollsToken",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SwapScrollsToken__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -214,6 +214,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Strings>;
     getContractAt(
+      name: "IntelliDeFiToken",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IntelliDeFiToken>;
+    getContractAt(
       name: "ILayerZeroEndpoint",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -243,11 +248,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.SwapScrollNFT>;
-    getContractAt(
-      name: "SwapScrollsToken",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.SwapScrollsToken>;
 
     deployContract(
       name: "Ownable",
@@ -326,6 +326,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Strings>;
     deployContract(
+      name: "IntelliDeFiToken",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IntelliDeFiToken>;
+    deployContract(
       name: "ILayerZeroEndpoint",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ILayerZeroEndpoint>;
@@ -349,10 +353,6 @@ declare module "hardhat/types/runtime" {
       name: "SwapScrollNFT",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.SwapScrollNFT>;
-    deployContract(
-      name: "SwapScrollsToken",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SwapScrollsToken>;
 
     deployContract(
       name: "Ownable",
@@ -450,6 +450,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Strings>;
     deployContract(
+      name: "IntelliDeFiToken",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IntelliDeFiToken>;
+    deployContract(
       name: "ILayerZeroEndpoint",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -479,11 +484,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.SwapScrollNFT>;
-    deployContract(
-      name: "SwapScrollsToken",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.SwapScrollsToken>;
 
     // default types
     getContractFactory(

@@ -44,6 +44,8 @@ export type { ReentrancyGuard } from "./@openzeppelin/contracts/utils/Reentrancy
 export { ReentrancyGuard__factory } from "./factories/@openzeppelin/contracts/utils/ReentrancyGuard__factory";
 export type { Strings } from "./@openzeppelin/contracts/utils/Strings";
 export { Strings__factory } from "./factories/@openzeppelin/contracts/utils/Strings__factory";
+export type { IntelliDeFiToken } from "./contracts/IntelliDeFiToken";
+export { IntelliDeFiToken__factory } from "./factories/contracts/IntelliDeFiToken__factory";
 export type { ILayerZeroEndpoint } from "./contracts/LayerZeroBridge.sol/ILayerZeroEndpoint";
 export { ILayerZeroEndpoint__factory } from "./factories/contracts/LayerZeroBridge.sol/ILayerZeroEndpoint__factory";
 export type { LayerZeroBridge } from "./contracts/LayerZeroBridge.sol/LayerZeroBridge";
@@ -56,5 +58,3 @@ export type { SuiBridge } from "./contracts/SuiBridge";
 export { SuiBridge__factory } from "./factories/contracts/SuiBridge__factory";
 export type { SwapScrollNFT } from "./contracts/SwapScrollNFT";
 export { SwapScrollNFT__factory } from "./factories/contracts/SwapScrollNFT__factory";
-export type { SwapScrollsToken } from "./contracts/SwapScrollsToken";
-export { SwapScrollsToken__factory } from "./factories/contracts/SwapScrollsToken__factory";

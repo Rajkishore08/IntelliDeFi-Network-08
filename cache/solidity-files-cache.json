@@ -961,10 +961,10 @@
         "SuiBridge"
       ]
     },
-    "D:\\Projects- own during intern\\eth hack\\contracts\\MockRewardToken.sol": {
-      "lastModificationDate": 1754137272051,
-      "contentHash": "7476b09c99cc15aea4e984c3e04abda3",
-      "sourceName": "contracts/MockRewardToken.sol",
+    "D:\\Projects- own during intern\\eth hack\\contracts\\IntelliDeFiToken.sol": {
+      "lastModificationDate": 1754137596490,
+      "contentHash": "35e640ccf7ac88dd9f03b74d9c3c713e",
+      "sourceName": "contracts/IntelliDeFiToken.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -997,7 +997,7 @@
         "^0.8.19"
       ],
       "artifacts": [
-        "MockRewardToken"
+        "IntelliDeFiToken"
       ]
     }
   }
