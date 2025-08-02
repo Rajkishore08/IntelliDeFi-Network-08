@@ -163,31 +163,27 @@ export default function ConnectWallet() {
     } catch (error: any) {
       console.error('Error connecting wallet:', error)
       
-      if (error.code === 4001) {
-        addNotification({
-          type: "error",
-          message: "Connection rejected by user",
-          duration: 3000,
-        })
-      } else if (error.code === -32002) {
-        addNotification({
-          type: "error",
-          message: "MetaMask request already pending. Please check MetaMask.",
-          duration: 5000,
-        })
-      } else if (error.message?.includes('User rejected')) {
-        addNotification({
-          type: "error",
-          message: "Connection rejected by user",
-          duration: 3000,
-        })
-      } else {
-        addNotification({
-          type: "error",
-          message: `Failed to connect wallet: ${error.message || 'Unknown error'}`,
-          duration: 5000,
-        })
+      let errorMessage = "Failed to connect wallet"
+      
+      if (error.message) {
+        if (error.message.includes("rejected")) {
+          errorMessage = "Connection rejected by user"
+        } else if (error.message.includes("pending")) {
+          errorMessage = "MetaMask request already pending. Please check MetaMask."
+        } else if (error.message.includes("not detected")) {
+          errorMessage = "MetaMask not detected. Please install MetaMask."
+        } else if (error.message.includes("No accounts found")) {
+          errorMessage = "No accounts found. Please create an account in MetaMask."
+        } else {
+          errorMessage = error.message
+        }
       }
+      
+      addNotification({
+        type: "error",
+        message: errorMessage,
+        duration: 5000,
+      })
     } finally {
       setIsConnecting(false)
     }
