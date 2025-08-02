@@ -1,10 +1,10 @@
-# SwapScrolls 🎯
+# IntelliDeFi Network 🎯
 
 > Cross-chain, NFT-based, gamified DeFi app built on top of 1inch Fusion+ with LayerZero and Sui integration
 
 ## 🌟 Overview
 
-SwapScrolls is a revolutionary DeFi application that wraps 1inch cross-chain swaps into dynamic NFTs using LayerZero and Sui. Users can perform gasless swaps, mint tradable "Swap Scrolls", and earn gamified rewards and on-chain reputation.
+IntelliDeFi Network is a revolutionary DeFi application that wraps 1inch cross-chain swaps into dynamic NFTs using LayerZero and Sui. Users can perform gasless swaps, mint tradable "Swap Scrolls", and earn gamified rewards and on-chain reputation.
 
 ## ✨ Features
 
@@ -33,11 +33,11 @@ SwapScrolls is a revolutionary DeFi application that wraps 1inch cross-chain swa
 
 ```
 contracts/
-├── SwapScrollNFT.sol          # Main NFT contract for SwapScrolls
+├── SwapScrollNFT.sol          # Main NFT contract for IntelliDeFi
 ├── LayerZeroBridge.sol        # Cross-chain bridge using LayerZero
 ├── SuiBridge.sol             # Sui blockchain integration
 ├── RewardSystem.sol          # Gamified reward system
-└── SwapScrollsToken.sol      # Native token for rewards and governance
+└── MockRewardToken.sol       # Mock token for testing
 ```
 
 ### Frontend Components
@@ -65,7 +65,7 @@ components/
 1. **Clone the repository**
 ```bash
 git clone <repository-url>
-cd swapscrolls
+cd intellidefi-network
 ```
 
 2. **Install dependencies**
@@ -337,13 +337,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Discord**: [Join our community](https://discord.gg/swapscrolls)
-- **Twitter**: [@SwapScrolls](https://twitter.com/swapscrolls)
-- **Email**: support@swapscrolls.com
-- **Documentation**: [docs.swapscrolls.com](https://docs.swapscrolls.com)
+- **Discord**: [Join our community](https://discord.gg/intellidefi)
+- **Twitter**: [@IntelliDeFi](https://twitter.com/intellidefi)
+- **Email**: support@intellidefi.com
+- **Documentation**: [docs.intellidefi.com](https://docs.intellidefi.com)
 
 ---
 
-**Built with ❤️ by the SwapScrolls team**
+**Built with ❤️ by the IntelliDeFi Network team**
 
 *Empowering DeFi through gamification and cross-chain innovation* 

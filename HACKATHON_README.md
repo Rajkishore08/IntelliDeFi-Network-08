@@ -1,10 +1,10 @@
-# SwapScrolls 🎯 - ETHGlobal Hackathon Submission
+# IntelliDeFi Network 🎯 - ETHGlobal Hackathon Submission
 
-> **The Next Generation Cross-Chain DeFi Platform**
+> **AI-Powered Cross-Chain DeFi Platform**
 
 ## 🏆 Project Overview
 
-SwapScrolls is a revolutionary DeFi application that combines cross-chain swapping, AI-powered trading, and gamified rewards. Built for the ETHGlobal Hackathon Cross-Chain DeFi Challenge, it demonstrates advanced cross-chain functionality with seamless integration of multiple blockchain networks.
+IntelliDeFi Network is a revolutionary DeFi application that combines cross-chain swapping, AI-powered trading, and gamified rewards. Built for the ETHGlobal Hackathon Cross-Chain DeFi Challenge, it demonstrates advanced cross-chain functionality with seamless integration of multiple blockchain networks.
 
 ## ✨ Key Features
 
@@ -36,11 +36,11 @@ SwapScrolls is a revolutionary DeFi application that combines cross-chain swappi
 ### Smart Contracts
 ```
 contracts/
-├── SwapScrollNFT.sol          # Main NFT contract for SwapScrolls
+├── SwapScrollNFT.sol          # Main NFT contract for IntelliDeFi
 ├── LayerZeroBridge.sol        # Cross-chain bridge using LayerZero
 ├── SuiBridge.sol             # Sui blockchain integration
 ├── RewardSystem.sol          # Gamified reward system
-└── SwapScrollsToken.sol      # Native token for rewards and governance
+└── MockRewardToken.sol       # Mock token for testing
 ```
 
 ### Frontend Architecture
@@ -134,7 +134,7 @@ contracts/
 ```bash
 # Clone repository
 git clone <repository-url>
-cd swapscrolls
+cd intellidefi-network
 
 # Install dependencies
 npm install
@@ -152,9 +152,9 @@ npx hardhat run scripts/deploy.ts --network <network>
 
 ## 📊 Demo Links
 
-- **Live Demo**: [SwapScrolls App](https://swapscrolls.vercel.app)
-- **GitHub Repository**: [Source Code](https://github.com/your-repo/swapscrolls)
-- **Documentation**: [Technical Docs](https://docs.swapscrolls.com)
+- **Live Demo**: [IntelliDeFi Network App](https://intellidefi.vercel.app)
+- **GitHub Repository**: [Source Code](https://github.com/your-repo/intellidefi-network)
+- **Documentation**: [Technical Docs](https://docs.intellidefi.com)
 
 ## 🏆 Hackathon Impact
 
@@ -183,6 +183,6 @@ MIT License - see LICENSE file for details.
 
 ---
 
-**SwapScrolls** - The Next Generation Cross-Chain DeFi Platform 🚀
+**IntelliDeFi Network** - AI-Powered Cross-Chain DeFi Platform 🚀
 
 *Built for ETHGlobal Hackathon 2024* 
