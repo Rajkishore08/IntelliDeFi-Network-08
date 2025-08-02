@@ -50,6 +50,13 @@ async function main() {
   await swapScrollsToken.waitForDeployment();
   console.log("SwapScrollsToken deployed to:", await swapScrollsToken.getAddress());
 
+  // Deploy RewardSystem (using SwapScrolls token)
+  console.log("\n🎁 Deploying RewardSystem...");
+  const RewardSystem = await ethers.getContractFactory("RewardSystem");
+  const rewardSystem = await RewardSystem.deploy(await swapScrollsToken.getAddress());
+  await rewardSystem.waitForDeployment();
+  console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
+
   // Update RewardSystem with real token address
   console.log("\n🔄 Updating RewardSystem with real token...");
   await rewardSystem.updateRewardToken(await swapScrollsToken.getAddress());
