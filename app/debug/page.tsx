@@ -6,6 +6,7 @@ import { useWallet } from "@/contexts/WalletContext"
 import { useNotification } from "@/contexts/NotificationContext"
 import { Wallet, CheckCircle, AlertCircle, Info } from "lucide-react"
 import SimpleMetaMaskTest from "@/components/SimpleMetaMaskTest"
+import IsolatedMetaMaskTest from "@/components/IsolatedMetaMaskTest"
 
 export default function DebugPage() {
   const [debugInfo, setDebugInfo] = useState<any>({})
@@ -76,6 +77,15 @@ export default function DebugPage() {
           <p className="text-gray-400">Debug information for MetaMask connection issues</p>
         </div>
 
+        {/* Isolated MetaMask Test */}
+        <div className="space-y-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-white mb-4">Isolated MetaMask Test</h2>
+            <p className="text-gray-400">Test MetaMask connection with no context or complex state management</p>
+          </div>
+          <IsolatedMetaMaskTest />
+        </div>
+
         {/* Simple MetaMask Test */}
         <div className="space-y-6">
           <div className="text-center">
@@ -134,7 +144,15 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">1. Check MetaMask Installation</h3>
+                <h3 className="font-semibold">1. Try Isolated Test First</h3>
+                <p className="text-sm text-gray-400">Use the isolated test above to check if MetaMask works without any context</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-3">
+              <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold">2. Check MetaMask Installation</h3>
                 <p className="text-sm text-gray-400">Ensure MetaMask is installed and unlocked</p>
               </div>
             </div>
@@ -142,7 +160,7 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">2. Check Network</h3>
+                <h3 className="font-semibold">3. Check Network</h3>
                 <p className="text-sm text-gray-400">Make sure you're connected to a supported network (Ethereum, Polygon, etc.)</p>
               </div>
             </div>
@@ -150,7 +168,7 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">3. Clear Browser Cache</h3>
+                <h3 className="font-semibold">4. Clear Browser Cache</h3>
                 <p className="text-sm text-gray-400">Try clearing your browser cache and reloading the page</p>
               </div>
             </div>
@@ -158,7 +176,7 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">4. Check Console Errors</h3>
+                <h3 className="font-semibold">5. Check Console Errors</h3>
                 <p className="text-sm text-gray-400">Open browser developer tools and check for any JavaScript errors</p>
               </div>
             </div>
@@ -166,8 +184,8 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">5. Test Simple Connection</h3>
-                <p className="text-sm text-gray-400">Use the simple connection test above to isolate ethers.js issues</p>
+                <h3 className="font-semibold">6. Test Simple Connection</h3>
+                <p className="text-sm text-gray-400">Use the simple connection test to isolate ethers.js issues</p>
               </div>
             </div>
           </div>
