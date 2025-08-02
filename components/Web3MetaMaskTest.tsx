@@ -12,7 +12,6 @@ export default function Web3MetaMaskTest() {
   const [network, setNetwork] = useState<string>("")
   const [isConnecting, setIsConnecting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [web3Provider, setWeb3Provider] = useState<any>(null)
 
   useEffect(() => {
     checkMetaMaskStatus()
@@ -26,13 +25,8 @@ export default function Web3MetaMaskTest() {
       setIsMetaMaskInstalled(true)
       
       try {
-        // Try to create a Web3 provider
-        const Web3 = await import('web3')
-        const web3 = new Web3.default(window.ethereum)
-        setWeb3Provider(web3)
-        
         // Check if MetaMask is unlocked
-        const accounts = await web3.eth.getAccounts()
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' })
         
         if (accounts.length > 0) {
           setAddress(accounts[0])
@@ -41,8 +35,8 @@ export default function Web3MetaMaskTest() {
           
           // Get network info
           try {
-            const chainId = await web3.eth.getChainId()
-            const networkName = getNetworkName(Number(chainId))
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+            const networkName = getNetworkName(parseInt(chainId, 16))
             setNetwork(networkName)
           } catch (error) {
             console.error('Error getting network info:', error)
@@ -50,9 +44,13 @@ export default function Web3MetaMaskTest() {
           
           // Get balance
           try {
-            const balanceWei = await web3.eth.getBalance(accounts[0])
-            const balanceEth = web3.utils.fromWei(balanceWei, 'ether')
-            setBalance(parseFloat(balanceEth).toFixed(4))
+            const balanceHex = await window.ethereum.request({
+              method: 'eth_getBalance',
+              params: [accounts[0], 'latest']
+            })
+            const balanceWei = parseInt(balanceHex, 16)
+            const balanceEth = (balanceWei / 1e18).toFixed(4)
+            setBalance(balanceEth)
           } catch (error) {
             console.error('Error getting balance:', error)
           }
@@ -95,21 +93,19 @@ export default function Web3MetaMaskTest() {
     setError(null)
 
     try {
-      // Use Web3 to request accounts
-      const Web3 = await import('web3')
-      const web3 = new Web3.default(window.ethereum)
-      
-      const accounts = await web3.eth.requestAccounts()
+      // Request accounts
+      const accounts = await window.ethereum.request({ 
+        method: 'eth_requestAccounts' 
+      })
 
       if (accounts && accounts.length > 0) {
         setAddress(accounts[0])
         setIsConnected(true)
-        setWeb3Provider(web3)
         
         // Get network info
         try {
-          const chainId = await web3.eth.getChainId()
-          const networkName = getNetworkName(Number(chainId))
+          const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+          const networkName = getNetworkName(parseInt(chainId, 16))
           setNetwork(networkName)
         } catch (error) {
           console.error('Error getting network info:', error)
@@ -117,9 +113,13 @@ export default function Web3MetaMaskTest() {
         
         // Get balance
         try {
-          const balanceWei = await web3.eth.getBalance(accounts[0])
-          const balanceEth = web3.utils.fromWei(balanceWei, 'ether')
-          setBalance(parseFloat(balanceEth).toFixed(4))
+          const balanceHex = await window.ethereum.request({
+            method: 'eth_getBalance',
+            params: [accounts[0], 'latest']
+          })
+          const balanceWei = parseInt(balanceHex, 16)
+          const balanceEth = (balanceWei / 1e18).toFixed(4)
+          setBalance(balanceEth)
         } catch (error) {
           console.error('Error getting balance:', error)
         }
@@ -147,42 +147,46 @@ export default function Web3MetaMaskTest() {
     setBalance("0.00")
     setNetwork("")
     setError(null)
-    setWeb3Provider(null)
   }
 
   const handleRefresh = () => {
     checkMetaMaskStatus()
   }
 
-  const handleTestWeb3 = async () => {
-    if (!web3Provider) {
-      setError("Web3 provider not available")
+  const handleTestMethods = async () => {
+    if (!window.ethereum) {
+      setError("MetaMask not detected")
       return
     }
 
     try {
-      // Test Web3 methods
-      const accounts = await web3Provider.eth.getAccounts()
-      const chainId = await web3Provider.eth.getChainId()
-      const blockNumber = await web3Provider.eth.getBlockNumber()
-      
-      console.log('Web3 test results:', {
-        accounts: accounts.length,
-        chainId: Number(chainId),
-        blockNumber: Number(blockNumber)
-      })
+      // Test various MetaMask methods
+      const methods = [
+        { name: 'eth_accounts', method: 'eth_accounts' },
+        { name: 'eth_chainId', method: 'eth_chainId' },
+        { name: 'eth_blockNumber', method: 'eth_blockNumber' }
+      ]
+
+      for (const { name, method } of methods) {
+        try {
+          await window.ethereum.request({ method })
+          console.log(`${name}: OK`)
+        } catch (error) {
+          console.error(`${name}: Failed`, error)
+        }
+      }
       
       setError(null)
     } catch (error: any) {
-      console.error('Web3 test failed:', error)
-      setError(`Web3 test failed: ${error.message}`)
+      console.error('Method test failed:', error)
+      setError(`Method test failed: ${error.message}`)
     }
   }
 
   return (
     <div className="glass-panel border border-gray-700/50 rounded-xl p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-white">Web3 MetaMask Test</h3>
+        <h3 className="text-lg font-semibold text-white">Direct MetaMask Test</h3>
         <Button
           onClick={handleRefresh}
           size="sm"
@@ -225,15 +229,6 @@ export default function Web3MetaMaskTest() {
               </span>
             </div>
           )}
-
-          {web3Provider && (
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-400" />
-              <span className="text-gray-300">
-                Web3 Provider: Available
-              </span>
-            </div>
-          )}
         </div>
 
         {network && (
@@ -273,7 +268,7 @@ export default function Web3MetaMaskTest() {
             ) : (
               <>
                 <Wallet className="h-4 w-4 mr-2" />
-                Connect with Web3
+                Connect MetaMask
               </>
             )}
           </Button>
@@ -286,10 +281,10 @@ export default function Web3MetaMaskTest() {
               Disconnect
             </Button>
             <Button
-              onClick={handleTestWeb3}
+              onClick={handleTestMethods}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white"
             >
-              Test Web3 Methods
+              Test MetaMask Methods
             </Button>
           </div>
         )}

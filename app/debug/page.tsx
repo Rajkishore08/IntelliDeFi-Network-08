@@ -106,11 +106,11 @@ export default function DebugPage() {
           <IsolatedMetaMaskTest />
         </div>
 
-        {/* Web3 MetaMask Test */}
+        {/* Direct MetaMask Test */}
         <div className="space-y-6">
           <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white mb-4">Web3 MetaMask Test</h2>
-            <p className="text-gray-400">Test MetaMask connection using Web3 library instead of direct calls</p>
+            <h2 className="text-2xl font-semibold text-white mb-4">Direct MetaMask Test</h2>
+            <p className="text-gray-400">Test MetaMask connection using direct window.ethereum calls</p>
           </div>
           <Web3MetaMaskTest />
         </div>
@@ -189,8 +189,8 @@ export default function DebugPage() {
             <div className="flex items-start space-x-3">
               <Info className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">3. Try Web3 Test</h3>
-                <p className="text-sm text-gray-400">Use the Web3 test to check if MetaMask works with Web3 library instead of direct calls</p>
+                <h3 className="font-semibold">3. Try Direct Test</h3>
+                <p className="text-sm text-gray-400">Use the direct test to check if MetaMask works with direct window.ethereum calls</p>
               </div>
             </div>
             
