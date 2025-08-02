@@ -1,7 +1,6 @@
 {
-  "name": "swapscrolls",
-  "version": "1.0.0",
-  "description": "The Next Generation Cross-Chain DeFi Platform",
+  "name": "intellidefi-dashboard",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "next build",
