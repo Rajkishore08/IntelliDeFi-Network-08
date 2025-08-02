@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
-import detectEthereumProvider from "@metamask/detect-provider"
 import { ethers } from "ethers"
 
 interface WalletContextType {
@@ -26,29 +25,43 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         throw new Error("Please use a web browser to connect wallet")
       }
 
-      // Detect MetaMask provider
-      const provider: any = await detectEthereumProvider({ mustBeMetaMask: true })
-      
-      if (!provider) {
+      // Check if MetaMask is installed
+      if (!window.ethereum) {
         throw new Error("MetaMask not detected. Please install MetaMask.")
       }
 
       // Check if MetaMask is unlocked
-      const accounts = await provider.request({ method: 'eth_accounts' })
+      let accounts: string[] = []
+      try {
+        accounts = await window.ethereum.request({ method: 'eth_accounts' })
+      } catch (error) {
+        console.error('Error checking accounts:', error)
+        throw new Error("Failed to check MetaMask accounts")
+      }
       
       if (accounts.length === 0) {
         // Request account access
-        const requestedAccounts = await provider.request({ 
-          method: 'eth_requestAccounts' 
-        })
+        try {
+          accounts = await window.ethereum.request({ 
+            method: 'eth_requestAccounts' 
+          })
+        } catch (error: any) {
+          if (error.code === 4001) {
+            throw new Error("Connection rejected by user")
+          } else if (error.code === -32002) {
+            throw new Error("MetaMask request already pending. Please check MetaMask.")
+          } else {
+            throw new Error("Failed to request accounts: " + (error.message || 'Unknown error'))
+          }
+        }
         
-        if (!requestedAccounts || requestedAccounts.length === 0) {
+        if (!accounts || accounts.length === 0) {
           throw new Error("No accounts found. Please create an account in MetaMask.")
         }
       }
 
       // Create ethers provider and get signer
-      const ethersProvider = new ethers.BrowserProvider(provider)
+      const ethersProvider = new ethers.BrowserProvider(window.ethereum)
       const signer = await ethersProvider.getSigner()
       const userAddress = await signer.getAddress()
       
