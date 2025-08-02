@@ -35,14 +35,6 @@ async function main() {
   await suiBridge.waitForDeployment();
   console.log("SuiBridge deployed to:", await suiBridge.getAddress());
 
-  // Deploy RewardSystem (using SwapScrolls token)
-  console.log("\n🎁 Deploying RewardSystem...");
-  const RewardSystem = await ethers.getContractFactory("RewardSystem");
-  const swapScrollsToken = await swapScrollsToken.getAddress(); // Use our deployed token
-  const rewardSystem = await RewardSystem.deploy(swapScrollsToken);
-  await rewardSystem.waitForDeployment();
-  console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
-
   // Deploy SwapScrolls Token
   console.log("\n🪙 Deploying SwapScrollsToken...");
   const SwapScrollsToken = await ethers.getContractFactory("SwapScrollsToken");
@@ -56,11 +48,6 @@ async function main() {
   const rewardSystem = await RewardSystem.deploy(await swapScrollsToken.getAddress());
   await rewardSystem.waitForDeployment();
   console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
-
-  // Update RewardSystem with real token address
-  console.log("\n🔄 Updating RewardSystem with real token...");
-  await rewardSystem.updateRewardToken(await swapScrollsToken.getAddress());
-  console.log("RewardSystem updated with real token");
 
   // Set up initial configuration
   console.log("\n⚙️ Setting up initial configuration...");
@@ -122,7 +109,7 @@ async function main() {
     try {
       await hre.run("verify:verify", {
         address: await rewardSystem.getAddress(),
-        constructorArguments: [mockRewardToken],
+        constructorArguments: [await swapScrollsToken.getAddress()],
       });
       console.log("✅ RewardSystem verified");
     } catch (error) {
