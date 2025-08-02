@@ -1,4 +1,4 @@
-# 🤖 IntelliDeFi Network
+<img width="1907" height="907" alt="Screenshot 2025-08-02 211625" src="https://github.com/user-attachments/assets/123e407c-d440-40f9-82d8-56eaaf3b8535" /># 🤖 IntelliDeFi Network
 
 > **AI-Powered Cross-Chain DeFi Platform with 1inch Fusion+ Integration**
 
@@ -107,8 +107,10 @@
 ### **Main Dashboard**
 ![Dashboard](https://via.placeholder.com/800x400/1f2937/ffffff?text=IntelliDeFi+Dashboard)
 
+
 ### **AI Trading Assistant**
 ![AI Assistant](https://via.placeholder.com/800x400/1f2937/ffffff?text=AI+Trading+Assistant)
+
 
 ### **Cross-Chain Swaps**
 ![Cross-Chain](https://via.placeholder.com/800x400/1f2937/ffffff?text=Cross-Chain+Swaps)
