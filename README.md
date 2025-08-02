@@ -1,4 +1,5 @@
-<img width="1907" height="907" alt="Screenshot 2025-08-02 211625" src="https://github.com/user-attachments/assets/123e407c-d440-40f9-82d8-56eaaf3b8535" /># 🤖 IntelliDeFi Network
+<img width="1906" height="893" alt="Screenshot 2025-08-02 211522" src="https://github.com/user-attachments/assets/2c6479cb-c5e6-40ea-9369-8253dd793866" />
+# 🤖 IntelliDeFi Network
 
 > **AI-Powered Cross-Chain DeFi Platform with 1inch Fusion+ Integration**
 
