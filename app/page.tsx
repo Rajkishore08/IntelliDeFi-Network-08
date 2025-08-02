@@ -27,7 +27,7 @@ import AITradingAssistant from "@/components/AITradingAssistant"
 import AnalyticsDashboard from "@/components/AnalyticsDashboard"
 import { WalletProvider } from "@/contexts/WalletContext"
 import { NotificationProvider } from "@/contexts/NotificationContext"
-import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Brain, Shield, Zap, TrendingUp, Cpu, Sparkles, Globe, Lock, Target, Users, Rocket } from "lucide-react"
+import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Brain, Shield, Zap, TrendingUp, Cpu, Sparkles, Globe, Lock, Target, Users, Rocket, ExternalLink, Link } from "lucide-react"
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -107,6 +107,70 @@ const features = [
   }
 ]
 
+const integrations = [
+  {
+    name: "1inch Network",
+    description: "Advanced DEX Aggregation & Fusion+ Protocol",
+    features: [
+      "Cross-chain token swaps",
+      "Best route optimization",
+      "Fusion+ gasless transactions",
+      "Limit Order Protocol",
+      "MEV protection"
+    ],
+    color: "from-orange-500 to-red-500",
+    icon: "1",
+    delay: 0.1
+  },
+  {
+    name: "Etherlinks",
+    description: "Cross-chain Infrastructure & Bridge Solutions",
+    features: [
+      "Multi-chain connectivity",
+      "Secure bridge protocols",
+      "LayerZero integration",
+      "Sui blockchain support",
+      "Real-time transaction monitoring"
+    ],
+    color: "from-blue-500 to-purple-500",
+    icon: Link,
+    delay: 0.2
+  }
+]
+
+const integrationUsage = [
+  {
+    section: "Swap Interface",
+    description: "1inch Fusion+ integration for seamless cross-chain swaps",
+    features: ["Real-time quotes", "Best price routing", "Gasless transactions"]
+  },
+  {
+    section: "Advanced Trading",
+    description: "1inch Limit Order Protocol with AI-powered strategies",
+    features: ["TWAP execution", "Options strategies", "Concentrated liquidity"]
+  },
+  {
+    section: "Cross-Chain Bridge",
+    description: "Etherlinks infrastructure for secure asset bridging",
+    features: ["LayerZero messaging", "Sui integration", "Multi-chain support"]
+  },
+  {
+    section: "Portfolio Management",
+    description: "Etherlinks data feeds for real-time portfolio tracking",
+    features: ["Multi-chain balances", "Transaction history", "Performance analytics"]
+  },
+  {
+    section: "Security & Monitoring",
+    description: "Etherlinks security protocols with 1inch validation",
+    features: ["Risk assessment", "MEV protection", "Transaction monitoring"]
+  },
+  {
+    section: "AI Trading Assistant",
+    description: "AI-powered trading using 1inch routes and Etherlinks data",
+    features: ["Intelligent routing", "Market analysis", "Automated execution"]
+  }
+]
+
 export default function IntelliDeFiApp() {
   const [activeSection, setActiveSection] = useState("dashboard")
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -175,6 +239,96 @@ export default function IntelliDeFiApp() {
                 <div className="text-gray-400">Security</div>
               </div>
             </motion.div>
+          </div>
+
+          {/* Key Integrations Section */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-center"
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">Powered By Industry Leaders</h2>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Built on the most advanced DeFi infrastructure with 1inch Network and Etherlinks
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {integrations.map((integration, index) => (
+                <motion.div
+                  key={integration.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: integration.delay }}
+                  className="group relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl blur-xl"
+                       style={{ background: `linear-gradient(45deg, var(--tw-gradient-stops))` }}
+                       data-gradient={integration.color}></div>
+                  <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-xl p-8 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 group-hover:scale-105">
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-r ${integration.color} mb-6`}>
+                      {typeof integration.icon === 'string' ? (
+                        <span className="text-2xl font-bold text-white">{integration.icon}</span>
+                      ) : (
+                        <integration.icon className="h-8 w-8 text-white" />
+                      )}
+                    </div>
+                    <h3 className="text-2xl font-semibold text-white mb-3">{integration.name}</h3>
+                    <p className="text-gray-400 mb-6 leading-relaxed">{integration.description}</p>
+                    <div className="space-y-2">
+                      {integration.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                          <span className="text-gray-300 text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Integration Usage Section */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-center"
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">Integration Usage</h2>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                See how 1inch Network and Etherlinks power every aspect of IntelliDeFi Network
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {integrationUsage.map((usage, index) => (
+                <motion.div
+                  key={usage.section}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
+                  className="group relative"
+                >
+                  <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20">
+                    <h3 className="text-lg font-semibold text-white mb-3">{usage.section}</h3>
+                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">{usage.description}</p>
+                    <div className="space-y-2">
+                      {usage.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center space-x-2">
+                          <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                          <span className="text-gray-300 text-xs">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* Features Grid */}
