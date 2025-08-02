@@ -35,11 +35,11 @@ async function main() {
   await suiBridge.waitForDeployment();
   console.log("SuiBridge deployed to:", await suiBridge.getAddress());
 
-  // Deploy RewardSystem (using mock reward token for demo)
+  // Deploy RewardSystem (using SwapScrolls token)
   console.log("\n🎁 Deploying RewardSystem...");
   const RewardSystem = await ethers.getContractFactory("RewardSystem");
-  const mockRewardToken = "0x6B175474E89094C44Da98b954EedeAC495271d0F"; // DAI as mock
-  const rewardSystem = await RewardSystem.deploy(mockRewardToken);
+  const swapScrollsToken = await swapScrollsToken.getAddress(); // Use our deployed token
+  const rewardSystem = await RewardSystem.deploy(swapScrollsToken);
   await rewardSystem.waitForDeployment();
   console.log("RewardSystem deployed to:", await rewardSystem.getAddress());
 
