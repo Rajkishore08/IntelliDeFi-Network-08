@@ -28,6 +28,7 @@ import AnalyticsDashboard from "@/components/AnalyticsDashboard"
 import { WalletProvider } from "@/contexts/WalletContext"
 import { NotificationProvider } from "@/contexts/NotificationContext"
 import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Brain, Shield, Zap, TrendingUp, Cpu, Sparkles, Globe, Lock, Target, Users, Rocket, ExternalLink, Link } from "lucide-react"
+import MetaMaskTest from "@/components/MetaMaskTest"
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -396,6 +397,15 @@ export default function IntelliDeFiApp() {
               <p className="text-gray-400">Live visualization of AI-powered transaction processes and security checks</p>
             </motion.div>
             <ProcessFlowDashboard />
+          </div>
+
+          {/* MetaMask Test Component */}
+          <div className="space-y-6">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.4 }} className="text-center">
+              <h2 className="text-3xl font-bold text-white mb-2">MetaMask Connection Test</h2>
+              <p className="text-gray-400">Debug and test MetaMask connection issues</p>
+            </motion.div>
+            <MetaMaskTest />
           </div>
           
           {/* Individual Process Components */}
