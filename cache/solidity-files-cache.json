@@ -1001,8 +1001,8 @@
       ]
     },
     "D:\\Projects- own during intern\\eth hack\\contracts\\MockRewardToken.sol": {
-      "lastModificationDate": 1754137794142,
-      "contentHash": "9073d5d3252cb8b5fffbf0ee0610a97c",
+      "lastModificationDate": 1754152135288,
+      "contentHash": "9bf1dd163628328b86aa8e68f5b71707",
       "sourceName": "contracts/MockRewardToken.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1036,7 +1036,7 @@
         "^0.8.19"
       ],
       "artifacts": [
-        "IntelliDeFiToken"
+        "MockRewardToken"
       ]
     }
   }

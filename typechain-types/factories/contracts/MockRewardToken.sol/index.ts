@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { IntelliDeFiToken__factory } from "./IntelliDeFiToken__factory";
+export { MockRewardToken__factory } from "./MockRewardToken__factory";

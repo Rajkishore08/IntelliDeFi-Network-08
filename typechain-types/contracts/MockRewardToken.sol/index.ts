@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IntelliDeFiToken } from "./IntelliDeFiToken";
+export type { MockRewardToken } from "./MockRewardToken";
