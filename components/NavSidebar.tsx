@@ -1,9 +1,10 @@
 "use client"
 
 import type React from "react"
+import { useState, useEffect, useRef } from "react"
 
 import { Button } from "@/components/ui/button"
-import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Menu, X, ExternalLink, Brain, Cpu, Shield, Zap, TrendingUp, Image } from "lucide-react"
+import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Menu, X, ExternalLink, Brain, Cpu, Shield, Zap, TrendingUp, Image, ChevronDown, ChevronUp } from "lucide-react"
 
 interface NavSidebarProps {
   activeSection: string
@@ -34,6 +35,26 @@ const navItems: NavItem[] = [
 ]
 
 export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen, setSidebarOpen }: NavSidebarProps) {
+  const [canScrollUp, setCanScrollUp] = useState(false)
+  const [canScrollDown, setCanScrollDown] = useState(false)
+  const navRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const checkScroll = () => {
+      if (navRef.current) {
+        setCanScrollUp(navRef.current.scrollTop > 0)
+        setCanScrollDown(navRef.current.scrollTop < navRef.current.scrollHeight - navRef.current.clientHeight - 1)
+      }
+    }
+
+    const navElement = navRef.current
+    if (navElement) {
+      navElement.addEventListener('scroll', checkScroll)
+      checkScroll()
+      return () => navElement.removeEventListener('scroll', checkScroll)
+    }
+  }, [])
+
   return (
     <>
       {/* Mobile Menu Button */}
@@ -55,8 +76,8 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
         } lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="p-6 border-b border-blue-500/30">
+          {/* Logo - Fixed at top */}
+          <div className="flex-shrink-0 p-6 border-b border-blue-500/30">
             <div className="flex flex-col items-center justify-center space-y-2">
               <div className="flex items-center justify-center h-20 w-20 rounded-full border-2 border-blue-400 bg-gray-900 shadow-lg mb-1">
                 <img src="/logo_eth_global.png" alt="Logo" className="h-16 w-16 object-contain" />
@@ -70,8 +91,18 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
             </div>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2">
+          {/* Scroll Indicators */}
+          {canScrollUp && (
+            <div className="flex-shrink-0 h-2 bg-gradient-to-b from-blue-500/20 to-transparent flex items-center justify-center">
+              <ChevronUp className="h-3 w-3 text-blue-400" />
+            </div>
+          )}
+
+          {/* Navigation - Scrollable */}
+          <nav 
+            ref={navRef}
+            className="flex-1 overflow-y-auto p-4 space-y-2 sidebar-scrollbar"
+          >
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -83,18 +114,25 @@ export default function NavSidebar({ activeSection, onSectionChange, sidebarOpen
                 }`}
               >
                 <item.icon className="h-5 w-5 flex-shrink-0" />
-                <div className="flex-1 text-left">
-                  <div className="font-medium">{item.label}</div>
+                <div className="flex-1 text-left min-w-0">
+                  <div className="font-medium truncate">{item.label}</div>
                   {item.description && (
-                    <div className="text-xs text-gray-400 group-hover:text-gray-300">{item.description}</div>
+                    <div className="text-xs text-gray-400 group-hover:text-gray-300 truncate">{item.description}</div>
                   )}
                 </div>
               </button>
             ))}
           </nav>
 
-          {/* Powered by 1inch */}
-          <div className="p-4 border-t border-blue-500/30">
+          {/* Scroll Indicators */}
+          {canScrollDown && (
+            <div className="flex-shrink-0 h-2 bg-gradient-to-t from-blue-500/20 to-transparent flex items-center justify-center">
+              <ChevronDown className="h-3 w-3 text-blue-400" />
+            </div>
+          )}
+
+          {/* Powered by 1inch - Fixed at bottom */}
+          <div className="flex-shrink-0 p-4 border-t border-blue-500/30">
             <div className="flex items-center justify-between text-sm text-gray-400 hover:text-blue-300 transition-colors cursor-pointer">
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
