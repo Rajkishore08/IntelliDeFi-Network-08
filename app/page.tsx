@@ -27,6 +27,7 @@ import AITradingAssistant from "@/components/AITradingAssistant"
 import AnalyticsDashboard from "@/components/AnalyticsDashboard"
 import { WalletProvider } from "@/contexts/WalletContext"
 import { NotificationProvider } from "@/contexts/NotificationContext"
+import { BarChart3, ArrowUpDown, Settings, Wallet, Trophy, Bot, Brain, Shield, Zap, TrendingUp, Cpu, Sparkles, Globe, Lock, Target, Users, Rocket } from "lucide-react"
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -40,6 +41,72 @@ const pageTransition = {
   duration: 0.5,
 }
 
+const features = [
+  {
+    icon: BarChart3,
+    title: "Dashboard",
+    description: "Overview & AI Agent",
+    color: "from-blue-500 to-cyan-500",
+    delay: 0.1
+  },
+  {
+    icon: ArrowUpDown,
+    title: "Swap",
+    description: "Token Exchange & Fusion+",
+    color: "from-green-500 to-emerald-500",
+    delay: 0.2
+  },
+  {
+    icon: Settings,
+    title: "Strategies",
+    description: "Advanced Orders & Copy Trading",
+    color: "from-purple-500 to-pink-500",
+    delay: 0.3
+  },
+  {
+    icon: Wallet,
+    title: "Portfolio",
+    description: "Holdings & History",
+    color: "from-orange-500 to-red-500",
+    delay: 0.4
+  },
+  {
+    icon: Brain,
+    title: "Trade Analysis",
+    description: "AI-Powered Performance Analysis",
+    color: "from-indigo-500 to-purple-500",
+    delay: 0.5
+  },
+  {
+    icon: Shield,
+    title: "Security",
+    description: "Risk Management & Security",
+    color: "from-red-500 to-pink-500",
+    delay: 0.6
+  },
+  {
+    icon: Trophy,
+    title: "Gamification",
+    description: "Achievements & Rewards",
+    color: "from-yellow-500 to-orange-500",
+    delay: 0.7
+  },
+  {
+    icon: Zap,
+    title: "AI Assistant",
+    description: "Advanced AI Trading",
+    color: "from-cyan-500 to-blue-500",
+    delay: 0.8
+  },
+  {
+    icon: TrendingUp,
+    title: "Analytics",
+    description: "Advanced Analytics",
+    color: "from-emerald-500 to-teal-500",
+    delay: 0.9
+  }
+]
+
 export default function IntelliDeFiApp() {
   const [activeSection, setActiveSection] = useState("dashboard")
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -52,77 +119,128 @@ export default function IntelliDeFiApp() {
   const renderActiveSection = () => {
     const sectionComponents = {
       dashboard: (
-        <div className="space-y-8">
-          {/* Hero Section */}
-          <div className="text-center space-y-6 py-8">
+        <div className="space-y-12">
+          {/* Enhanced Hero Section */}
+          <div className="text-center space-y-8 py-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
             >
-              <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
-                IntelliDeFi Network
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                AI-Powered Cross-Chain DeFi Platform
+              {/* Logo and Brand */}
+              <div className="flex justify-center items-center space-x-4 mb-8">
+                <div className="flex items-center justify-center h-24 w-24 rounded-full border-4 border-gradient-to-r from-blue-400 to-purple-500 bg-gradient-to-br from-gray-900 to-gray-800 shadow-2xl">
+                  <img src="/logo_eth_global.png" alt="IntelliDeFi Logo" className="h-20 w-20 object-contain" />
+                </div>
+                <div className="text-left">
+                  <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-2">
+                    IntelliDeFi
+                  </h1>
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Network</h2>
+                </div>
+              </div>
+              
+              <p className="text-2xl md:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed font-light">
+                The Next Generation
+                <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-semibold"> AI-Powered Cross-Chain DeFi Platform</span>
               </p>
-              <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-4">
-                Seamlessly swap, bridge, and trade across multiple blockchains with AI-powered optimization and advanced security features.
+              <p className="text-lg md:text-xl text-gray-400 max-w-4xl mx-auto leading-relaxed">
+                Seamlessly swap, bridge, and trade across multiple blockchains with intelligent automation, 
+                advanced security, and gamified rewards.
               </p>
             </motion.div>
             
-            {/* Feature Highlights */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-6 border border-blue-500/20"
-              >
-                <div className="text-3xl mb-3">🌉</div>
-                <h3 className="text-xl font-semibold text-white mb-2">Cross-Chain Bridge</h3>
-                <p className="text-gray-400">Secure bridging between Ethereum, Polygon, Arbitrum, and more</p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-xl p-6 border border-green-500/20"
-              >
-                <div className="text-3xl mb-3">🤖</div>
-                <h3 className="text-xl font-semibold text-white mb-2">AI-Powered Trading</h3>
-                <p className="text-gray-400">Intelligent route optimization and real-time market analysis</p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20"
-              >
-                <div className="text-3xl mb-3">🎮</div>
-                <h3 className="text-xl font-semibold text-white mb-2">Gamified Rewards</h3>
-                <p className="text-gray-400">Earn points, unlock achievements, and climb leaderboards</p>
-              </motion.div>
+            {/* Key Statistics */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            >
+              <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-6 border border-blue-500/20 text-center">
+                <div className="text-3xl font-bold text-blue-400 mb-2">6+</div>
+                <div className="text-gray-400">Blockchains</div>
+              </div>
+              <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 text-center">
+                <div className="text-3xl font-bold text-green-400 mb-2">AI</div>
+                <div className="text-gray-400">Powered Trading</div>
+              </div>
+              <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 text-center">
+                <div className="text-3xl font-bold text-purple-400 mb-2">1000+</div>
+                <div className="text-gray-400">Tokens</div>
+              </div>
+              <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20 text-center">
+                <div className="text-3xl font-bold text-orange-400 mb-2">24/7</div>
+                <div className="text-gray-400">Security</div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Features Grid */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-center"
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">Platform Features</h2>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Discover the comprehensive suite of tools and features that make IntelliDeFi Network 
+                the most advanced cross-chain DeFi platform
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: feature.delay }}
+                  className="group relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl blur-xl"
+                       style={{ background: `linear-gradient(45deg, var(--tw-gradient-stops))` }}
+                       data-gradient={feature.color}></div>
+                  <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 group-hover:scale-105">
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-r ${feature.color} mb-4`}>
+                      <feature.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
 
-          {/* Main AI Command Interface */}
+          {/* AI Command Interface */}
           <div className="space-y-6">
-            <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
+              className="text-center"
+            >
               <h2 className="text-3xl font-bold text-white mb-2">AI Trading Assistant</h2>
               <p className="text-gray-400">Interact with our advanced AI to execute trades and manage your portfolio</p>
-            </div>
+            </motion.div>
             <NaturalLanguageAgent />
           </div>
           
           {/* AI Process Flow Dashboard */}
           <div className="space-y-6">
-            <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="text-center"
+            >
               <h2 className="text-3xl font-bold text-white mb-2">Real-Time Process Flow</h2>
               <p className="text-gray-400">Live visualization of AI-powered transaction processes and security checks</p>
-            </div>
+            </motion.div>
             <ProcessFlowDashboard />
           </div>
           
