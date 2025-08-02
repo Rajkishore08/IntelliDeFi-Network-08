@@ -61,10 +61,10 @@ export default function IntelliDeFiApp() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
-                SwapScrolls
+                IntelliDeFi Network
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                The Next Generation Cross-Chain DeFi Platform
+                AI-Powered Cross-Chain DeFi Platform
               </p>
               <p className="text-lg text-gray-400 max-w-3xl mx-auto mt-4">
                 Seamlessly swap, bridge, and trade across multiple blockchains with AI-powered optimization and advanced security features.
