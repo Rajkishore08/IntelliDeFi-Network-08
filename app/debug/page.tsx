@@ -5,9 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useWallet } from "@/contexts/WalletContext"
 import { useNotification } from "@/contexts/NotificationContext"
 import { Wallet, CheckCircle, AlertCircle, Info } from "lucide-react"
-import SimpleMetaMaskTest from "@/components/SimpleMetaMaskTest"
-import IsolatedMetaMaskTest from "@/components/IsolatedMetaMaskTest"
-import Web3MetaMaskTest from "@/components/Web3MetaMaskTest"
+
 
 export default function DebugPage() {
   const [debugInfo, setDebugInfo] = useState<any>({})
@@ -78,51 +76,9 @@ export default function DebugPage() {
           <p className="text-gray-400">Debug information for MetaMask connection issues</p>
         </div>
 
-        {/* Simple HTML Test */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white mb-4">Simple HTML Test</h2>
-            <p className="text-gray-400">Test MetaMask connection with pure HTML/JavaScript (no React/Next.js)</p>
-          </div>
-          <div className="glass-panel border border-gray-700/50 rounded-xl p-6">
-            <p className="text-gray-300 mb-4">
-              Visit <a href="/metamask-test.html" target="_blank" className="text-blue-400 hover:text-blue-300 underline">/metamask-test.html</a> to test MetaMask connection with pure HTML/JavaScript.
-            </p>
-            <Button
-              onClick={() => window.open('/metamask-test.html', '_blank')}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              Open HTML Test Page
-            </Button>
-          </div>
-        </div>
 
-        {/* Isolated MetaMask Test */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white mb-4">Isolated MetaMask Test</h2>
-            <p className="text-gray-400">Test MetaMask connection with no context or complex state management</p>
-          </div>
-          <IsolatedMetaMaskTest />
-        </div>
 
-        {/* Direct MetaMask Test */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white mb-4">Direct MetaMask Test</h2>
-            <p className="text-gray-400">Test MetaMask connection using direct window.ethereum calls</p>
-          </div>
-          <Web3MetaMaskTest />
-        </div>
 
-        {/* Simple MetaMask Test */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white mb-4">Simple MetaMask Test</h2>
-            <p className="text-gray-400">Test MetaMask connection without ethers.js to isolate the issue</p>
-          </div>
-          <SimpleMetaMaskTest />
-        </div>
 
         <div className="glass-panel border border-gray-700/50 rounded-xl p-6">
           <h2 className="text-2xl font-semibold text-white mb-4">Ethers.js Connection Test</h2>
